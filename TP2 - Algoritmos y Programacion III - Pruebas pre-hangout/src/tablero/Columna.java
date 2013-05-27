@@ -20,4 +20,15 @@ public class Columna {
 		
 	}
 
+	public int cantidadDePosiciones() {
+		
+		return posicionesDeLaColumna.cantidadDePosiciones();
+	}
+
+	public Posicion obtenerPosicionDeFila(int filaBuscada) {
+		
+		return posicionesDeLaColumna.obtenerPosicionDeLaFila(filaBuscada);
+		
+	}
+
 }

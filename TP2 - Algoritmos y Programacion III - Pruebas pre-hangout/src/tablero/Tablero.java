@@ -18,6 +18,10 @@ public class Tablero {
 		this.colocarNavesEnElTablero();		
 	}
 	
+	private void colocarNavesEnElTablero() {
+		
+	}
+
 	private ColeccionDeColumnas inicializarColumnasConFilas(int cantidadDeColumnas, int cantidadDePosiciones) {
 		
 		ColeccionDeColumnas unaColeccion = new ColeccionDeColumnas();
@@ -34,6 +38,27 @@ public class Tablero {
 		
 	}
 
-	public Posicion obtenerPosicion(char columnaBuscada , int filaBuscada);
+	public Posicion obtenerPosicion(char columnaBuscada , int filaBuscada){
+		
+		Columna columnaDeLaPosicionRequerida = columnasDelTablero.obtenerLaColumnaDeIndice(columnaBuscada);
+		
+		Posicion posicionRequerida = columnaDeLaPosicionRequerida.obtenerPosicionDeFila(filaBuscada);
+		
+		return posicionRequerida;
+	}
+		
+	public int cantidadDeColumnas() {
+		
+		return columnasDelTablero.cantidadDeColumnas();
+		
+	}
+
+	public int cantidadDeFilas() {
+		
+		char unIdentificadorDeColumna = 'A';
+		Columna unaColumna = columnasDelTablero.obtenerLaColumnaDeIndice(unIdentificadorDeColumna);
+		
+		return unaColumna.cantidadDePosiciones();	
+	}
 	
 }
