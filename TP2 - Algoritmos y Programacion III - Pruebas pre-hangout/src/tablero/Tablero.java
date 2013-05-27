@@ -1,5 +1,6 @@
 package tablero;
 
+import jugador.Jugador;
 import tiposDeDatosAbstractos.ColeccionDeColumnas;
 
 public class Tablero {
@@ -77,6 +78,15 @@ public class Tablero {
 		Columna unaColumna = columnasDelTablero.obtenerLaColumnaDeIndice(unIdentificadorDeColumna);
 		
 		return unaColumna.cantidadDePosiciones();	
+	}
+	
+	public void pasarTurno(Jugador jugador){
+		/* Este es un metodo provisorio para disminuir el puntaje
+		 * del jugador al avanzar un turno, todas las demas funciones
+		 * que deba cumplir éste metodo se irán actualizando
+		 */
+		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
+		
 	}
 	
 }
