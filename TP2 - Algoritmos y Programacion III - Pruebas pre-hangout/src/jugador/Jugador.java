@@ -32,17 +32,18 @@ public class Jugador {
 
 	}
 
-	public void realizarDisparoEnPosicion(Disparo disparo, char columna,
+	public void realizarDisparoEnPosicion(Disparo disparo,Tablero tableroDelJugador, char columna,
 			int fila) {
 
 		/*
 		 * Obtiene la posicion en la que se desea realizar el disparo luego
 		 * agrega el disparo en esa posicion(metodo todavia no implementado) y
 		 * finalmente disminuye el puntaje del jugador dependiendo del disparo
-		 * 
-		 * Posicion posicion = tableroDelJugador.obtenerPosicion(columna,fila);
-		 * Metodo a desarrollar: posicion.agregarDisparo(disparo);
+		
 		 */
+		
+		Posicion posicion = tableroDelJugador.obtenerPosicion(columna, fila);
+		posicion.agregarDisparoAPosicion(disparo);
 
 		this.obtenerPuntaje().disminuirPuntajePorDisparo(disparo);
 

@@ -96,6 +96,11 @@ public class Tablero {
 		 * avanzar un turno, todas las demas funciones que deba cumplir éste
 		 * metodo se irán actualizando
 		 */
+		/* this.realizarDisparos(); a implementar, recorre la coleccion de disparos
+		 * 											actualizando las componentes segun daño 
+		 * this.actualizarNaves();  a implementar, recorre todas las naves verificando si estan
+		 * 											destruidas     */
+		
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
 	}
