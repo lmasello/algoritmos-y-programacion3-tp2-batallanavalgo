@@ -36,6 +36,7 @@ public abstract class Nave {
 
 	public void destruirNave() {
 		/* Destruye cada componente de la nave */
+		
 		for (int indiceDeComponentes = 0; indiceDeComponentes < componentes
 				.size(); indiceDeComponentes++) {
 
