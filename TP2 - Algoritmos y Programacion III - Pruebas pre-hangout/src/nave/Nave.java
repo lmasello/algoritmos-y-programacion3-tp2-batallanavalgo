@@ -1,31 +1,18 @@
 package nave;
 
-import java.util.ArrayList;
+import colecciones.ColeccionDeComponentes;
 
 public abstract class Nave {
 
-	ArrayList<ComponenteDeNave> componentes;
+	ColeccionDeComponentes componentes;
 	/* Direccion direccion; tenemos que discutir como lo implementamos */
 	boolean estaDestruida;
 	int cantidadDeComponentes;
 
 	public Nave() {
 
-		componentes = new ArrayList<ComponenteDeNave>();
+		componentes = new ColeccionDeComponentes();
 		estaDestruida = false;
-
-	}
-
-	public void agregarComponenteConResistencia(int resistencia) {
-
-		ComponenteDeNave componente = new ComponenteDeNave(resistencia);
-		componentes.add(componente);
-
-	}
-
-	public int cantidadDeComponentes() {
-
-		return this.componentes.size();
 
 	}
 
@@ -33,14 +20,19 @@ public abstract class Nave {
 
 		return estaDestruida;
 	}
+	
+	public void agregarComponenteConResistencia(int resistencia){
+		
+		componentes.agregarComponente(resistencia);
+		
+	}
 
 	public void destruirNave() {
 		/* Destruye cada componente de la nave */
-		
-		for (int indiceDeComponentes = 0; indiceDeComponentes < componentes
-				.size(); indiceDeComponentes++) {
+			
+		for (int indiceDeComponentes = 0; indiceDeComponentes < componentes.cantidadDeComponentes(); indiceDeComponentes++) {
 
-			ComponenteDeNave componente = componentes.get(indiceDeComponentes);
+			ComponenteDeNave componente = componentes.obtenerComponente(indiceDeComponentes);
 			componente.destruirComponente();
 
 		}
