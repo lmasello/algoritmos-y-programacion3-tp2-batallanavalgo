@@ -1,38 +1,34 @@
 package nave;
 
 public class ComponenteDeNave {
-	
+
 	Resistencia resistencia;
 	boolean destruida;
-	
-	
-	public ComponenteDeNave (int resistenciaDeNave){
-		
+
+	public ComponenteDeNave(int resistenciaDeNave) {
+
 		resistencia = new Resistencia(resistenciaDeNave);
 		destruida = false;
-		
-		
+
 	}
-	
-	public void disparoAComponente (){
-		
+
+	public void disparoAComponente() {
+
 		resistencia.disminuir();
-				
-		if (resistencia.obtenerResistencia() == 0){
+
+		if (resistencia.obtenerResistencia() == 0) {
 			destruida = true;
 		}
 	}
-	
-	public void destruirComponente(){
-		
+
+	public void destruirComponente() {
+
 		resistencia.debilitar();
 		destruida = true;
 	}
-		
-	
-	
-	public boolean estaDestruida(){
-			
+
+	public boolean estaDestruida() {
+
 		return this.destruida;
 	}
 

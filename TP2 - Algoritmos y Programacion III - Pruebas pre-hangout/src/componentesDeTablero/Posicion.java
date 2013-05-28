@@ -1,7 +1,5 @@
-package tablero;
+package componentesDeTablero;
 
 public class Posicion {
 
-	
-	
 }

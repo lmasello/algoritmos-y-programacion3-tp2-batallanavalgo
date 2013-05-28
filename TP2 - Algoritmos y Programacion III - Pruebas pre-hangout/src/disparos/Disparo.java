@@ -1,4 +1,4 @@
-package disparo;
+package disparos;
 
 public class Disparo {
 
