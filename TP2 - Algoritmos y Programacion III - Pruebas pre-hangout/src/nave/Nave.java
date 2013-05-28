@@ -21,6 +21,12 @@ public abstract class Nave {
 		return estaDestruida;
 	}
 	
+	public int cantidadDeComponentes(){
+		
+		return cantidadDeComponentes;
+		
+	}
+	
 	public void agregarComponenteConResistencia(int resistencia){
 		
 		componentes.agregarComponente(resistencia);
