@@ -1,6 +1,6 @@
 package disparos;
 
-public class MinaSubmarinaTriple {
+public class MinaSubmarinaTriple extends Disparo {
 
 	int costoDeDisparo = 125;
 	
