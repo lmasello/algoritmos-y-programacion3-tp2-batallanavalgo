@@ -23,7 +23,7 @@ public abstract class Nave {
 	
 	public int cantidadDeComponentes(){
 		
-		return cantidadDeComponentes;
+		return componentes.cantidadDeComponentes();
 		
 	}
 	
