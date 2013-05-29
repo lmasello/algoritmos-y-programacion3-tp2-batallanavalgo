@@ -1,8 +1,11 @@
 package componentesDeTablero;
 
-import colecciones.ColeccionDeColumnas;
 import jugador.Jugador;
+import nave.ComponenteDeNave;
+import nave.Nave;
+import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
+
 
 public class Tablero {
 
@@ -23,17 +26,246 @@ public class Tablero {
 		 * if((cantidadDeColumnas<=0) & (cantidadDeFilas<=0)){ levantarExcepcion
 		 * }
 		 */
-		columnasDelTablero = this.inicializarColumnasConFilas(
-				cantidadDeColumnas, cantidadDeFilas);
+		columnasDelTablero = this.inicializarColumnasConFilas(cantidadDeColumnas, cantidadDeFilas);
 		this.colocarNavesEnElTablero();
 	}
 
 	private void colocarNavesEnElTablero() {
+	/*
+	 * Metodo que consiste en agregar naves en el tablero.
+	 * Esta determinado por la consigna del trabajo la cantidad de naves a colocar.
+	 * Dicha cantidad consiste en: 2 lanchas - 2 destructores - 1 buque - 1 portaaviones - 1 rompehielos.
+	 * Las posiciones en donde se colocaran dichas naves es arbitraria.
+	 * 
+	 */
+		ColeccionDeNaves navesAColocar = new ColeccionDeNaves(); 
+		navesAColocar.establecerNavesDelJuego();
+		
+		for (int numeroDeNaveActual=1 ; numeroDeNaveActual <= navesAColocar.cantidadDeNaves() ; numeroDeNaveActual++){
+			
+			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
+			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 
+			this.colocarNave(naveActual);
+		}
+		
+	}
+	
+	private void colocarNave(Nave naveActual) {
+	/*
+	 * Metodo que coloca una nave en el tablero.
+	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar. 
+	 * 
+	 * Para establecer las posiciones, se selecciona aleatoriamente una posicion determinada,
+	 * la cual representara la ubicacion de la proa de la nave. 
+	 * Una vez establecida dicha posicion las demas componentes de la nave se ubicaran de acuerdo al largo
+	 * determinado de la nave en cuestion y de acuerdo a la orientacion.	
+	 */
+		
+		Posicion posicionDeProa;
+		char orientacion = this.establecerOrientacion(); // 'V' vertical | 'H' horizontal
+		
+		if(orientacion == 'H'){ 
+			
+			posicionDeProa = this.determinarPosicionDeProaParaNaveHorizontal(naveActual);
+			this.colocarComponentesEnDireccionHorizontal(naveActual , posicionDeProa);
+		}
+		else if(orientacion == 'V'){ 
+			
+			posicionDeProa = this.determinarPosicionDeProaParaNaveVertical(naveActual);
+			this.colocarComponentesEnDireccionVertical(naveActual , posicionDeProa);
+		}
+	}
+		
 
+	private Posicion determinarPosicionDeProaParaNaveVertical(Nave naveActual) {
+	/*
+	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara verticalmente. 
+	 * Para establecer una posicion de proa valida de la nave, se tiene en cuenta la cantidad de filas que posee el
+	 * tablero, como asi tambien la cantidad de componentes que posee la nave. De esta manera, la posicion de la
+	 * proa se la calcula, teniendo en cuenta las demas posiciones a colocar. 	
+	 */
+		
+		int cantidadDePosicionesEnFilaNecesariasParaNave = naveActual.cantidadDeComponentes();
+		
+		char columnaValidaDeProa = this.seleccionarColumnaParaProa();
+		int filaValidaDeProa = this.seleccionarFilaParaProa(cantidadDePosicionesEnFilaNecesariasParaNave);
+		
+		Posicion posicionDeLaProa = this.obtenerPosicion(columnaValidaDeProa, filaValidaDeProa);
+		return posicionDeLaProa;
 	}
 
-	private ColeccionDeColumnas inicializarColumnasConFilas(
-			int cantidadDeColumnas, int cantidadDePosiciones) {
+	private int seleccionarFilaParaProa(int cantidadDePosicionesNecesariasParaNave) {
+	/*
+	 * Determina una numero de fila del tablero para ubicar la proa de una nave, teniendo en cuenta que se deben dejar 
+	 * disponibles una determinada cantidad de filas hacia abajo (correspondientes a la cantidad de componentes de la nave)
+	 * antes de que se acabe el largo del tablero.
+	 * 
+	 * Precondiciones: cantidadDePosicionesNecesariasParaNave debe ser mayor a 0.
+	 */
+		int cantidadDeFilasDelTablero = this.cantidadDeFilas();
+		int numeroAleatorio;
+		
+		do{
+			numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilasDelTablero-1);
+		}
+		while(numeroAleatorio+cantidadDePosicionesNecesariasParaNave>cantidadDeFilasDelTablero);
+	
+		int filaInicial = 1;
+		int filaSeleccionada = filaInicial + numeroAleatorio;
+		
+		return filaSeleccionada;
+	}
+	
+
+	private char seleccionarColumnaParaProa() {
+	/*
+	 * Devuelve un char, haciendo referencia al identificador de una columna del tablero destinada a ubicar
+	 * la proa
+	 */
+		int cantidadDeColumnas = this.cantidadDeColumnas();
+		int numeroDeColumnaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeColumnas-1);
+
+		char columnaInicial = 'A';
+		char columnaSeleccionada =(char) ((int)columnaInicial + numeroDeColumnaSeleccionada);
+		
+		return columnaSeleccionada;
+	}
+
+	private Posicion determinarPosicionDeProaParaNaveHorizontal(Nave naveActual) {
+	/*
+	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara horizontalmente. 
+	 * Para establecer una posicion de proa valida de la nave, se tiene en cuenta la cantidad de columnas que posee el
+	 * tablero, como asi tambien la cantidad de componentes que posee la nave. De esta manera, la posicion de la
+	 * proa se la calcula, teniendo en cuenta las demas posiciones a colocar. 	
+	*/
+		int cantidadDePosicionesEnColumnaNecesariasParaNave = naveActual.cantidadDeComponentes();
+		
+		char columnaValidaDeProa = this.seleccionarColumnaParaProa(cantidadDePosicionesEnColumnaNecesariasParaNave);
+		int filaValidaDeProa = this.seleccionarFilaParaProa();
+		
+		Posicion posicionDeLaProa = this.obtenerPosicion(columnaValidaDeProa, filaValidaDeProa);
+		return posicionDeLaProa;
+		
+	}
+
+	private int seleccionarFilaParaProa() {
+	/*
+	 * Determina una numero de fila del tablero para ubicar la proa de una nave. 
+	*/	
+		int cantidadDeFilas = this.cantidadDeFilas();
+		int numeroDeFilaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilas-1);
+		
+		int filaInicial = 1;
+		int filaSeleccionada = filaInicial + numeroDeFilaSeleccionada;
+		
+		return filaSeleccionada;
+	}
+
+	private char seleccionarColumnaParaProa(int cantidadDePosicionesNecesariasParaNave) {
+	/*
+	 * Determina una columna del tablero para ubicar la proa de una nave, teniendo en cuenta que se deben dejar 
+	 * disponibles una determinada cantidad de columnas a la izquierda (correspondientes a la cantidad de componentes de la nave) 
+	 * antes de que se acabe el ancho del tablero.
+	 * 
+	 * Precondiciones: cantidadDePosicionesNecesariasParaNave debe ser mayor a 0.
+	*/		
+		int cantidadDeColumnasDelTablero = this.cantidadDeColumnas();
+		int numeroAleatorio;
+		
+		do{
+			numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeColumnasDelTablero);
+		}
+		while(numeroAleatorio-cantidadDePosicionesNecesariasParaNave<0);
+		
+		char caracterDePrimeraColumna = 'A';
+
+		char columnaSeleccionada =(char)((int)caracterDePrimeraColumna + numeroAleatorio);
+		
+		return columnaSeleccionada;
+		
+	}
+
+	private char establecerOrientacion() {
+	/*
+	 * Establece una orientacion aleatoria, o bien 'H' haciendo referencia a horizontal o bien 'V' haciendo referencia
+	 * a vertical.
+	 * 
+	 * Postcondiciones: devuelve un char indicado la orientacion resultante	
+	 */
+		
+		int numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(0,1); //El numeroAleatorio sera 1 o 0
+		char valorADevolver='H'; //Se inicializa con dicho valor, para evitar error de compilador, ya que si se devuelve directo de la estructura condicional, no detecta el tipo y lanza error
+		
+		if(numeroAleatorio == 0){valorADevolver='H';}
+		else if(numeroAleatorio ==1){valorADevolver='V';}
+		
+		return valorADevolver;
+	}
+
+	private int generarNumeroAleatorioEntreDosValores(int desde, int hasta) {
+		
+		return (int)(Math.random()*(hasta-desde+1)+desde);
+		
+	}
+
+
+
+	private void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) {
+		/*
+		 * Metodo que coloca de manera horizontal las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
+		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a la izquierda de la posicionDeProa de acuerdo al largo de la nave.	
+		 * 
+		 * Precondiciones: 
+		 * 		naveActual debe contener una cantidad de componentes mayor a 0.
+		 * 		posicionDeProa debe ser una posicionValida del tablero y la misma debe tener en cuenta el largo de la nave para que entre toda la nave en el tablero
+		 * Postcondiciones:
+		 * 		Agrega a cada posicion correspondiente del tablero una componente de la nave 
+		 */		
+		
+		int columnaActual = (int) posicionDeProa.columnaDeLaPosicion();
+		int filaActual = posicionDeProa.filaDeLaPosicion();
+
+		int numeroDeComponenteActualDelBarco;
+		int cantidadDeComponentes = naveActual.cantidadDeComponentes();
+		
+		for(numeroDeComponenteActualDelBarco = naveActual.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+			
+			Posicion posicionAAgregarElComponente = this.obtenerPosicion((char)columnaActual, filaActual);
+			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
+		
+			columnaActual = columnaActual-1; 
+		}
+	}
+
+	private void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) {
+		/*
+		 * Metodo que coloca de manera vertical las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
+		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a abajo de la posicionDeProa de acuerdo al largo de la nave.	
+		 * 
+		 * Precondiciones: 
+		 * 		naveActual debe contener una cantidad de componentes mayor a 0.
+		 * 		posicionDeProa debe ser una posicionValida del tablero y la misma debe tener en cuenta el largo de la nave para que entre toda la nave en el tablero
+		 * Postcondiciones:
+		 * 		Agrega a cada posicion correspondiente del tablero una componente de la nave 
+		 */		
+		
+		char columnaActual = posicionDeProa.columnaDeLaPosicion();
+		int filaActual = posicionDeProa.filaDeLaPosicion();
+
+		int numeroDeComponenteActualDelBarco;
+		int cantidadDeComponentes = naveActual.cantidadDeComponentes();
+		
+		for(numeroDeComponenteActualDelBarco = naveActual.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+			
+			Posicion posicionAAgregarElComponente = this.obtenerPosicion(columnaActual, filaActual);
+			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
+		
+			filaActual=filaActual+1; 
+		}
+	}
+
+
+	private ColeccionDeColumnas inicializarColumnasConFilas(int cantidadDeColumnas, int cantidadDePosiciones) {
 		/*
 		 * Metodo que crea una instancia de ColeccionDeColumnas, con una
 		 * cantidad de Columnas de acuerdo a lo estipulado por parametro En
@@ -46,9 +278,12 @@ public class Tablero {
 		 */
 		ColeccionDeColumnas unaColeccion = new ColeccionDeColumnas();
 
-		for (int numeroDeColumnaActual = 1; numeroDeColumnaActual <= cantidadDeColumnas; numeroDeColumnaActual++) {
+		for (int numeroDeColumnaActual = 0; numeroDeColumnaActual < cantidadDeColumnas; numeroDeColumnaActual++) {
 
 			Columna columnaAAgregar = new Columna();
+			char identificadorDeColumna = (char)((int)'A'+numeroDeColumnaActual);
+			
+			columnaAAgregar.setIdentificadorDeColumna(identificadorDeColumna);
 			columnaAAgregar.numeroDePosicionesDeLaColumna(cantidadDePosiciones);
 
 			unaColeccion.agregarColumna(columnaAAgregar);

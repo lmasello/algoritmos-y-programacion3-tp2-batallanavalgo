@@ -43,12 +43,12 @@ public class Posicion {
 		columnaDePosicion = columna;
 	}
 	
-	public int getFila(){
+	public int filaDeLaPosicion(){
 		
 		return filaDePosicion;
 	}
 	
-	public char getColumna(){
+	public char columnaDeLaPosicion(){
 		
 		return columnaDePosicion;
 	}
