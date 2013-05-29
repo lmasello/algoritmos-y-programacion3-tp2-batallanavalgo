@@ -2,10 +2,12 @@ package componentesDeTablero;
 
 import colecciones.ColeccionDeColumnas;
 import jugador.Jugador;
+import colecciones.ColeccionDeNaves;
 
 public class Tablero {
 
 	ColeccionDeColumnas columnasDelTablero;
+	ColeccionDeNaves coleccionDeNaves;
 
 	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) {
 		/*
