@@ -4,6 +4,7 @@ import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 
 import disparos.Disparo;
+import excepciones.ValorDeParametroFueraDeRango;
 import puntaje.Puntaje;
 
 public class Jugador {
@@ -33,7 +34,7 @@ public class Jugador {
 	}
 
 	public void realizarDisparoEnPosicion(Disparo disparo,Tablero tableroDelJugador, char columna,
-			int fila) {
+			int fila) throws ValorDeParametroFueraDeRango {
 
 		/*
 		 * Obtiene la posicion en la que se desea realizar el disparo luego

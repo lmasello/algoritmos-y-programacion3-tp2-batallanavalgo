@@ -1,5 +1,6 @@
 package pruebasUnitarias;
 
+import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.PortaAviones;
 
@@ -13,7 +14,7 @@ public class PortaAvionesTest extends TestCase {
 
 	}
 
-	public void testPortaAvionesDestruir() {
+	public void testPortaAvionesDestruir() throws ValorDeParametroFueraDeRango {
 
 		PortaAviones portaAviones = new PortaAviones();
 		portaAviones.destruirNave();

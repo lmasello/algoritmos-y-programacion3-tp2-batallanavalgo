@@ -2,6 +2,7 @@ package pruebasUnitarias;
 
 import nave.ComponenteDeNave;
 import componentesDeTablero.Posicion;
+import excepciones.ValorDeParametroFueraDeRango;
 
 import junit.framework.TestCase;
 
@@ -21,7 +22,7 @@ public class PosicionTest extends TestCase {
 	
 	}
 	
-	public void testAgregarComponentes (){
+	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango{
 		
 		Posicion posicion = new Posicion();
 		int resistencia1 = 2;

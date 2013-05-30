@@ -1,5 +1,6 @@
 package pruebasUnitarias;
 
+import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.RompeHielos;
 
@@ -13,7 +14,7 @@ public class RompeHielosTest extends TestCase {
 
 	}
 
-	public void testRompeHielosDestruir() {
+	public void testRompeHielosDestruir() throws ValorDeParametroFueraDeRango {
 
 		RompeHielos rompeHielos = new RompeHielos();
 		rompeHielos.destruirNave();

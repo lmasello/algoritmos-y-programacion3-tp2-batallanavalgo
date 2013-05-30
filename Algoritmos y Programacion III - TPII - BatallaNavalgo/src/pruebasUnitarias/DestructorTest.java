@@ -1,5 +1,6 @@
 package pruebasUnitarias;
 
+import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.Destructor;
 
@@ -13,7 +14,7 @@ public class DestructorTest extends TestCase {
 
 	}
 
-	public void testDestructorDestruir() {
+	public void testDestructorDestruir() throws ValorDeParametroFueraDeRango {
 
 		Destructor destructor = new Destructor();
 		destructor.destruirNave();

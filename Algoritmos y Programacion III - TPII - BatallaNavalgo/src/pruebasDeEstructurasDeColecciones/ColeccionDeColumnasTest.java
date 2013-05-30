@@ -8,6 +8,7 @@ import org.junit.Test;
 import componentesDeTablero.Columna;
 
 import colecciones.ColeccionDeColumnas;
+import excepciones.ValorDeParametroFueraDeRango;
 
 
 public class ColeccionDeColumnasTest extends TestCase {
@@ -55,7 +56,7 @@ public class ColeccionDeColumnasTest extends TestCase {
 
 	}
 
-	public void testObtenerUnaColumna() {
+	public void testObtenerUnaColumna() throws ValorDeParametroFueraDeRango {
 
 		ColeccionDeColumnas unaColeccion = new ColeccionDeColumnas();
 		Columna columna1 = new Columna();
