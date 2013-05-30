@@ -14,9 +14,8 @@ public class ColeccionDeComponentes {
 		
 	}
 	
-	public void agregarComponente(int resistencia) {
+	public void agregarComponente(ComponenteDeNave componente) {
 
-		ComponenteDeNave componente = new ComponenteDeNave(resistencia);
 		componentes.add(componente);
 
 	}

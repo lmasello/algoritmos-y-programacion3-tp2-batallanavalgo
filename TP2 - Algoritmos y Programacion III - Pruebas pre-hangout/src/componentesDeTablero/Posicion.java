@@ -1,5 +1,6 @@
 package componentesDeTablero;
 
+import nave.ComponenteDeNave;
 import colecciones.ColeccionDeComponentes;
 import colecciones.ColeccionDeDisparos;
 import disparos.Disparo;
@@ -11,7 +12,7 @@ public class Posicion {
 	ColeccionDeComponentes componentesDeNaveEnPosicion;
 	ColeccionDeDisparos disparosEnPosicion;
 	
-	public ColeccionDeComponentes obtenerComoponentesEnPosicion(){
+	public ColeccionDeComponentes obtenerComponentesEnPosicion(){
 	/* Devuelve la lista de componentes de naves en la posicion */
 		
 		return componentesDeNaveEnPosicion;
@@ -23,9 +24,9 @@ public class Posicion {
 		return disparosEnPosicion;	
 	}
 	
-	public void agregarComponenteAPosicion(int resistencia){
+	public void agregarComponenteAPosicion(ComponenteDeNave componente){
 		
-		componentesDeNaveEnPosicion.agregarComponente(resistencia);	
+		componentesDeNaveEnPosicion.agregarComponente(componente);	
 	}
 	
 	public void agregarDisparoAPosicion(Disparo disparoAAgregar){
