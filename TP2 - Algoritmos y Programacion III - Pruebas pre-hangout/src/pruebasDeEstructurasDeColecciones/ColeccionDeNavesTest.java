@@ -38,8 +38,8 @@ public class ColeccionDeNavesTest extends TestCase {
 		coleccionDeNave.agregarNave(naveAAgregar1);
 		coleccionDeNave.agregarNave(naveAAgregar2);
 
-		assertEquals(naveAAgregar1,coleccionDeNave.obtenerNave(1) );
-		assertEquals(naveAAgregar2,coleccionDeNave.obtenerNave(2) );
+		assertEquals(naveAAgregar1,coleccionDeNave.naveDeLaPosicion(1));
+		assertEquals(naveAAgregar2,coleccionDeNave.naveDeLaPosicion(2));
 
 	}
 	
