@@ -59,5 +59,12 @@ public class Posicion {
 		
 		return columnaDePosicion;
 	}
+
+	public boolean tieneComponenteDeNave() {
+	/*
+	* Devuelve true si en dicha posicion se encuentra una o más componente de nave
+	*/
+		return componentesDeNaveEnPosicion.tieneComponente();
+	}
 	
 }

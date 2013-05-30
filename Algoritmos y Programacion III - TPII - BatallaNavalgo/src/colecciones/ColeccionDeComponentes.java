@@ -44,4 +44,8 @@ public class ColeccionDeComponentes {
 		return componentes.get(indiceDeComponente-1);
 	}
 
+	public boolean tieneComponente() {
+		return (!componentes.isEmpty());
+	}
+
 }
