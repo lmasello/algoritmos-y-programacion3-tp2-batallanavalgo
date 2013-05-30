@@ -27,7 +27,8 @@ public class GraficadorDeTableroEnConsola {
 				Posicion posicionActual = tableroAGraficar.obtenerPosicion(identificadorDeColumnaActual, numeroDeFilaActual);
 				
 				if(posicionActual.tieneComponenteDeNave()){
-					System.out.print("-");
+					int cantidadDeComponentes = posicionActual.obtenerComponentesEnPosicion().cantidadDeComponentes();
+					System.out.print(cantidadDeComponentes);
 				}
 				else{
 					System.out.print(".");

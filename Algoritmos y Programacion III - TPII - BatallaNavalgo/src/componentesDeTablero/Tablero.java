@@ -206,7 +206,7 @@ public class Tablero {
 		return valorADevolver;
 	}
 
-	private int generarNumeroAleatorioEntreDosValores(int desde, int hasta) {
+	public int generarNumeroAleatorioEntreDosValores(int desde, int hasta) {
 		
 		return (int)(Math.random()*(hasta-desde+1)+desde);
 		
