@@ -3,6 +3,7 @@ package colecciones;
 import java.util.ArrayList;
 
 import componentesDeTablero.Columna;
+import excepciones.ValorDeParametroFueraDeRango;
 
 
 public class ColeccionDeColumnas {
@@ -16,42 +17,50 @@ public class ColeccionDeColumnas {
 	}
 
 	public void agregarColumna(Columna columnaAAgregar) {
-
+	/*
+	 * Agrega una Columna al final de la coleccion
+	 */
 		coleccionDeColumnas.add(columnaAAgregar);
 
 	}
 
-	public boolean tieneLaColumnaDeIdentificador(
-			char identificadorDeColumnaABuscar) {
-
+	public boolean tieneLaColumnaDeIdentificador(char identificadorDeColumnaABuscar) {
+	/*
+	 * Evalua si la coleccion posee una columna referenciada con un identificador, el cual es pasado por parametro
+	 */
 		int valorAsciiDeLaPrimeraColumna = this.convertirAAscii('A');
-		int valorAsciiDeLaColumnaBuscada = this
-				.convertirAAscii(identificadorDeColumnaABuscar);
+		int valorAsciiDeLaColumnaBuscada = this.convertirAAscii(identificadorDeColumnaABuscar);
 
-		int indiceDeLaColumnaBuscada = valorAsciiDeLaColumnaBuscada
-				- valorAsciiDeLaPrimeraColumna;
+		int indiceDeLaColumnaBuscada = valorAsciiDeLaColumnaBuscada	- valorAsciiDeLaPrimeraColumna;
 
-		// Si el tablero tiene la columna buscada, el indice de la columna
-		// buscada deberá ser menor a la cantidad de columnas
+		// Si el tablero tiene la columna buscada, el indice de la columna buscada debera ser mayor o igual
+		// a indice de la primera columna
 
-		boolean tieneLaColumna = (indiceDeLaColumnaBuscada < this
-				.cantidadDeColumnas());
+		boolean tieneLaColumna = (indiceDeLaColumnaBuscada < this.cantidadDeColumnas());
 
 		return tieneLaColumna;
 
 	}
 
-	public Columna obtenerLaColumnaDeIndice(char identificadorDeColumnaBuscada) {
-
+	public Columna obtenerLaColumnaDeIndice(char identificadorDeColumnaBuscada) throws ValorDeParametroFueraDeRango {
+	/*
+	 * Devuelve una instancia de Columna, de acuerdo al identificador pasado por parametro
+	 * Precondiciones:
+	 * 		identificadorDeColumnaBuscada debe ser mayor o igual al identificador de la primera columna y menor o igual al identificador de la ultima columna
+	 */
+	
 		int valorAsciiDeLaPrimeraColumna = this.convertirAAscii('A');
-		int valorAsciiDeLaColumnaBuscada = this
-				.convertirAAscii(identificadorDeColumnaBuscada);
+		int valorAsciiDeLaUltimaColumna = valorAsciiDeLaPrimeraColumna + this.cantidadDeColumnas()-1;
+		
+		int valorAsciiDeLaColumnaBuscada = this.convertirAAscii(identificadorDeColumnaBuscada);
+		
+		if((valorAsciiDeLaColumnaBuscada<valorAsciiDeLaPrimeraColumna)|(valorAsciiDeLaColumnaBuscada>valorAsciiDeLaUltimaColumna)){
+			throw new ValorDeParametroFueraDeRango();
+		}
+		
+		int indiceDeLaColumnaBuscada = valorAsciiDeLaColumnaBuscada	- valorAsciiDeLaPrimeraColumna;
 
-		int indiceDeLaColumnaBuscada = valorAsciiDeLaColumnaBuscada
-				- valorAsciiDeLaPrimeraColumna;
-
-		Columna columnaBuscada = coleccionDeColumnas
-				.get(indiceDeLaColumnaBuscada);
+		Columna columnaBuscada = coleccionDeColumnas.get(indiceDeLaColumnaBuscada);
 
 		return columnaBuscada;
 
