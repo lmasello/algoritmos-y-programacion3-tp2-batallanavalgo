@@ -35,13 +35,13 @@ public class ColeccionDeComponentes {
 	public ComponenteDeNave obtenerComponente(int indiceDeComponente) throws ValorDeParametroFueraDeRango{
 	/*
 	 * Devuelve una componente de nave, de acuerdo al valor de indice enviado por parametro.
-	 * El indiceDeComponente debe ser mayor o igual a 0 y menor a la cantidad de posiciones	
+	 * El indiceDeComponente debe ser mayor a 0 y menor o igual a la cantidad de posiciones	
 	 */
-		if((indiceDeComponente<0)|(indiceDeComponente>=this.cantidadDeComponentes())){
+		if((indiceDeComponente<=0)|(indiceDeComponente>this.cantidadDeComponentes())){
 			throw new ValorDeParametroFueraDeRango();
 		}
 		
-		return componentes.get(indiceDeComponente);
+		return componentes.get(indiceDeComponente-1);
 	}
 
 }
