@@ -1,6 +1,7 @@
 package nave;
 
 import colecciones.ColeccionDeComponentes;
+import excepciones.ValorDeParametroFueraDeRango;
 
 public abstract class Nave {
 
@@ -34,10 +35,10 @@ public abstract class Nave {
 		
 	}
 
-	public void destruirNave() {
+	public void destruirNave() throws ValorDeParametroFueraDeRango {
 		/* Destruye cada componente de la nave */
 			
-		for (int indiceDeComponentes = 0; indiceDeComponentes < componentes.cantidadDeComponentes(); indiceDeComponentes++) {
+		for (int indiceDeComponentes = 1; indiceDeComponentes <= componentes.cantidadDeComponentes(); indiceDeComponentes++) {
 
 			ComponenteDeNave componente = componentes.obtenerComponente(indiceDeComponentes);
 			componente.destruirComponente();
@@ -54,7 +55,7 @@ public abstract class Nave {
 		return 1;
 	}
 
-	public ComponenteDeNave obtenerComponenteDeNumero(int numeroDeComponenteDeseada) {
+	public ComponenteDeNave obtenerComponenteDeNumero(int numeroDeComponenteDeseada) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Devuelve la componente de la nave de acuerdo al indice pasado por parametro.
 	 * 
@@ -62,9 +63,9 @@ public abstract class Nave {
 	 * 		numeroDeComponenteDeseada debe ser mayor a 0 y menor o igual a la cantidad de componentes de la nave	
 	 */
 		
-		/*if((numeroDeComponenteDeseada<=0)&(numeroDeComponenteDeseada>this.cantidadDeComponentes())){
-			tirar error
-		}*/
+		if((numeroDeComponenteDeseada<=0)&(numeroDeComponenteDeseada>this.cantidadDeComponentes())){
+			throw new ValorDeParametroFueraDeRango();
+		}
 			
 		return componentes.obtenerComponente(numeroDeComponenteDeseada-1);
 		
