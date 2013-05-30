@@ -28,7 +28,7 @@ public class ColeccionDeComponentes {
 	
 	public ComponenteDeNave obtenerComponente(int indiceDeComponente){
 		
-		return componentes.get(indiceDeComponente);
+		return componentes.get(indiceDeComponente - 1);
 	}
 
 }

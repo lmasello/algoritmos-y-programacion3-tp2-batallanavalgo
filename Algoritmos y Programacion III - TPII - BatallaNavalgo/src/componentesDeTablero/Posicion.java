@@ -12,6 +12,12 @@ public class Posicion {
 	ColeccionDeComponentes componentesDeNaveEnPosicion;
 	ColeccionDeDisparos disparosEnPosicion;
 	
+	public Posicion(){
+		
+		componentesDeNaveEnPosicion = new ColeccionDeComponentes();
+		disparosEnPosicion = new ColeccionDeDisparos();
+	}
+	
 	public ColeccionDeComponentes obtenerComponentesEnPosicion(){
 	/* Devuelve la lista de componentes de naves en la posicion */
 		

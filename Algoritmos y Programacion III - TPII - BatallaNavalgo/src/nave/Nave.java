@@ -29,7 +29,8 @@ public abstract class Nave {
 	
 	public void agregarComponenteConResistencia(int resistencia){
 		
-		componentes.agregarComponente(resistencia);
+		ComponenteDeNave componente = new ComponenteDeNave(resistencia);
+		componentes.agregarComponente(componente);
 		
 	}
 
