@@ -38,7 +38,7 @@ public abstract class Nave {
 	public void destruirNave() throws ValorDeParametroFueraDeRango {
 		/* Destruye cada componente de la nave */
 			
-		for (int indiceDeComponentes = 1; indiceDeComponentes <= componentes.cantidadDeComponentes(); indiceDeComponentes++) {
+		for (int indiceDeComponentes = 0; indiceDeComponentes < componentes.cantidadDeComponentes(); indiceDeComponentes++) {
 
 			ComponenteDeNave componente = componentes.obtenerComponente(indiceDeComponentes);
 			componente.destruirComponente();
