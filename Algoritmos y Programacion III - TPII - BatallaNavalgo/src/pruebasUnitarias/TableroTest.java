@@ -7,11 +7,13 @@ import org.junit.Test;
 
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
+import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 
 public class TableroTest extends TestCase {
 
-	public void testInicializaElTableroCon10ColumnasY10Filas() {
+	public void testInicializaElTableroCon10ColumnasY10Filas() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 
 		Tablero tableroDelJuego = new Tablero(10, 10);
 
@@ -19,7 +21,7 @@ public class TableroTest extends TestCase {
 		assertEquals(10, tableroDelJuego.cantidadDeFilas());
 	}
 
-	public void testObtenerUnaPosicionDelTablero() {
+	public void testObtenerUnaPosicionDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 
 		Tablero tableroDelJuego = new Tablero(10, 10);
 		Posicion unaPosicionDelTablero = tableroDelJuego.obtenerPosicion('C', 2);

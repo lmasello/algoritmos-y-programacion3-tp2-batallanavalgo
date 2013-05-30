@@ -5,14 +5,16 @@ import nave.ComponenteDeNave;
 import nave.Nave;
 import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
+import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 
 public class Tablero {
 
 	ColeccionDeColumnas columnasDelTablero;
-	ColeccionDeNaves coleccionDeNaves;
+	ColeccionDeNaves navesDelTablero;
 
-	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) {
+	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 		/*
 		 * Constructor de la clase. Inicializa la clase Tablero con una cantidad
 		 * determinada de columnas y filas. A su vez, inicializa el tablero
@@ -22,15 +24,15 @@ public class Tablero {
 		 * mayores a 0.
 		 */
 
-		/*
-		 * if((cantidadDeColumnas<=0) & (cantidadDeFilas<=0)){ levantarExcepcion
-		 * }
-		 */
+		 if((cantidadDeColumnas<=0) & (cantidadDeFilas<=0)){
+			 throw new ValoresDeParametroFueraDeRango();
+		 }
+		 
 		columnasDelTablero = this.inicializarColumnasConFilas(cantidadDeColumnas, cantidadDeFilas);
 		this.colocarNavesEnElTablero();
 	}
 
-	private void colocarNavesEnElTablero() {
+	private void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango {
 	/*
 	 * Metodo que consiste en agregar naves en el tablero.
 	 * Esta determinado por la consigna del trabajo la cantidad de naves a colocar.
@@ -41,6 +43,8 @@ public class Tablero {
 		ColeccionDeNaves navesAColocar = new ColeccionDeNaves(); 
 		navesAColocar.establecerNavesDelJuego();
 		
+		navesDelTablero = navesAColocar;
+		
 		for (int numeroDeNaveActual=1 ; numeroDeNaveActual <= navesAColocar.cantidadDeNaves() ; numeroDeNaveActual++){
 			
 			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
@@ -50,7 +54,7 @@ public class Tablero {
 		
 	}
 	
-	private void colocarNave(Nave naveActual) {
+	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Metodo que coloca una nave en el tablero.
 	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar. 
@@ -77,7 +81,7 @@ public class Tablero {
 	}
 		
 
-	private Posicion determinarPosicionDeProaParaNaveVertical(Nave naveActual) {
+	private Posicion determinarPosicionDeProaParaNaveVertical(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara verticalmente. 
 	 * Para establecer una posicion de proa valida de la nave, se tiene en cuenta la cantidad de filas que posee el
@@ -94,7 +98,7 @@ public class Tablero {
 		return posicionDeLaProa;
 	}
 
-	private int seleccionarFilaParaProa(int cantidadDePosicionesNecesariasParaNave) {
+	private int seleccionarFilaParaProa(int cantidadDePosicionesNecesariasParaNave) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina una numero de fila del tablero para ubicar la proa de una nave, teniendo en cuenta que se deben dejar 
 	 * disponibles una determinada cantidad de filas hacia abajo (correspondientes a la cantidad de componentes de la nave)
@@ -106,12 +110,12 @@ public class Tablero {
 		int numeroAleatorio;
 		
 		do{
-			numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilasDelTablero-1);
+			numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilasDelTablero);
 		}
 		while(numeroAleatorio+cantidadDePosicionesNecesariasParaNave>cantidadDeFilasDelTablero);
 	
 		int filaInicial = 1;
-		int filaSeleccionada = filaInicial + numeroAleatorio;
+		int filaSeleccionada = filaInicial + numeroAleatorio-1;
 		
 		return filaSeleccionada;
 	}
@@ -123,15 +127,15 @@ public class Tablero {
 	 * la proa
 	 */
 		int cantidadDeColumnas = this.cantidadDeColumnas();
-		int numeroDeColumnaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeColumnas-1);
+		int numeroDeColumnaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeColumnas);
 
-		char columnaInicial = 'A';
-		char columnaSeleccionada =(char) ((int)columnaInicial + numeroDeColumnaSeleccionada);
+		int numeroDeColumnaInicial = (int)'A';
+		char columnaSeleccionada =(char) (numeroDeColumnaInicial + numeroDeColumnaSeleccionada-1);
 		
 		return columnaSeleccionada;
 	}
 
-	private Posicion determinarPosicionDeProaParaNaveHorizontal(Nave naveActual) {
+	private Posicion determinarPosicionDeProaParaNaveHorizontal(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara horizontalmente. 
 	 * Para establecer una posicion de proa valida de la nave, se tiene en cuenta la cantidad de columnas que posee el
@@ -148,15 +152,15 @@ public class Tablero {
 		
 	}
 
-	private int seleccionarFilaParaProa() {
+	private int seleccionarFilaParaProa() throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina una numero de fila del tablero para ubicar la proa de una nave. 
 	*/	
 		int cantidadDeFilas = this.cantidadDeFilas();
-		int numeroDeFilaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilas-1);
+		int numeroDeFilaSeleccionada = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeFilas);
 		
 		int filaInicial = 1;
-		int filaSeleccionada = filaInicial + numeroDeFilaSeleccionada;
+		int filaSeleccionada = filaInicial + numeroDeFilaSeleccionada-1;
 		
 		return filaSeleccionada;
 	}
@@ -175,11 +179,11 @@ public class Tablero {
 		do{
 			numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(1, cantidadDeColumnasDelTablero);
 		}
-		while(numeroAleatorio-cantidadDePosicionesNecesariasParaNave<0);
+		while((numeroAleatorio-cantidadDePosicionesNecesariasParaNave)<0);
 		
-		char caracterDePrimeraColumna = 'A';
+		char numeroDePrimeraColumna = (int)'A';
 
-		char columnaSeleccionada =(char)((int)caracterDePrimeraColumna + numeroAleatorio);
+		char columnaSeleccionada =(char)(numeroDePrimeraColumna + numeroAleatorio-1);
 		
 		return columnaSeleccionada;
 		
@@ -209,8 +213,7 @@ public class Tablero {
 	}
 
 
-
-	private void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) {
+	private void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera horizontal las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a la izquierda de la posicionDeProa de acuerdo al largo de la nave.	
@@ -232,12 +235,14 @@ public class Tablero {
 			
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion((char)columnaActual, filaActual);
 			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
-		
+
+			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
+			
 			columnaActual = columnaActual-1; 
 		}
 	}
 
-	private void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) {
+	private void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera vertical las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a abajo de la posicionDeProa de acuerdo al largo de la nave.	
@@ -260,6 +265,8 @@ public class Tablero {
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion(columnaActual, filaActual);
 			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
 		
+			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
+			
 			filaActual=filaActual+1; 
 		}
 	}
@@ -293,7 +300,7 @@ public class Tablero {
 
 	}
 
-	public Posicion obtenerPosicion(char columnaBuscada, int filaBuscada) {
+	public Posicion obtenerPosicion(char columnaBuscada, int filaBuscada) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que tiene como objetivo obtener una posicion deseada del
 		 * tablero.
@@ -303,11 +310,9 @@ public class Tablero {
 		 * tablero. Postcondiciones: devuelve la una instancia de Posicion, de
 		 * acuerdo a los parametros estipulados por parametro.
 		 */
-		Columna columnaDeLaPosicionRequerida = columnasDelTablero
-				.obtenerLaColumnaDeIndice(columnaBuscada);
+		Columna columnaDeLaPosicionRequerida = columnasDelTablero.obtenerLaColumnaDeIndice(columnaBuscada);
 
-		Posicion posicionRequerida = columnaDeLaPosicionRequerida
-				.obtenerPosicionDeFila(filaBuscada);
+		Posicion posicionRequerida = columnaDeLaPosicionRequerida.obtenerPosicionDeFila(filaBuscada);
 
 		return posicionRequerida;
 	}
@@ -318,11 +323,10 @@ public class Tablero {
 
 	}
 
-	public int cantidadDeFilas() {
+	public int cantidadDeFilas() throws ValorDeParametroFueraDeRango {
 
 		char unIdentificadorDeColumna = 'A';
-		Columna unaColumna = columnasDelTablero
-				.obtenerLaColumnaDeIndice(unIdentificadorDeColumna);
+		Columna unaColumna = columnasDelTablero.obtenerLaColumnaDeIndice(unIdentificadorDeColumna);
 
 		return unaColumna.cantidadDePosiciones();
 	}
@@ -341,5 +345,9 @@ public class Tablero {
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
 	}
-
+	
+	public ColeccionDeNaves obtenerNavesDelTablero(){
+		
+		return navesDelTablero;
+	}
 }
