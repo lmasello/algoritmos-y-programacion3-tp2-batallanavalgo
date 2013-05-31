@@ -1,5 +1,6 @@
 package jugador;
 
+import colecciones.ColeccionDePosiciones;
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 
@@ -33,20 +34,36 @@ public class Jugador {
 
 	}
 
-	public void realizarDisparoEnPosicion(Disparo disparo, char columna,
-			int fila) throws ValorDeParametroFueraDeRango {
-
-		/*
-		 * Obtiene la posicion en la que se desea realizar el disparo luego
-		 * agrega el disparo en esa posicion(metodo todavia no implementado) y
-		 * finalmente disminuye el puntaje del jugador dependiendo del disparo
+	public void realizarDisparoALasPosiciones(Disparo disparo,ColeccionDePosiciones
+			 posicionesADisparar) throws ValorDeParametroFueraDeRango {
 		
-		 *Posicion posicion = tableroDelJugador.obtenerPosicion(columna, fila);
-		 *posicion.agregarDisparoAPosicion(disparo);
-		 */	
-	
+	/* Recorre la coleccion de posiciones para colocar el disparo correspondiente en cada
+	 * 	posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado */
+		
+		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesADisparar.cantidadDePosiciones()
+				; posicionEnColeccion++){
+				Posicion posicionActual = posicionesADisparar.obtenerPosicionDeLaFila(posicionEnColeccion);
+				posicionActual.agregarDisparoAPosicion(disparo);
+		}
+		
 		this.obtenerPuntaje().disminuirPuntajePorDisparo(disparo);
+	
 
+	}
+	
+	public void disparar(){
+			
+		/*	El Jugador elige un tipo de disparo, junto con una posicion (metodos a desarrollar)
+		 *  sobre la cual quiera disparar. Luego de acuerdo al tipo de disparo, se recolectan las 
+		 *  posiciones necesarias para tal disparo y se devuelve la coleccion. Por ultimo
+		 *  se realiza el disparo a las posiciones recolectadas.
+		 */  
+			  Disparo disparo = this.elegirDisparo();
+			  Posicion posicionElegida = this.elegirPosicion();
+			  ColeccionDePosiciones posicionesADisparar = tableroDelJugador.obtenerPosicionesAdyacentesA(posicionElegida);
+			  
+			  this.realizarDisparoALasPosiciones(disparo, posicionesADisparar);
+		
 	}
 
 }

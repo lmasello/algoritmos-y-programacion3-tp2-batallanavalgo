@@ -4,6 +4,7 @@ import nave.ComponenteDeNave;
 import colecciones.ColeccionDeComponentes;
 import colecciones.ColeccionDeDisparos;
 import disparos.Disparo;
+import excepciones.ValorDeParametroFueraDeRango;
 
 public class Posicion {
 	
@@ -65,6 +66,44 @@ public class Posicion {
 	* Devuelve true si en dicha posicion se encuentra una o más componente de nave
 	*/
 		return componentesDeNaveEnPosicion.tieneComponente();
+	}
+	
+	public void impactoDeLosDisparos() throws ValorDeParametroFueraDeRango{
+	/* Recorre los disparos en la posicion, para cada uno chequea el momento de impacto
+	 * si el mismo es igual a 0(cero), realiza el impacto del disparo.
+	 * Si no, disminuye el momento de impacto del disparo
+	 * */
+		
+		for(int posicionEnColeccion = 0; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
+					posicionEnColeccion++){
+			Disparo disparoActual = disparosEnPosicion.obtenerDisparoDeIndice(posicionEnColeccion);
+			if( disparoActual.obtenerMomentoDeImpacto().obtenerMomentoDeImpacto() == 0){
+				this.realizarImpactoDe(disparoActual);
+			}else{
+				disparoActual.obtenerMomentoDeImpacto().DisminuirMomentoDeImpacto();
+			}
+		}
+	}
+
+	private void realizarImpactoDe(Disparo disparo) throws ValorDeParametroFueraDeRango {
+	/* Chequea si la posicion tiene componentes,
+	 * 	  si tiene: 	Recorre las componentes que se encuentren en la posicion y realiza el
+	 * 					disparo para cada una de ellas. Luego quita el disparo de la posicion
+	 * 	  si no tiene:  Y no es una mina por contacto quita el disparo de la posicion
+	 * */
+		
+		if(componentesDeNaveEnPosicion.tieneComponente()){
+			for(int posicionEnColeccion = 0; posicionEnColeccion < componentesDeNaveEnPosicion.cantidadDeComponentes();
+						posicionEnColeccion++){
+				ComponenteDeNave componenteADisparar = componentesDeNaveEnPosicion.obtenerComponente(posicionEnColeccion);
+				disparo.dispararA(componenteADisparar);
+				disparosEnPosicion.quitarDisparo(disparo);
+			}
+		}else{
+			if(disparo.noEsMinaPorContacto()){
+				disparosEnPosicion.quitarDisparo(disparo);
+			}
+		}
 	}
 	
 }

@@ -6,6 +6,9 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
+import colecciones.ColeccionDePosiciones;
+
+import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 
 
@@ -41,12 +44,15 @@ public class JugadorTest extends TestCase {
 		Jugador jugadorHumano = new Jugador("Leandro Masello");
 		Disparo disparo1 = new DisparoConvencional();
 		Disparo disparo2 = new MinaSubmarinaPuntual();
+		ColeccionDePosiciones posiciones = new ColeccionDePosiciones();
+		Posicion posicion = new Posicion();
+		posiciones.agregarPosicion(posicion);
 
-		jugadorHumano.realizarDisparoEnPosicion(disparo1, 'A', 2);
+		jugadorHumano.realizarDisparoALasPosiciones(disparo1, posiciones);
 
 		assertEquals(9800, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
 
-		jugadorHumano.realizarDisparoEnPosicion(disparo2, 'A', 3);
+		jugadorHumano.realizarDisparoALasPosiciones(disparo2, posiciones);
 
 		assertEquals(9750, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
 	}

@@ -18,5 +18,20 @@ public class ColeccionDeDisparos {
 		coleccionDeDisparos.add(disparo);
 
 	}
+	
+	public Disparo obtenerDisparoDeIndice(int indice){
+		
+		return coleccionDeDisparos.get(indice);
+	}
+	
+	public int cantidadDeDisparos(){
+		
+		return coleccionDeDisparos.size();
+	}
+
+	public void quitarDisparo(Disparo disparo) {
+		
+		coleccionDeDisparos.remove(disparo);
+	}
 
 }

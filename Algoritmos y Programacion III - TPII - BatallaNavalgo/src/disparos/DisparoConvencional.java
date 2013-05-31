@@ -3,7 +3,7 @@ package disparos;
 public class DisparoConvencional extends Disparo {
 
 	int costoDeDisparo = 200;
-	 	
+	
 	public DisparoConvencional(){
 		
 		tiempoPredefinidoDeImpacto = 1; // Al instante de que se produce el disparo.
@@ -14,4 +14,6 @@ public class DisparoConvencional extends Disparo {
 
 		return costoDeDisparo;
 	}
+	
+	
 }

@@ -9,4 +9,8 @@ public class MinaSubmarinaPorContacto extends Disparo {
 		return costoDeDisparo;
 	}
 
+	public boolean noEsMinaPorContacto() {
+		
+		return false;
+	}
 }
