@@ -12,6 +12,8 @@ import componentesDeTablero.Tablero;
 import disparos.Disparo;
 import disparos.DisparoConvencional;
 import disparos.MinaSubmarinaPuntual;
+import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class JugadorTest extends TestCase {
 
@@ -23,7 +25,7 @@ public class JugadorTest extends TestCase {
 
 	}
 
-	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() {
+	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 
 		Tablero tableroDePrueba = new Tablero(10, 10);
 		Jugador jugadorHumano = new Jugador("Leandro Masello");
@@ -34,7 +36,7 @@ public class JugadorTest extends TestCase {
 
 	}
 
-	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() {
+	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango {
 
 		Jugador jugadorHumano = new Jugador("Leandro Masello");
 		Disparo disparo1 = new DisparoConvencional();

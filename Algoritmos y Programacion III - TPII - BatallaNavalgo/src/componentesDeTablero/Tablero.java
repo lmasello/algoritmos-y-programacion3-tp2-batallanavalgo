@@ -24,7 +24,7 @@ public class Tablero {
 		 * mayores a 0.
 		 */
 
-		 if((cantidadDeColumnas<=0) & (cantidadDeFilas<=0)){
+		 if((cantidadDeColumnas<=0) | (cantidadDeFilas<=0)){
 			 throw new ValoresDeParametroFueraDeRango();
 		 }
 		 

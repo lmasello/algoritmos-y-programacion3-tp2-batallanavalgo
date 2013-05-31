@@ -1,13 +1,14 @@
 package tentativoDeTestsIntegrales;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import org.junit.Test;
 
 import componentesDeTablero.Tablero;
 
 
-public class TableroTest {
+public class TableroTest extends TestCase {
 
 	public void testCrearTableroDe10FilasPor10Columnas() {
 		/*
