@@ -60,7 +60,7 @@ public class Jugador {
 		 */  
 			  Disparo disparo = this.elegirDisparo();
 			  Posicion posicionElegida = this.elegirPosicion();
-			  ColeccionDePosiciones posicionesADisparar = tableroDelJugador.obtenerPosicionesAdyacentesA(posicionElegida);
+			  ColeccionDePosiciones posicionesADisparar = tableroDelJugador.obtenerPosicionesDondeDisparar(posicionElegida,disparo);
 			  
 			  this.realizarDisparoALasPosiciones(disparo, posicionesADisparar);
 		

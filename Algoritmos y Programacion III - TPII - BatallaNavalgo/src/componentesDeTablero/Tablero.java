@@ -5,6 +5,8 @@ import nave.ComponenteDeNave;
 import nave.Nave;
 import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
+import colecciones.ColeccionDePosiciones;
+import disparos.Disparo;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -13,6 +15,7 @@ public class Tablero {
 
 	ColeccionDeColumnas columnasDelTablero;
 	ColeccionDeNaves navesDelTablero;
+	RecolectorDePosicionesDeDisparo recolectorDePosicionesDeDisparo;
 
 	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 		/*
@@ -29,7 +32,9 @@ public class Tablero {
 		 }
 		 
 		columnasDelTablero = this.inicializarColumnasConFilas(cantidadDeColumnas, cantidadDeFilas);
+		recolectorDePosicionesDeDisparo = new RecolectorDePosicionesDeDisparo(this);
 		this.colocarNavesEnElTablero();
+		
 	}
 
 	private void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango {
@@ -349,5 +354,13 @@ public class Tablero {
 	public ColeccionDeNaves obtenerNavesDelTablero(){
 		
 		return navesDelTablero;
+	}
+
+	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango {
+		/* Devuelve las posiciones afectadas por el disparo */
+		
+		ColeccionDePosiciones posicionesADisparar = recolectorDePosicionesDeDisparo.obtenerPosicionesDeDisparo(posicionElegida, disparo);
+		
+		return posicionesADisparar;
 	}
 }
