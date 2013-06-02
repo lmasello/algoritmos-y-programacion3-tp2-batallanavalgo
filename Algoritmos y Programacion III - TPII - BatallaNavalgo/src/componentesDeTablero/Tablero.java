@@ -15,13 +15,11 @@ public class Tablero {
 
 	ColeccionDeColumnas columnasDelTablero;
 	ColeccionDeNaves navesDelTablero;
-	RecolectorDePosicionesDeDisparo recolectorDePosicionesDeDisparo;
 
 	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 		/*
 		 * Constructor de la clase. Inicializa la clase Tablero con una cantidad
-		 * determinada de columnas y filas. A su vez, inicializa el tablero
-		 * colocando arbitrariamente a las naves del juego.
+		 * determinada de columnas y filas.
 		 * 
 		 * Precondiciones: cantidadDeColumnas y cantidadDeFilas deben ser
 		 * mayores a 0.
@@ -32,12 +30,12 @@ public class Tablero {
 		 }
 		 
 		columnasDelTablero = this.inicializarColumnasConFilas(cantidadDeColumnas, cantidadDeFilas);
-		recolectorDePosicionesDeDisparo = new RecolectorDePosicionesDeDisparo(this);
-		this.colocarNavesEnElTablero();
-		
+		navesDelTablero = new ColeccionDeNaves();
+	
 	}
+	
 
-	private void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango {
+	public void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango {
 	/*
 	 * Metodo que consiste en agregar naves en el tablero.
 	 * Esta determinado por la consigna del trabajo la cantidad de naves a colocar.
@@ -45,10 +43,10 @@ public class Tablero {
 	 * Las posiciones en donde se colocaran dichas naves es arbitraria.
 	 * 
 	 */
-		ColeccionDeNaves navesAColocar = new ColeccionDeNaves(); 
-		navesAColocar.establecerNavesDelJuego();
+ 
+		navesDelTablero.establecerNavesDelJuego();
 		
-		navesDelTablero = navesAColocar;
+		ColeccionDeNaves navesAColocar = navesDelTablero;
 		
 		for (int numeroDeNaveActual=1 ; numeroDeNaveActual <= navesAColocar.cantidadDeNaves() ; numeroDeNaveActual++){
 			
@@ -218,7 +216,7 @@ public class Tablero {
 	}
 
 
-	private void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
+	public void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera horizontal las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a la izquierda de la posicionDeProa de acuerdo al largo de la nave.	
@@ -247,7 +245,7 @@ public class Tablero {
 		}
 	}
 
-	private void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
+	public void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera vertical las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a abajo de la posicionDeProa de acuerdo al largo de la nave.	
@@ -356,11 +354,40 @@ public class Tablero {
 		return navesDelTablero;
 	}
 
-	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango {
-		/* Devuelve las posiciones afectadas por el disparo */
+
+	public int cantidadDeBarcosEnTablero() {
 		
-		ColeccionDePosiciones posicionesADisparar = recolectorDePosicionesDeDisparo.obtenerPosicionesDeDisparo(posicionElegida, disparo);
+		return navesDelTablero.cantidadDeNaves();
+	}
+
+
+	public boolean hayComponenteEnPosicion(char columnaDeLaPosicion, int filaDeLaPosicion) throws ValorDeParametroFueraDeRango {
+		
+		Posicion posicionAEvaluar = this.obtenerPosicion(columnaDeLaPosicion, filaDeLaPosicion);
+		
+		return posicionAEvaluar.tieneComponenteDeNave();
+	}
+
+
+	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango{
+		/* Devuelve una coleccion de posiciones con todas aquellas posiciones afectadas por el disparo.
+		 * Por convension del trabajo, las posiciones afectadas de acuerdo a cada disparo seran:
+		 * Disparo Convensional: 1 posicion
+		 * Mina Puntual: 1 posicion
+		 * Mina por Contacto: 1 posicion
+		 * Mina doble: 9 posiciones (la posicion en donde se la deja y todas aquellas posiciones adyacentes de radio 1)
+		 * Mina triple: 25 posiciones (la posicion en donde se la deja y todas aquellas posiciones adyacentes de radio 2)
+		 * 
+		 *  Precondiciones:
+		 *      posicionElegida debe ser una posicion del tablero
+		 *      disparo debe ser un disparo valido (convencional, mina puntual, mina por contacto, mina doble o mina triple)
+		*/
+
+		RecolectorDePosicionesDeDisparo unRecolectorDePosiciones = new RecolectorDePosicionesDeDisparo(this);
+		ColeccionDePosiciones posicionesADisparar = unRecolectorDePosiciones.obtenerPosicionesDeDisparo(posicionElegida, disparo);
 		
 		return posicionesADisparar;
 	}
+	
 }
+
