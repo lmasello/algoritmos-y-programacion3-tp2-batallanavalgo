@@ -6,6 +6,7 @@ public class Disparo {
 	
 	MomentoDeImpacto momentoDeImpacto;
 	int tiempoPredefinidoDeImpacto;
+	int radioDeDisparo;
 
 	public int obtenerCosto() {
 		
@@ -25,5 +26,10 @@ public class Disparo {
 	public boolean noEsMinaPorContacto() {
 		
 		return true;
+	}
+	
+	public int obtenerRadioDeDisparo(){
+		
+		return radioDeDisparo;
 	}
 }

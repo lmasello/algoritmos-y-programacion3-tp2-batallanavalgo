@@ -8,6 +8,7 @@ public class DisparoConvencional extends Disparo {
 		
 		tiempoPredefinidoDeImpacto = 1; // Al instante de que se produce el disparo.
 		momentoDeImpacto = new MomentoDeImpacto(tiempoPredefinidoDeImpacto);
+		radioDeDisparo = 0;
 	}
 
 	public int obtenerCosto() {
