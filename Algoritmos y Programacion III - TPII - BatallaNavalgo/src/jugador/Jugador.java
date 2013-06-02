@@ -38,7 +38,8 @@ public class Jugador {
 			 posicionesADisparar) throws ValorDeParametroFueraDeRango {
 		
 	/* Recorre la coleccion de posiciones para colocar el disparo correspondiente en cada
-	 * 	posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado */
+	 * 	posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
+	 */
 		
 		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesADisparar.cantidadDePosiciones()
 				; posicionEnColeccion++){
@@ -50,7 +51,7 @@ public class Jugador {
 	
 
 	}
-	
+
 	public void disparar(){
 			
 		/*	El Jugador elige un tipo de disparo, junto con una posicion (metodos a desarrollar)
@@ -58,12 +59,12 @@ public class Jugador {
 		 *  posiciones necesarias para tal disparo y se devuelve la coleccion. Por ultimo
 		 *  se realiza el disparo a las posiciones recolectadas.
 		 */  
-			  Disparo disparo = this.elegirDisparo();
+		/*	  Disparo disparo = this.elegirDisparo();
 			  Posicion posicionElegida = this.elegirPosicion();
 			  ColeccionDePosiciones posicionesADisparar = tableroDelJugador.obtenerPosicionesDondeDisparar(posicionElegida,disparo);
 			  
 			  this.realizarDisparoALasPosiciones(disparo, posicionesADisparar);
-		
+		*/
 	}
 
 }
