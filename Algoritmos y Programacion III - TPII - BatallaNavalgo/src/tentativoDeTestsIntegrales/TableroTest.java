@@ -3,48 +3,20 @@ package tentativoDeTestsIntegrales;
 import static org.junit.Assert.*;
 import junit.framework.TestCase;
 
+import nave.Buque;
+import nave.Lancha;
+
 import org.junit.Test;
 
+import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
+import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 
 public class TableroTest extends TestCase {
-
-	public void testCrearTableroDe10FilasPor10Columnas() {
-		/*
-		 * Metodo que prueba el inicializador del tablero, el cual se inicializa
-		 * con 10 filas y 10 columnas. Primer parametro del constructor
-		 * representa el numero de columnas y el segundo parametro representa el
-		 * numero de filas.
-		 */
-
-		Tablero tableroDelJuego = new Tablero(10, 10);
-
-		assertNotNull(tableroDelJuego);
-	}
-
-	public void testInicializaElTableroCon7Naves() {
-		/*
-		 * Metodo que prueba el inicializador del tablero, el cual se inicializa
-		 * con 7 naves. La ubicacion inicial de las naves es arbitraria.
-		 */
-
-		Tablero tableroDelJuego = new Tablero(10, 10);
-
-		assertEquals(7, tableroDelJuego.cantidadDeNavesEnElTablero());
-	}
-
-	public void testExaminarSiUnaPosicionDeterminadaPoseeUnaComponenteDeUnaNave() {
-
-		tablero tableroDelJuego = new Tablero(10, 10);
-
-		tablero.insertarComponenteDeNaveEnPosicion(1, 1);
-
-		assertEquals(true, tableroDelJuego.laPosicionTieneComponenteDeNave('A', 1));
-
-	}
-
-	public void testRealizarDisparoAUnaPosicionQueTieneUnaComponenteDeResistenciaDeUnTiro() {
+	
+	/*public void testRealizarDisparoAUnaPosicionQueTieneUnaComponenteDeResistenciaDeUnTiro() {
 
 		Tablero tableroDelJuego = new Tablero(10, 10);
 		Disparo disparoAgresivo = new Disparo();
@@ -86,31 +58,6 @@ public class TableroTest extends TestCase {
 																				// desaparece
 	}
 
-	public void testDinamicaDeUnTurno() {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
-		Jugador jugadorHumano = new Jugador("Leandro Masello");
-
-		jugadorHumano.dispararDisparoConvencionalEnPosicion(2, 4);
-
-		assertEquals(9800, jugadorHumano.puntaje());
-	}
-
-	public void testDinamicaDeDosTurnos() {
-
-		Tablero tableroDelJuego = new Tablero(10, 10);
-		Jugador jugadorHumano = new Jugador("Leandro Masello");
-
-		jugadorHumano.dispararMinaSubmarinaPuntualEnPosicion('C', 5);
-
-		tableroDelJuego.nuevoTurno(); // Realiza el movimiento de las naves y
-										// resta puntaje al jugador
-
-		jugadorHumano.dispararMinaSubmarinaDobleEnPosicion('H', 8);
-
-		assertEquals(9840, jugadorHumano.puntaje()); // Le resta el puntaje de
-														// los dos disparos y
-														// del turno
-	}
-
+*/
 }
