@@ -17,9 +17,9 @@ public class GraficadorDeTableroEnConsola {
 		int cantidadDeColumnas = tableroAGraficar.cantidadDeColumnas();
 		int cantidadDeFilas = tableroAGraficar.cantidadDeFilas();
 		
-		for(int numeroDeFilaActual = 1 ; numeroDeFilaActual<cantidadDeFilas ; numeroDeFilaActual++){
+		for(int numeroDeFilaActual = 1 ; numeroDeFilaActual<=cantidadDeFilas ; numeroDeFilaActual++){
 			
-			for(int numeroDeColumnaActual=1; numeroDeColumnaActual<cantidadDeColumnas ; numeroDeColumnaActual++){				
+			for(int numeroDeColumnaActual=0; numeroDeColumnaActual<cantidadDeColumnas ; numeroDeColumnaActual++){				
 	
 				int numeroDeIdentificadorDeColumnaInicial = (int)'A';			
 				char identificadorDeColumnaActual = (char) (numeroDeIdentificadorDeColumnaInicial + numeroDeColumnaActual);
