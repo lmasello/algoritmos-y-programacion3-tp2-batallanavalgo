@@ -1,12 +1,13 @@
 package pruebasUnitarias;
 
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.Destructor;
 
 public class DestructorTest extends TestCase {
 
-	public void testDestructorCrearYVerQueNoEstaDestruida() {
+	public void testDestructorCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
 
 		Destructor destructor = new Destructor();
 
@@ -14,7 +15,7 @@ public class DestructorTest extends TestCase {
 
 	}
 
-	public void testDestructorDestruir() throws ValorDeParametroFueraDeRango {
+	public void testDestructorDestruir() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
 		Destructor destructor = new Destructor();
 		destructor.destruirNave();
@@ -22,7 +23,7 @@ public class DestructorTest extends TestCase {
 		assertEquals(true, destructor.estaDestruida());
 	}
 	
-	public void testCantidadDeComponentesDeDestructor(){
+	public void testCantidadDeComponentesDeDestructor() throws LargoDeNaveIncorrecto{
 		
 		Destructor destructor = new Destructor();
 		

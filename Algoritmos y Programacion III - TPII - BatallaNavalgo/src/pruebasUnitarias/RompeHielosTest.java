@@ -1,12 +1,13 @@
 package pruebasUnitarias;
 
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.RompeHielos;
 
 public class RompeHielosTest extends TestCase {
 
-	public void testRompeHielosCrearYVerQueNoEstaDestruida() {
+	public void testRompeHielosCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
 
 		RompeHielos rompeHielos = new RompeHielos();
 
@@ -14,7 +15,7 @@ public class RompeHielosTest extends TestCase {
 
 	}
 
-	public void testRompeHielosDestruir() throws ValorDeParametroFueraDeRango {
+	public void testRompeHielosDestruir() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
 		RompeHielos rompeHielos = new RompeHielos();
 		rompeHielos.destruirNave();
@@ -22,7 +23,7 @@ public class RompeHielosTest extends TestCase {
 		assertEquals(true, rompeHielos.estaDestruida());
 	}
 	
-	public void testCantidadDeComponentesDeRompeHielos(){
+	public void testCantidadDeComponentesDeRompeHielos() throws LargoDeNaveIncorrecto{
 		
 		RompeHielos rompeHielos = new RompeHielos();
 		

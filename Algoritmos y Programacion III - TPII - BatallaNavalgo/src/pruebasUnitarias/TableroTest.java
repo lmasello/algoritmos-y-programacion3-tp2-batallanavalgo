@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -38,7 +39,7 @@ public class TableroTest extends TestCase {
 
 	}
 	
-	public void testCantidadDeBarcosInicialesEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+	public void testCantidadDeBarcosInicialesEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 		
 		Tablero tableroDelJuego = new Tablero(10, 10);
 		
@@ -50,7 +51,7 @@ public class TableroTest extends TestCase {
 		
 	}
 	
-	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveHorizontalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveHorizontalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 	
 		Tablero tableroDelJuego = new Tablero(10,10);
 		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
@@ -68,7 +69,7 @@ public class TableroTest extends TestCase {
 	}
 
 
-	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveVerticalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveVerticalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 	
 		Tablero tableroDelJuego = new Tablero(10,10);
 		Posicion posicionDeProaDeBuqueAColocar = tableroDelJuego.obtenerPosicion('D', 5);

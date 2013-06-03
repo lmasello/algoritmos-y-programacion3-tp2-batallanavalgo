@@ -1,12 +1,13 @@
 package pruebasUnitarias;
 
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.PortaAviones;
 
 public class PortaAvionesTest extends TestCase {
 
-	public void testPortaAvionesCrearYVerQueNoEstaDestruida() {
+	public void testPortaAvionesCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
 
 		PortaAviones portaAviones = new PortaAviones();
 
@@ -14,7 +15,7 @@ public class PortaAvionesTest extends TestCase {
 
 	}
 
-	public void testPortaAvionesDestruir() throws ValorDeParametroFueraDeRango {
+	public void testPortaAvionesDestruir() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
 		PortaAviones portaAviones = new PortaAviones();
 		portaAviones.destruirNave();
@@ -22,7 +23,7 @@ public class PortaAvionesTest extends TestCase {
 		assertEquals(true, portaAviones.estaDestruida());
 	}
 	
-	public void testCantidadDeComponentesDePortaAviones(){
+	public void testCantidadDeComponentesDePortaAviones() throws LargoDeNaveIncorrecto{
 		
 		PortaAviones portaAviones = new PortaAviones();
 		

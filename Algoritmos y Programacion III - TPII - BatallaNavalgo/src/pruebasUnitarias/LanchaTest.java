@@ -1,12 +1,13 @@
 package pruebasUnitarias;
 
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import junit.framework.TestCase;
 import nave.Lancha;
 
 public class LanchaTest extends TestCase {
 
-	public void testLanchaCrearYVerQueNoEstaDestruida() {
+	public void testLanchaCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
 
 		Lancha lancha = new Lancha();
 
@@ -14,7 +15,7 @@ public class LanchaTest extends TestCase {
 
 	}
 
-	public void testLanchaDestruir() throws ValorDeParametroFueraDeRango {
+	public void testLanchaDestruir() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
 		Lancha lancha = new Lancha();
 		lancha.destruirNave();

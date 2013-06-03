@@ -1,6 +1,7 @@
 package pruebasUnitarias;
 
 import nave.ComponenteDeNave;
+import nave.Resistencia;
 import componentesDeTablero.Posicion;
 import excepciones.ValorDeParametroFueraDeRango;
 
@@ -25,8 +26,8 @@ public class PosicionTest extends TestCase {
 	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango{
 		
 		Posicion posicion = new Posicion();
-		int resistencia1 = 2;
-		int resistencia2 = 5;
+		Resistencia resistencia1 = new Resistencia(2);
+		Resistencia resistencia2 = new Resistencia(5);
 		
 		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1);
 		ComponenteDeNave componente2 = new ComponenteDeNave(resistencia2);
@@ -37,10 +38,18 @@ public class PosicionTest extends TestCase {
 		assertEquals ( componente1 , (posicion.obtenerComponentesEnPosicion()).obtenerComponente(1));
 		assertEquals ( componente2 , (posicion.obtenerComponentesEnPosicion()).obtenerComponente(2));
 		
-		
-		
 	}
 	
+	public void testLuegoDeAgregarUnaComponenteDeberiaDarVerdaderoElMetodoDeSiTieneComponente(){
+		Posicion posicion = new Posicion();
+		
+		Resistencia resistencia1 = new Resistencia(2);
+		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1);
+
+		posicion.agregarComponenteAPosicion(componente1);
+		
+		assertEquals(true , posicion.tieneComponenteDeNave());
+	}
 	
 
 }
