@@ -2,6 +2,7 @@ package pruebasDeEstructurasDeColecciones;
 
 import junit.framework.TestCase;
 import colecciones.ColeccionDeNaves;
+import excepciones.LargoDeNaveIncorrecto;
 import nave.*;
 
 public class ColeccionDeNavesTest extends TestCase {
@@ -14,7 +15,7 @@ public class ColeccionDeNavesTest extends TestCase {
 		assertNotNull(coleccionDeNave);
 	}
 	
-	public void testAgregaUnaNave() {
+	public void testAgregaUnaNave() throws LargoDeNaveIncorrecto {
 
 		ColeccionDeNaves coleccionDeNave = new ColeccionDeNaves();
 
@@ -28,7 +29,7 @@ public class ColeccionDeNavesTest extends TestCase {
 
 	}
 	
-	public void testObtenerUnaNave() {
+	public void testObtenerUnaNave() throws LargoDeNaveIncorrecto {
 
 		ColeccionDeNaves coleccionDeNave = new ColeccionDeNaves();
 
