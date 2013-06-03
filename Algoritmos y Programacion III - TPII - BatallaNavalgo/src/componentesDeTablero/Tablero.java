@@ -7,6 +7,7 @@ import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
 import colecciones.ColeccionDePosiciones;
 import disparos.Disparo;
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -35,7 +36,7 @@ public class Tablero {
 	}
 	
 
-	public void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango {
+	public void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 	/*
 	 * Metodo que consiste en agregar naves en el tablero.
 	 * Esta determinado por la consigna del trabajo la cantidad de naves a colocar.
