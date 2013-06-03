@@ -7,6 +7,7 @@ public class Disparo {
 	MomentoDeImpacto momentoDeImpacto;
 	int tiempoPredefinidoDeImpacto;
 	int radioDeDisparo;
+	boolean fueEjecutado;
 
 	public int obtenerCosto() {
 		
@@ -31,5 +32,17 @@ public class Disparo {
 	public int obtenerRadioDeDisparo(){
 		
 		return radioDeDisparo;
+	}
+
+	public boolean fueEjecutado() {
+		
+		return fueEjecutado;
+		
+	}
+
+	public void marcarComoEjecutado() {
+		
+		fueEjecutado = true;
+		
 	}
 }

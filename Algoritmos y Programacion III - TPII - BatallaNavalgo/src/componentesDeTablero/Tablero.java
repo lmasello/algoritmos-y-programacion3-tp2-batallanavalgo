@@ -389,6 +389,30 @@ public class Tablero {
 		
 		return posicionesADisparar;
 	}
+
+
+	public void impactarDisparos() throws ValorDeParametroFueraDeRango {
+		
+		/* Recorre todas las posiciones del tablero, si la posicion tiene algun/os disparo/s
+		 * realiza el impacto de el/los mismo/s
+		 * */
+			for(int numeroDeFilaActual = 1 ; numeroDeFilaActual<= this.cantidadDeFilas() ; numeroDeFilaActual++){
+			
+				for(int numeroDeColumnaActual = 0; numeroDeColumnaActual < this.cantidadDeColumnas() ; numeroDeColumnaActual++){				
 	
+				int numeroDeIdentificadorDeColumnaInicial = (int)'A';			
+				char identificadorDeColumnaActual = (char) (numeroDeIdentificadorDeColumnaInicial + numeroDeColumnaActual);
+				
+				Posicion posicionActual = this.obtenerPosicion(identificadorDeColumnaActual, numeroDeFilaActual);
+				
+					  if(posicionActual.tieneDisparo()){
+						posicionActual.impactoDeLosDisparos();
+					  }
+					
+				}
+			}
+			
+	}
+		
 }
 

@@ -7,7 +7,7 @@ import nave.PortaAviones;
 
 public class PortaAvionesTest extends TestCase {
 
-	public void testPortaAvionesCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
+	public void testPortaAvionesCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango {
 
 		PortaAviones portaAviones = new PortaAviones();
 

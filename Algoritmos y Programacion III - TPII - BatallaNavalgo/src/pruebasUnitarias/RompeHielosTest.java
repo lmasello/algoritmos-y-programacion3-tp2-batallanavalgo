@@ -7,7 +7,7 @@ import nave.RompeHielos;
 
 public class RompeHielosTest extends TestCase {
 
-	public void testRompeHielosCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
+	public void testRompeHielosCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango {
 
 		RompeHielos rompeHielos = new RompeHielos();
 

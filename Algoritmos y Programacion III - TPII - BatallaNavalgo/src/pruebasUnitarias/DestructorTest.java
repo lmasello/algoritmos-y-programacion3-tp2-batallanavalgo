@@ -7,7 +7,7 @@ import nave.Destructor;
 
 public class DestructorTest extends TestCase {
 
-	public void testDestructorCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
+	public void testDestructorCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango {
 
 		Destructor destructor = new Destructor();
 

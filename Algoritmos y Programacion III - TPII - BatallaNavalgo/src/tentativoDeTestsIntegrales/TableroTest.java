@@ -42,7 +42,17 @@ public class TableroTest extends TestCase {
 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
 		
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),1);
+		assertEquals(posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos(),1);
+		
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
+		assertEquals(posicionDeCuerpoDeNave.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
+		
 		tableroDelJuego.impactarDisparos();
+		
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
+		assertEquals(posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
+		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
 	}
@@ -60,12 +70,21 @@ public class TableroTest extends TestCase {
 		assertEquals(false, naveAProbar.estaDestruida());
 		
 		Disparo disparoARealizar = new DisparoConvencional();
-
+		
+		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
+		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
+		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
 		
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),2);
+		
 		tableroDelJuego.impactarDisparos();
+		
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
+		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
 	}
@@ -86,6 +105,7 @@ public class TableroTest extends TestCase {
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
 
 		tableroDelJuego.impactarDisparos();
+		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
 	}

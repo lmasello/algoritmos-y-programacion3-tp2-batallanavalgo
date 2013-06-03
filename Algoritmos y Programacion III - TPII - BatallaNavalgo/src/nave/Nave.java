@@ -31,8 +31,17 @@ public abstract class Nave {
 		}
 	}
 
-	public boolean estaDestruida() {
-
+	public boolean estaDestruida() throws ValorDeParametroFueraDeRango {
+		
+	/* Recorre las componentes de la nave y se fija si alguna esta destruida.
+	 * Si todas estan destruidas entonces la nave esta destruida 
+	 * */
+		
+		for( int numeroDeComponente = 1; numeroDeComponente <= componentes.cantidadDeComponentes();
+				 	numeroDeComponente++){
+			estaDestruida = componentes.obtenerComponente(numeroDeComponente).estaDestruida();
+		}
+				
 		return estaDestruida;
 	}
 	

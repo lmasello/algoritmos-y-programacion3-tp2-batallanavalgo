@@ -7,7 +7,7 @@ import nave.Lancha;
 
 public class LanchaTest extends TestCase {
 
-	public void testLanchaCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto {
+	public void testLanchaCrearYVerQueNoEstaDestruida() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango {
 
 		Lancha lancha = new Lancha();
 

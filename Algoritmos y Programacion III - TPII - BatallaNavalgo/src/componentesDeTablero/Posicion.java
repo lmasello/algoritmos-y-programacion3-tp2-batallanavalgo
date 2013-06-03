@@ -72,15 +72,36 @@ public class Posicion {
 	/* Recorre los disparos en la posicion, para cada uno chequea el momento de impacto
 	 * si el mismo es igual a 0(cero), realiza el impacto del disparo.
 	 * Si no, disminuye el momento de impacto del disparo
+	 * Al finalizar, quita los disparos que fueron ejectuados.
 	 * */
 		
-		for(int posicionEnColeccion = 0; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
+		for(int posicionEnColeccion = 0 ; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
 					posicionEnColeccion++){
 			Disparo disparoActual = disparosEnPosicion.obtenerDisparoDeIndice(posicionEnColeccion);
 			if( disparoActual.obtenerMomentoDeImpacto().obtenerMomentoDeImpacto() == 0){
 				this.realizarImpactoDe(disparoActual);
 			}else{
 				disparoActual.obtenerMomentoDeImpacto().DisminuirMomentoDeImpacto();
+			}	
+		}
+		
+		this.quitarDisparosEjecutados();
+		
+	}
+
+	private void quitarDisparosEjecutados() {
+		
+		/* Recorre los disparos en la posicion en busca de los que fueron ejectuados,
+		 * para tales los quita de la lista y coloca a la posicion del iterador (posicionEnColeccion)
+		 * un lugar "atras" para que no se vaya de rango.
+		 * */
+		
+		for(int posicionEnColeccion = 0 ; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
+					posicionEnColeccion++){
+			Disparo disparoActual = disparosEnPosicion.obtenerDisparoDeIndice(posicionEnColeccion);
+			if(disparoActual.fueEjecutado()){
+				disparosEnPosicion.quitarDisparo(disparoActual);
+				posicionEnColeccion = posicionEnColeccion - 1;
 			}
 		}
 	}
@@ -93,17 +114,22 @@ public class Posicion {
 	 * */
 		
 		if(componentesDeNaveEnPosicion.tieneComponente()){
-			for(int posicionEnColeccion = 0; posicionEnColeccion < componentesDeNaveEnPosicion.cantidadDeComponentes();
+			for(int posicionEnColeccion = 1; posicionEnColeccion <= componentesDeNaveEnPosicion.cantidadDeComponentes();
 						posicionEnColeccion++){
 				ComponenteDeNave componenteADisparar = componentesDeNaveEnPosicion.obtenerComponente(posicionEnColeccion);
 				disparo.dispararA(componenteADisparar);
-				disparosEnPosicion.quitarDisparo(disparo);
+				disparo.marcarComoEjecutado();
 			}
 		}else{
 			if(disparo.noEsMinaPorContacto()){
-				disparosEnPosicion.quitarDisparo(disparo);
+				disparo.marcarComoEjecutado();
 			}
 		}
+	}
+
+	public boolean tieneDisparo() {
+		
+		return (disparosEnPosicion.noEstaVacia());
 	}
 	
 }

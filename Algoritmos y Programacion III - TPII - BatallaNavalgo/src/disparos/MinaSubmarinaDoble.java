@@ -6,9 +6,11 @@ public class MinaSubmarinaDoble extends Disparo {
 	
 	public MinaSubmarinaDoble(){
 		
-		tiempoPredefinidoDeImpacto = 3; // A los 3 turnos de que se produce el disparo.
+		tiempoPredefinidoDeImpacto = 2; // A los 3 turnos de que se produce el disparo.
 		momentoDeImpacto = new MomentoDeImpacto(tiempoPredefinidoDeImpacto);
 		radioDeDisparo = 1;
+		fueEjecutado = false;
+		
 	}
 	
 	public int obtenerCosto(){

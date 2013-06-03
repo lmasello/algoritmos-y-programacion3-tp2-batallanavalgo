@@ -33,5 +33,10 @@ public class ColeccionDeDisparos {
 		
 		coleccionDeDisparos.remove(disparo);
 	}
+	
+	public boolean noEstaVacia(){
+		
+		return (!coleccionDeDisparos.isEmpty());
+	}
 
 }
