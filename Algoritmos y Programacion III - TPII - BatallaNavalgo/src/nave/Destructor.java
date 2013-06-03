@@ -16,4 +16,8 @@ public class Destructor extends Nave{
 		
 	}
 
+	public boolean esDestructor(){
+		
+		return true;
+	}
 }

@@ -1,8 +1,11 @@
 package pruebasUnitarias;
 
 import nave.ComponenteDeNave;
+import nave.Lancha;
+import nave.Nave;
 import nave.Resistencia;
 import componentesDeTablero.Posicion;
+import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 
 import junit.framework.TestCase;
@@ -23,14 +26,15 @@ public class PosicionTest extends TestCase {
 	
 	}
 	
-	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango{
+	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 		
 		Posicion posicion = new Posicion();
 		Resistencia resistencia1 = new Resistencia(2);
 		Resistencia resistencia2 = new Resistencia(5);
+		Nave nave1 = new Lancha();
 		
-		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1);
-		ComponenteDeNave componente2 = new ComponenteDeNave(resistencia2);
+		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1,nave1);
+		ComponenteDeNave componente2 = new ComponenteDeNave(resistencia2,nave1);
 		
 		posicion.agregarComponenteAPosicion(componente1);
 		posicion.agregarComponenteAPosicion(componente2);
@@ -40,11 +44,12 @@ public class PosicionTest extends TestCase {
 		
 	}
 	
-	public void testLuegoDeAgregarUnaComponenteDeberiaDarVerdaderoElMetodoDeSiTieneComponente(){
+	public void testLuegoDeAgregarUnaComponenteDeberiaDarVerdaderoElMetodoDeSiTieneComponente() throws LargoDeNaveIncorrecto{
 		Posicion posicion = new Posicion();
+		Nave nave1 = new Lancha();
 		
 		Resistencia resistencia1 = new Resistencia(2);
-		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1);
+		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1,nave1);
 
 		posicion.agregarComponenteAPosicion(componente1);
 		

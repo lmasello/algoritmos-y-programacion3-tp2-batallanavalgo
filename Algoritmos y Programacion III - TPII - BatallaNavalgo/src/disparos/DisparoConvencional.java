@@ -18,5 +18,8 @@ public class DisparoConvencional extends Disparo {
 		return costoDeDisparo;
 	}
 	
-	
+	public boolean noEsDisparoConvencional() {
+		
+		return false;
+	}
 }

@@ -84,6 +84,7 @@ public class TableroTest extends TestCase {
 		tableroDelJuego.impactarDisparos();
 		
 		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
+		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),0);
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
@@ -123,13 +124,14 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(false, naveAProbar.estaDestruida());
 
- 		Disparo disparoARealizar1 = new DisparoConvencional();
+ 		Disparo disparoARealizar = new DisparoConvencional();
 
- 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar1);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar1);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar1);
+ 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
+		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
+		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
 
 		tableroDelJuego.impactarDisparos();
+		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
 	}
@@ -158,6 +160,9 @@ public class TableroTest extends TestCase {
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar4);
 		
 		tableroDelJuego.impactarDisparos();
+		tableroDelJuego.impactarDisparos();
+		tableroDelJuego.impactarDisparos();
+		
 		assertEquals(false, naveAProbar.estaDestruida());
 		
 	}

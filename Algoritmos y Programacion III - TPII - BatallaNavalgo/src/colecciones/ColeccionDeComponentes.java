@@ -48,4 +48,10 @@ public class ColeccionDeComponentes {
 		return (!componentes.isEmpty());
 	}
 
+	public void quitarComponente(ComponenteDeNave componenteAQuitar) {
+		
+		componentes.remove(componenteAQuitar);
+	}
+
+
 }

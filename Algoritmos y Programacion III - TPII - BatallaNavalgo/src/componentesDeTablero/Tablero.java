@@ -394,7 +394,7 @@ public class Tablero {
 	public void impactarDisparos() throws ValorDeParametroFueraDeRango {
 		
 		/* Recorre todas las posiciones del tablero, si la posicion tiene algun/os disparo/s
-		 * realiza el impacto de el/los mismo/s
+		 * realiza el impacto de el/los mismo/s, luego remueve los componentes que fueron eliminados.
 		 * */
 			for(int numeroDeFilaActual = 1 ; numeroDeFilaActual<= this.cantidadDeFilas() ; numeroDeFilaActual++){
 			
@@ -408,9 +408,11 @@ public class Tablero {
 					  if(posicionActual.tieneDisparo()){
 						posicionActual.impactoDeLosDisparos();
 					  }
+					  	posicionActual.removerComponentesEliminadas();
 					
 				}
 			}
+			
 			
 	}
 		

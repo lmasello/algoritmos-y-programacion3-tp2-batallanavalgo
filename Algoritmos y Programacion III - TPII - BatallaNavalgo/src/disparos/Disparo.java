@@ -15,10 +15,23 @@ public class Disparo {
 	}
 	
 	public void dispararA(ComponenteDeNave componente){
+		/* Caso especial en el cual la nave Destructor solo es afectada por 
+		 * un disparo convencional
+		 *  */
 		
-		componente.disparoAComponente();
+		if(componente.obtenerNaveALaQuePertenece().esDestructor()
+				&& this.noEsDisparoConvencional()){
+			//No dispara
+		}else{
+			componente.disparoAComponente();
+		}
 	}
 	
+	public boolean noEsDisparoConvencional() {
+
+		return true;
+	}
+
 	public MomentoDeImpacto obtenerMomentoDeImpacto(){
 		
 		return momentoDeImpacto;

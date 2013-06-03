@@ -26,7 +26,7 @@ public abstract class Nave {
 	 */
 		for (int indiceDeComponentes = 0; indiceDeComponentes < largoDeLaNave; indiceDeComponentes++) {
 
-			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave);
+			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave,this);
 			this.agregarComponenteALaNave(componenteAAgregar);
 		}
 	}
@@ -119,6 +119,9 @@ public abstract class Nave {
 		
 	}
 	
-	
+	public boolean esDestructor(){
+		
+		return false;
+	}
 	
 }

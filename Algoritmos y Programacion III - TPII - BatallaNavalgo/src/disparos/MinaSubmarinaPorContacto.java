@@ -6,7 +6,7 @@ public class MinaSubmarinaPorContacto extends Disparo {
 	
 	public MinaSubmarinaPorContacto(){
 		
-		tiempoPredefinidoDeImpacto = 88; // Indefinido, solo impacta cuando haya una nave.
+		tiempoPredefinidoDeImpacto = 0; // Indefinido, solo impacta cuando haya una nave.
 		momentoDeImpacto = new MomentoDeImpacto(tiempoPredefinidoDeImpacto);
 		radioDeDisparo = 0;
 		fueEjecutado = false;

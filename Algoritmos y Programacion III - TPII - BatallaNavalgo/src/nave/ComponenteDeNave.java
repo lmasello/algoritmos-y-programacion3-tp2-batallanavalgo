@@ -4,11 +4,13 @@ public class ComponenteDeNave {
 
 	Resistencia resistencia;
 	boolean destruida;
+	Nave naveALaQuePertenece;
 
-	public ComponenteDeNave(Resistencia resistenciaDeNave) {
+	public ComponenteDeNave(Resistencia resistenciaDeNave, Nave nave) {
 
 		resistencia = resistenciaDeNave;
 		destruida = false;
+		naveALaQuePertenece = nave;
 
 	}
 
@@ -32,4 +34,8 @@ public class ComponenteDeNave {
 		return this.destruida;
 	}
 
+	public Nave obtenerNaveALaQuePertenece(){
+		
+		return naveALaQuePertenece;
+	}
 }

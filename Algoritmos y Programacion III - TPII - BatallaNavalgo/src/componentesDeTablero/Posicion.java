@@ -131,5 +131,22 @@ public class Posicion {
 		
 		return (disparosEnPosicion.noEstaVacia());
 	}
+
+	public void removerComponentesEliminadas() throws ValorDeParametroFueraDeRango {
+		
+	/* Recorre los componentes en la posicion para chequear si hay alguna destruida en cuyo
+	 * caso la elimina de la coleccion
+	 * */
+		
+		for(int componenteEnPosicion = 1; componenteEnPosicion <= componentesDeNaveEnPosicion.cantidadDeComponentes(); 
+					componenteEnPosicion++){
+			ComponenteDeNave componenteActual = componentesDeNaveEnPosicion.obtenerComponente(componenteEnPosicion);
+			if(componenteActual.estaDestruida()){
+				componentesDeNaveEnPosicion.quitarComponente(componenteActual);
+				componenteEnPosicion = componenteEnPosicion - 1;
+			}
+			
+		}
+	}
 	
 }
