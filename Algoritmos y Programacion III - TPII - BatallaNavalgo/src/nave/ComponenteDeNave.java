@@ -5,9 +5,9 @@ public class ComponenteDeNave {
 	Resistencia resistencia;
 	boolean destruida;
 
-	public ComponenteDeNave(int resistenciaDeNave) {
+	public ComponenteDeNave(Resistencia resistenciaDeNave) {
 
-		resistencia = new Resistencia(resistenciaDeNave);
+		resistencia = resistenciaDeNave;
 		destruida = false;
 
 	}

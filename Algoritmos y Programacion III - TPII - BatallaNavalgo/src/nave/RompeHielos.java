@@ -1,14 +1,19 @@
 package nave;
 
+import excepciones.LargoDeNaveIncorrecto;
+
 public class RompeHielos extends Nave {
 	
-	public RompeHielos() {
-
-		cantidadDeComponentes = 3;
-		for (int indiceDeComponentes = 0; indiceDeComponentes < cantidadDeComponentes; indiceDeComponentes++) {
-
-			this.agregarComponenteConResistencia(2);
-		}
+	public RompeHielos() throws LargoDeNaveIncorrecto {
+			
+		super();
+		
+		Resistencia resistenciaAAgregar = new Resistencia(2);
+		this.establecerResistenciaDeLaNave(resistenciaAAgregar);
+		this.establecerLargoDeLaNave(3);
+		
+		this.agregarComponentes();
+		
 	}
 
 

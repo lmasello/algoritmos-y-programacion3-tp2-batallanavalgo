@@ -1,14 +1,19 @@
 package nave;
 
+import excepciones.LargoDeNaveIncorrecto;
+
 public class Lancha extends Nave {
 
-	public Lancha() {
+	public Lancha() throws LargoDeNaveIncorrecto {
 
-		cantidadDeComponentes = 2;
-		for (int indiceDeComponentes = 0; indiceDeComponentes < cantidadDeComponentes; indiceDeComponentes++) {
-
-			this.agregarComponenteConResistencia(1);
-		}
+		super();
+		
+		Resistencia resistenciaAAgregar = new Resistencia(1);
+		this.establecerResistenciaDeLaNave(resistenciaAAgregar);
+		this.establecerLargoDeLaNave(2);
+		
+		this.agregarComponentes();
+			
 	}
 
 }
