@@ -399,7 +399,7 @@ public class Tablero {
 			for(int numeroDeFilaActual = 1 ; numeroDeFilaActual<= this.cantidadDeFilas() ; numeroDeFilaActual++){
 			
 				for(int numeroDeColumnaActual = 0; numeroDeColumnaActual < this.cantidadDeColumnas() ; numeroDeColumnaActual++){				
-	
+
 				int numeroDeIdentificadorDeColumnaInicial = (int)'A';			
 				char identificadorDeColumnaActual = (char) (numeroDeIdentificadorDeColumnaInicial + numeroDeColumnaActual);
 				
@@ -409,11 +409,26 @@ public class Tablero {
 						posicionActual.impactoDeLosDisparos();
 					  }
 					  	posicionActual.removerComponentesEliminadas();
-					
 				}
-			}
-			
-			
+			}			
+	}
+
+
+	public boolean noTieneLaColumna(char unaColumna) {
+		/*
+		 * Devuelve true si el tablero no contiene la columna de identificador pasado por parametro
+		 */
+		
+		return (!columnasDelTablero.tieneLaColumnaDeIdentificador(unaColumna));
+		
+	}
+
+
+	public boolean noTieneLaFila(int unaFila) {
+		/*
+		 * Devuelve true si el tablero no contiene la fila de identificador pasado por parametro
+		 */
+		return (!columnasDelTablero.tieneFila(unaFila));
 	}
 		
 }

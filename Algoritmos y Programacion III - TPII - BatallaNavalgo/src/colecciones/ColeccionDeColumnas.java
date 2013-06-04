@@ -74,4 +74,11 @@ public class ColeccionDeColumnas {
 		return coleccionDeColumnas.size();
 	}
 
+	public boolean tieneFila(int unaFila) {
+		
+		Columna unaColumna = coleccionDeColumnas.get(1);
+		return((unaFila<1)|(unaFila>unaColumna.cantidadDePosiciones()));
+		
+	}
+
 }
