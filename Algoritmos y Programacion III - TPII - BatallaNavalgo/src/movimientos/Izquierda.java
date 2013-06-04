@@ -2,7 +2,7 @@ package movimientos;
 
 import componentesDeTablero.Posicion;
 
-public class Izquierda extends Sentido implements SentidoHorizontal{
+public class Izquierda implements SentidoHorizontal{
 
 	@Override
 	public char proximoPaso(Posicion posicionAConocerLaSiguiente) {
@@ -21,5 +21,8 @@ public class Izquierda extends Sentido implements SentidoHorizontal{
 	public SentidoHorizontal proximoSentido() {
 		return new Derecha();
 	}
-	
+
+	public boolean equals(Object otro){
+		return this.getClass().equals(otro.getClass());
+	}
 }

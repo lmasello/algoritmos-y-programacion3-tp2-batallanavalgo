@@ -2,7 +2,7 @@ package movimientos;
 
 import componentesDeTablero.Posicion;
 
-public interface SentidoHorizontal {
+public interface SentidoHorizontal extends Sentido {
 
 	public abstract char proximoPaso(Posicion posicionAConocerLaSiguiente);
 

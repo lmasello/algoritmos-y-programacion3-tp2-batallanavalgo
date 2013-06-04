@@ -1,10 +1,8 @@
 package movimientos;
 
-public abstract class Sentido {
+import componentesDeTablero.Posicion;
 
-	public boolean equals(Object otro){
-		return this.getClass().equals(otro.getClass());
-	}
+public interface Sentido {
 
 	public abstract Sentido proximoSentido();
 

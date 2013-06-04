@@ -5,8 +5,10 @@ import componentesDeTablero.Tablero;
 import excepciones.ValorDeParametroFueraDeRango;
 
 
-public class DireccionHorizontal extends Direccion {
+public class DireccionHorizontal implements Direccion {
 
+	Tablero tableroDeLaDireccion;
+	SentidoHorizontal sentidoDeLaNave;
 	
 	public Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente) throws ValorDeParametroFueraDeRango{
 	/*
@@ -26,6 +28,30 @@ public class DireccionHorizontal extends Direccion {
 		Posicion posicionADevolver = tableroDeLaDireccion.obtenerPosicion(columnaSiguiente, posicionAConocerLaSiguiente.filaDeLaPosicion());
 
 		return posicionADevolver;
+	}
+
+	@Override
+	public void cambiarSentido() {
+		sentidoDeLaNave = (sentidoDeLaNave).proximoSentido();
+	}
+
+	@Override
+	public void tableroDeLasPosiciones(Tablero tableroParaConocerDireccion) {
+		
+		tableroDeLaDireccion = tableroParaConocerDireccion;
+	}
+
+	@Override
+	public Sentido sentidoDeLaDireccion() {
+		
+		return sentidoDeLaNave;
+	}
+
+
+	@Override
+	public void sentido(Sentido unSentido) {
+		
+		sentidoDeLaNave = (SentidoHorizontal) unSentido;
 	}
 	
 }

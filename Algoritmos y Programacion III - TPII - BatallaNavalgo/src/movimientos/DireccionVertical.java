@@ -1,12 +1,16 @@
 package movimientos;
 
 import componentesDeTablero.Posicion;
+import componentesDeTablero.Tablero;
 
 import excepciones.ValorDeParametroFueraDeRango;
 
 
-public class DireccionVertical extends Direccion {
+public class DireccionVertical implements Direccion {
 
+	Tablero tableroDeLaDireccion;
+	SentidoVertical sentidoDeLaNave;
+	
 	@Override
 	public Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente)
 			throws ValorDeParametroFueraDeRango {
@@ -28,4 +32,27 @@ public class DireccionVertical extends Direccion {
 
 			return posicionADevolver;
 		}
+
+	@Override
+	public void sentido(Sentido unSentido) {
+		
+		sentidoDeLaNave = (SentidoVertical) unSentido;
+	}
+
+	@Override
+	public void cambiarSentido() {
+		
+		sentidoDeLaNave = (sentidoDeLaNave).proximoSentido();
+	}
+
+	@Override
+	public void tableroDeLasPosiciones(Tablero tableroParaConocerDireccion) {
+		
+		tableroDeLaDireccion = tableroParaConocerDireccion;
+	}
+
+	@Override
+	public Sentido sentidoDeLaDireccion() {
+		return sentidoDeLaNave;
+	}
 }

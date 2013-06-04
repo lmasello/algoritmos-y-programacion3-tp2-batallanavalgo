@@ -2,7 +2,7 @@ package movimientos;
 
 import componentesDeTablero.Posicion;
 
-public interface SentidoVertical {
+public interface SentidoVertical extends Sentido{
 
 	public abstract int proximoPaso(Posicion posicionAConocerLaSiguiente);
 
