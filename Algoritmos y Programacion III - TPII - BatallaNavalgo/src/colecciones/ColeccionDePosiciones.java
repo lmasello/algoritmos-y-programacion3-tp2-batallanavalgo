@@ -30,7 +30,20 @@ public class ColeccionDePosiciones {
 
 		return null; // Aqui deberia lanzar excepcion
 	}
+	
 
+	public boolean seEncuentraLaPosicion(Posicion posicion){
+		
+		for (int indice=1; indice <= this.cantidadDePosiciones(); indice++){
+			if( posicion == this.obtenerPosicionDeLaFila(indice)){
+				return true;			
+			}
+		}
+		
+		return false;
+	}
+	
+	
 	public boolean tieneLaPosicion(int indiceDeLaPosicion) {
 
 		boolean tieneLaPosicion = (indiceDeLaPosicion <= this.cantidadDePosiciones());
