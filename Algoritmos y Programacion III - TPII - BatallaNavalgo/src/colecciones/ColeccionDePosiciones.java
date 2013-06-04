@@ -24,8 +24,7 @@ public class ColeccionDePosiciones {
 		int indiceDeLaPosicion = filaDeLaPosicion - 1;
 
 		if (this.tieneLaPosicion(indiceDeLaPosicion)) {
-			Posicion posicionBuscada = posicionesDeLaColumna
-					.get(indiceDeLaPosicion);
+			Posicion posicionBuscada = posicionesDeLaColumna.get(indiceDeLaPosicion);
 			return posicionBuscada;
 		}
 
@@ -34,8 +33,7 @@ public class ColeccionDePosiciones {
 
 	public boolean tieneLaPosicion(int indiceDeLaPosicion) {
 
-		boolean tieneLaPosicion = (indiceDeLaPosicion <= this
-				.cantidadDePosiciones());
+		boolean tieneLaPosicion = (indiceDeLaPosicion <= this.cantidadDePosiciones());
 
 		return tieneLaPosicion;
 	}
