@@ -21,12 +21,12 @@ public class DireccionVertical implements Direccion {
 		 * no haya mas tablero, el sentido cambia a Abajo y se devuelve la posicion de abajo.
 		 * 
 		 */
-				
-			if(tableroDeLaDireccion.noTieneLaFila(sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente))){
-				this.cambiarSentido();
-			}
-			
 			int filaSiguiente = sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente);
+		
+			if(tableroDeLaDireccion.noTieneLaFila(filaSiguiente)){
+				this.cambiarSentido();
+				filaSiguiente = sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente);
+			}
 			
 			Posicion posicionADevolver = tableroDeLaDireccion.obtenerPosicion(posicionAConocerLaSiguiente.columnaDeLaPosicion(),filaSiguiente);
 

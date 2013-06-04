@@ -51,6 +51,7 @@ public class DireccionHorizontalTest extends TestCase{
 		
 		Direccion direccionDeUnaNave = new DireccionHorizontal();
 		direccionDeUnaNave.sentido(new Derecha());
+		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		

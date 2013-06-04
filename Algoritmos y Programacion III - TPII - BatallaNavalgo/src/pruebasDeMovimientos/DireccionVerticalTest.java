@@ -1,6 +1,7 @@
 package pruebasDeMovimientos;
 
 import static org.junit.Assert.*;
+import junit.framework.TestCase;
 
 import movimientos.Abajo;
 import movimientos.Arriba;
@@ -14,7 +15,7 @@ import componentesDeTablero.Tablero;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
-public class DireccionVerticalTest {
+public class DireccionVerticalTest extends TestCase{
 
 	public void testObtenerLaPosicionVerticalSiguienteAUnaPosicionDeUnTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
@@ -23,10 +24,11 @@ public class DireccionVerticalTest {
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
 		direccionDeUnaNave.sentido(new Arriba());
+		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		
-		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 3);
+		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 5);
 		
 		assertEquals(posicionQueDeberiaSerLaSiguiente , posicionSiguiente);
 	}
@@ -41,13 +43,14 @@ public class DireccionVerticalTest {
 		assertEquals(new Abajo() , direccionDeUnaNave.sentidoDeLaDireccion());
 	}
 	
-	public void testProximaPosicionAlLlegarAlFinalDelTableroEnDireccionVertical(){
+	public void testProximaPosicionAlLlegarAlFinalDelTableroEnDireccionVertical() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tableroParaConocerDireccion = new Tablero(10,10);
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('J', 10);
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
 		direccionDeUnaNave.sentido(new Arriba());
+		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		

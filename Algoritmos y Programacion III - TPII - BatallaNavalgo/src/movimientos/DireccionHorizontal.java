@@ -18,13 +18,13 @@ public class DireccionHorizontal implements Direccion {
 	 * no haya mas tablero, el sentido cambia a Izquierda y se devuelve la posicion de la izquierda.
 	 * 
 	 */
-			
-		if(tableroDeLaDireccion.noTieneLaColumna(sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente))){
-			this.cambiarSentido();
-		}
-		
 		char columnaSiguiente = sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente);
-		
+
+		if(tableroDeLaDireccion.noTieneLaColumna(columnaSiguiente)){
+			
+			this.cambiarSentido();
+			columnaSiguiente = sentidoDeLaNave.proximoPaso(posicionAConocerLaSiguiente);
+		}		
 		Posicion posicionADevolver = tableroDeLaDireccion.obtenerPosicion(columnaSiguiente, posicionAConocerLaSiguiente.filaDeLaPosicion());
 
 		return posicionADevolver;
