@@ -7,6 +7,7 @@ import nave.Buque;
 import nave.Destructor;
 import nave.Lancha;
 import nave.Nave;
+import nave.PortaAviones;
 import nave.RompeHielos;
 
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class TableroTest extends TestCase {
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Nave naveAProbar = new Lancha();
-		
+	
 		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
 		
 		assertEquals(false, naveAProbar.estaDestruida());
@@ -41,17 +42,8 @@ public class TableroTest extends TestCase {
 
 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
-		
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),1);
-		assertEquals(posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos(),1);
-		
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
-		assertEquals(posicionDeCuerpoDeNave.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
-		
+				
 		tableroDelJuego.impactarDisparos();
-		
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
-		assertEquals(posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
@@ -66,25 +58,22 @@ public class TableroTest extends TestCase {
 		Nave naveAProbar = new RompeHielos();
 		
 		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
-		
-		assertEquals(false, naveAProbar.estaDestruida());
-		
+	
 		Disparo disparoARealizar = new DisparoConvencional();
 		
 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
+
+		tableroDelJuego.impactarDisparos();
+		
+		assertEquals(false, naveAProbar.estaDestruida());
+		
 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
 		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
-		
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),1);
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),2);
-		
+
 		tableroDelJuego.impactarDisparos();
-		
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos(),0);
-		assertEquals(posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes(),0);
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
@@ -121,7 +110,7 @@ public class TableroTest extends TestCase {
 		Nave naveAProbar = new Destructor();
 		
 		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
-		
+
 		assertEquals(false, naveAProbar.estaDestruida());
 
  		Disparo disparoARealizar = new DisparoConvencional();
@@ -160,10 +149,40 @@ public class TableroTest extends TestCase {
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar4);
 		
 		tableroDelJuego.impactarDisparos();
-		tableroDelJuego.impactarDisparos();
-		tableroDelJuego.impactarDisparos();
-		
+
 		assertEquals(false, naveAProbar.estaDestruida());
 		
+	}
+	
+	public void testCantidadDeDisparosYComponentesEnPosicionesDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+		
+		Tablero tableroDelJuego = new Tablero(10, 10);
+		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
+		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
+		Posicion posicionDePopaDeNave = tableroDelJuego.obtenerPosicion('B', 4);
+		Nave naveAProbar = new RompeHielos();
+		Nave otraNave = new PortaAviones();
+		
+		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
+		tableroDelJuego.colocarComponentesEnDireccionVertical(otraNave, posicionDeProaDeNaveAProbar);
+
+		Disparo disparoARealizar = new DisparoConvencional();
+		Disparo otroDisparo = new MinaSubmarinaPuntual();
+		
+		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
+		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
+		posicionDeCuerpoDeNave.agregarDisparoAPosicion(otroDisparo);
+
+		assertEquals(1 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
+		assertEquals(2 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
+		assertEquals(0 , posicionDePopaDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
+		
+		assertEquals(2 , posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes());
+		assertEquals(1 , posicionDeCuerpoDeNave.obtenerComponentesEnPosicion().cantidadDeComponentes());
+
+		Posicion posicionDeAgua = tableroDelJuego.obtenerPosicion('A', 1);
+
+		assertEquals(0 , posicionDeAgua.obtenerComponentesEnPosicion().cantidadDeComponentes());
+
 	}
 }
