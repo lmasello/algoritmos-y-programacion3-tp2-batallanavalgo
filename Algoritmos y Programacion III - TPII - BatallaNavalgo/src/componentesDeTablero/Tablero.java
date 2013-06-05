@@ -251,6 +251,7 @@ public class Tablero {
 			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
 
 			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
+			componenteAAgregar.establecerPosicionActual(posicionAAgregarElComponente);
 			
 			columnaActual = columnaActual-1; 
 		}
@@ -280,6 +281,7 @@ public class Tablero {
 			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
 		
 			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
+			componenteAAgregar.establecerPosicionActual(posicionAAgregarElComponente);
 			
 			filaActual=filaActual+1; 
 		}
