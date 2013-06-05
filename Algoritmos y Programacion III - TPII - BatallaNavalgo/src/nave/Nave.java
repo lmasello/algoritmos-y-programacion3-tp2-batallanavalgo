@@ -1,22 +1,29 @@
 package nave;
 
+import componentesDeTablero.Tablero;
+
+import movimientos.Derecha;
+import movimientos.Direccion;
+import movimientos.Sentido;
 import colecciones.ColeccionDeComponentes;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 
-public abstract class Nave {
+public abstract class Nave implements NaveMovible {
 
 	ColeccionDeComponentes componentes;
-	/*Direccion direccionDeLaNave;*/
 	boolean estaDestruida;
 	int largoDeLaNave;
 	Resistencia resistenciaDeLaNave;
+	
+	/*Los siguientes atributos corresponden a la implementacion de lo citado en la interfaz naveMovible*/
+	
+	Direccion direccionDeLaNave;
+	Tablero tableroEnDondeSeDesplaza;
 
 	public Nave() {
-
 		componentes = new ColeccionDeComponentes();
 		estaDestruida = false;
-		
 	}
 	
 	public void agregarComponentes(){
@@ -27,6 +34,9 @@ public abstract class Nave {
 		for (int indiceDeComponentes = 0; indiceDeComponentes < largoDeLaNave; indiceDeComponentes++) {
 
 			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave,this);
+			componenteAAgregar.establecerTableroEnDondeSeEncuentraLaComponente(tableroEnDondeSeDesplaza);
+			componenteAAgregar.establecerDireccion(direccionDeLaNave);
+			
 			this.agregarComponenteALaNave(componenteAAgregar);
 		}
 	}
@@ -69,8 +79,7 @@ public abstract class Nave {
 	protected void establecerResistenciaDeLaNave(Resistencia resistenciaAAgregar){
 		resistenciaDeLaNave = resistenciaAAgregar;
 	}
-	
-	
+		
 	protected void agregarComponenteALaNave(ComponenteDeNave componenteAAgregar){
 		
 		componentes.agregarComponente(componenteAAgregar);
@@ -119,9 +128,39 @@ public abstract class Nave {
 		
 	}
 	
-	public boolean esDestructor(){
+	public boolean esDestructor(){ 
 		
 		return false;
 	}
+	
+	@Override
+	public void moverComponentes(){
+	
+		Sentido sentidoActualDelMovimiento = direccionDeLaNave.sentidoDeLaDireccion();  
+		/*El proximo indice hace referencia a que si por ejemplo el sentido es Derecha, la nave se tiene que comenzar a mover de la 
+		 * posicion que se encuentre mas a la derecha, sucede lo contrario con el sentido Izquierda
+		 */
+		int indiceDeLaComponenteQueSeComienzaAMover = this.determinarIndiceDeLaNaveQueSeComienzaAMover();
+		
+		if (indiceDeLaComponenteQueSeComienzaAMover = 1){
+			this.moverEnSentidoPositivo();
+		}
+		else if(indiceDeLaComponenteQueSeComienzaAMover = this.cantidadDeComponentes()){
+			this.moverEnSentidoNegativo();
+		}
+
+	}
+	
+	@Override
+	public void tableroEnDondeSeVaADesplazarLaNave(Tablero tableroEnDondeMoverse){
+		tableroEnDondeSeDesplaza = tableroEnDondeMoverse;
+	}
+	
+	@Override
+	public void direccionDeLaNave(Direccion direccionQueVaATenerLaNave){
+		direccionDeLaNave = direccionQueVaATenerLaNave;
+		direccionDeLaNave.tableroDeLasPosiciones(tableroEnDondeSeDesplaza);
+	}
+
 	
 }
