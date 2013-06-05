@@ -2,6 +2,7 @@ package colecciones;
 
 import java.util.ArrayList;
 
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 
 import nave.ComponenteDeNave;
@@ -51,6 +52,30 @@ public class ColeccionDeComponentes {
 	public void quitarComponente(ComponenteDeNave componenteAQuitar) {
 		
 		componentes.remove(componenteAQuitar);
+	}
+
+	public boolean tieneLaComponente(ComponenteDeNave componenteDeNave) {
+		
+		for(int indiceActual = 0 ; indiceActual<this.cantidadDeComponentes() ; indiceActual++){
+				
+			if(componenteDeNave.equals(componentes.get(indiceActual))){
+				return true;
+			}
+		}
+		
+		return false;
+	}
+
+	public void borrarComponente(ComponenteDeNave componenteDeNave) throws ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
+		
+		if(this.tieneLaComponente(componenteDeNave)){
+			
+			componentes.remove(componenteDeNave);
+		}
+		else{
+			throw new ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene();
+		}
+		
 	}
 
 
