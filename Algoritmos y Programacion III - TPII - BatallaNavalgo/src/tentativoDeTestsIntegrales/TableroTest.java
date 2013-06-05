@@ -148,6 +148,9 @@ public class TableroTest extends TestCase {
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar3);
 		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar4);
 		
+		/*Se impacta varias veces debido al momento de disparo que tiene cada disparo.*/
+		tableroDelJuego.impactarDisparos();
+		tableroDelJuego.impactarDisparos();
 		tableroDelJuego.impactarDisparos();
 
 		assertEquals(false, naveAProbar.estaDestruida());
@@ -177,12 +180,55 @@ public class TableroTest extends TestCase {
 		assertEquals(2 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(0 , posicionDePopaDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		
-		assertEquals(2 , posicionDeProaDeNaveAProbar.obtenerComponentesEnPosicion().cantidadDeComponentes());
-		assertEquals(1 , posicionDeCuerpoDeNave.obtenerComponentesEnPosicion().cantidadDeComponentes());
+		assertEquals(2 , posicionDeProaDeNaveAProbar.cantidadDeComponentesEnPosicion());
+		assertEquals(1 , posicionDeCuerpoDeNave.cantidadDeComponentesEnPosicion());
 
 		Posicion posicionDeAgua = tableroDelJuego.obtenerPosicion('A', 1);
 
-		assertEquals(0 , posicionDeAgua.obtenerComponentesEnPosicion().cantidadDeComponentes());
+		assertEquals(0 , posicionDeAgua.cantidadDeComponentesEnPosicion());
+
+	}
+
+	public void testMoverNaveEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+		
+		Tablero tableroDelJuego = new Tablero(10,10);
+		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
+			
+		Lancha lanchaAColocar = new Lancha();
+		tableroDelJuego.colocarComponentesEnDireccionHorizontal(lanchaAColocar, posicionDeProaDeLanchaAColocar);
+		
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('E', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('C', 5));
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('B', 5));
+		
+		tableroDelJuego.moverNaves();
+		
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('F', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('E', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
+
+	}
+
+	public void testMoverNaveEnElTableroCuandoSeEstaEnLimiteDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+		
+		Tablero tableroDelJuego = new Tablero(10,10);
+		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
+			
+		Lancha lanchaAColocar = new Lancha();
+		tableroDelJuego.colocarComponentesEnDireccionHorizontal(lanchaAColocar, posicionDeProaDeLanchaAColocar);
+		
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('J', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('I', 5));
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('B', 5));
+		
+		tableroDelJuego.moverNaves();
+		
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('J', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('I', 5));
+		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('H', 5));
+		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
 
 	}
 }
