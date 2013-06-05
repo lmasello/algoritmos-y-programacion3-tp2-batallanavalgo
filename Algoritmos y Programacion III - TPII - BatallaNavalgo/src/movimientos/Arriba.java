@@ -7,11 +7,12 @@ public class Arriba implements SentidoVertical {
 	@Override
 	public int proximoPaso(Posicion posicionAConocerLaSiguiente) {
 		/*
-		 * Devuelve el identificador de la fila de arriba de la posicion pasada por parametro
+		 * Devuelve el identificador de la fila de arriba (la cual tiene un numero
+		 * de identificador inferior) de la posicion pasada por parametro
 		 */
 		int filaActual = posicionAConocerLaSiguiente.filaDeLaPosicion();
 		
-		int nuevaFila = filaActual+1;
+		int nuevaFila = filaActual-1;
 		
 		return nuevaFila;
 	}

@@ -11,6 +11,10 @@ public class DireccionVertical implements Direccion {
 	Tablero tableroDeLaDireccion;
 	SentidoVertical sentidoDeLaNave;
 	
+	public DireccionVertical(){
+		sentidoDeLaNave = new Arriba();
+	}
+	
 	@Override
 	public Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente)
 			throws ValorDeParametroFueraDeRango {
@@ -33,11 +37,6 @@ public class DireccionVertical implements Direccion {
 			return posicionADevolver;
 		}
 
-	@Override
-	public void sentido(Sentido unSentido) {
-		
-		sentidoDeLaNave = (SentidoVertical) unSentido;
-	}
 
 	@Override
 	public void cambiarSentido() {
@@ -50,9 +49,8 @@ public class DireccionVertical implements Direccion {
 		
 		tableroDeLaDireccion = tableroParaConocerDireccion;
 	}
-
-	@Override
-	public Sentido sentidoDeLaDireccion() {
+	
+	public Sentido sentidoDeLaDireccion(){
 		return sentidoDeLaNave;
 	}
 }

@@ -11,7 +11,7 @@ public class Abajo implements SentidoVertical{
 		 */
 		int filaActual = posicionAConocerLaSiguiente.filaDeLaPosicion();
 		
-		int nuevaFila = filaActual-1;
+		int nuevaFila = filaActual+1;
 		
 		return nuevaFila;
 	}

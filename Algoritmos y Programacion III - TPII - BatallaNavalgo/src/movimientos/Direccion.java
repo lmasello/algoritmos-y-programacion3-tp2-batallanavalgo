@@ -6,8 +6,6 @@ import excepciones.ValorDeParametroFueraDeRango;
 
 public interface Direccion {
 	
-	public void sentido(Sentido unSentido);
-
 	public abstract Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente) throws ValorDeParametroFueraDeRango;
 	/*Obtiene la posicion siguiente a una posicion determinada de un tablero*/	
 

@@ -10,6 +10,10 @@ public class DireccionHorizontal implements Direccion {
 	Tablero tableroDeLaDireccion;
 	SentidoHorizontal sentidoDeLaNave;
 	
+	public DireccionHorizontal(){
+		sentidoDeLaNave = new Derecha();
+	}
+	
 	public Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente) throws ValorDeParametroFueraDeRango{
 	/*
 	 * Obtiene la posicion siguiente a una posicion determinada de un tablero. 
@@ -43,15 +47,7 @@ public class DireccionHorizontal implements Direccion {
 
 	@Override
 	public Sentido sentidoDeLaDireccion() {
-		
 		return sentidoDeLaNave;
 	}
 
-
-	@Override
-	public void sentido(Sentido unSentido) {
-		
-		sentidoDeLaNave = (SentidoHorizontal) unSentido;
-	}
-	
 }
