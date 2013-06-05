@@ -4,6 +4,7 @@ import nave.ComponenteDeNave;
 import colecciones.ColeccionDeComponentes;
 import colecciones.ColeccionDeDisparos;
 import disparos.Disparo;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 
 public class Posicion {
@@ -147,6 +148,22 @@ public class Posicion {
 			}
 			
 		}
+	}
+
+	public void removerComponente(ComponenteDeNave componenteDeNave) throws ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
+		
+		if (componentesDeNaveEnPosicion.tieneLaComponente(componenteDeNave)){
+			componentesDeNaveEnPosicion.borrarComponente(componenteDeNave);
+		}
+		else{
+			
+			throw new ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene();
+		}
+	}
+
+	public int cantidadDeComponentesEnPosicion() {
+		
+		return componentesDeNaveEnPosicion.cantidadDeComponentes();
 	}
 	
 }

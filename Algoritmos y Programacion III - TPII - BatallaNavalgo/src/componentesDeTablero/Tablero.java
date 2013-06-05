@@ -1,8 +1,11 @@
 package componentesDeTablero;
 
 import jugador.Jugador;
+import movimientos.DireccionHorizontal;
+import movimientos.DireccionVertical;
 import nave.ComponenteDeNave;
 import nave.Nave;
+import nave.NaveMovible;
 import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
 import colecciones.ColeccionDePosiciones;
@@ -53,6 +56,8 @@ public class Tablero {
 			
 			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
 			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 
+			naveActual.tableroEnDondeSeVaADesplazarLaNave(this);
+			
 			this.colocarNave(naveActual);
 		}
 		
@@ -61,7 +66,8 @@ public class Tablero {
 	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Metodo que coloca una nave en el tablero.
-	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar. 
+	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar.
+	 * A su vez, setea la direccion del movimiento de la nave. 
 	 * 
 	 * Para establecer las posiciones, se selecciona aleatoriamente una posicion determinada,
 	 * la cual representara la ubicacion de la proa de la nave. 
@@ -74,10 +80,14 @@ public class Tablero {
 		
 		if(orientacion == 'H'){ 
 			
+			naveActual.direccionDeLaNave(new DireccionHorizontal());
+			
 			posicionDeProa = this.determinarPosicionDeProaParaNaveHorizontal(naveActual);
 			this.colocarComponentesEnDireccionHorizontal(naveActual , posicionDeProa);
 		}
 		else if(orientacion == 'V'){ 
+			
+			naveActual.direccionDeLaNave(new DireccionVertical());
 			
 			posicionDeProa = this.determinarPosicionDeProaParaNaveVertical(naveActual);
 			this.colocarComponentesEnDireccionVertical(naveActual , posicionDeProa);
@@ -429,6 +439,19 @@ public class Tablero {
 		 * Devuelve true si el tablero no contiene la fila de identificador pasado por parametro
 		 */
 		return (!columnasDelTablero.tieneFila(unaFila));
+	}
+
+
+	public void moverNaves() {
+	/*
+	 * Realiza el desplazamiento de cada nave del tablero. 
+	 */
+		for(int indiceDeNaveActual = 1 ; indiceDeNaveActual<=this.cantidadDeBarcosEnTablero(); indiceDeNaveActual++){
+			
+			NaveMovible naveAMover = navesDelTablero.naveDeLaPosicion(indiceDeNaveActual);
+			
+			naveAMover.moverComponentes();
+		}
 	}
 		
 }
