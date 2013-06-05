@@ -13,6 +13,7 @@ import excepciones.ValoresDeParametroFueraDeRango;
 
 public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	
+	
 	public void testRecolectarPosicionConDisparoDeRadioCeroEnEsquinaSuperiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 			Tablero tablero = new Tablero(10,10);

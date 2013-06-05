@@ -9,6 +9,7 @@ import junit.framework.TestCase;
 
 public class ColeccionDeDisparosTest extends TestCase{
 	
+	
 	public void testCrearDeColeccion() {
 
 		ColeccionDeDisparos coleccionDeDisparos = new ColeccionDeDisparos();
