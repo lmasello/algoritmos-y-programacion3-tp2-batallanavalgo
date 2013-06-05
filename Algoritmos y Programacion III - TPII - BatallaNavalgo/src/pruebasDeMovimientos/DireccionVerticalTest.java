@@ -23,12 +23,11 @@ public class DireccionVerticalTest extends TestCase{
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 4);
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
-		direccionDeUnaNave.sentido(new Arriba());
 		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		
-		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 5);
+		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 3);
 		
 		assertEquals(posicionQueDeberiaSerLaSiguiente , posicionSiguiente);
 	}
@@ -36,7 +35,6 @@ public class DireccionVerticalTest extends TestCase{
 	public void testCambiaLaDireccionVertical() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
-		direccionDeUnaNave.sentido(new Arriba());
 	
 		direccionDeUnaNave.cambiarSentido();
 		
@@ -49,7 +47,6 @@ public class DireccionVerticalTest extends TestCase{
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('J', 10);
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
-		direccionDeUnaNave.sentido(new Arriba());
 		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);

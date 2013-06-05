@@ -24,7 +24,6 @@ public class DireccionHorizontalTest extends TestCase{
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 4);
 		Direccion direccionDeUnaNave = new DireccionHorizontal();
 
-		direccionDeUnaNave.sentido(new Derecha());
 		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
@@ -37,8 +36,7 @@ public class DireccionHorizontalTest extends TestCase{
 	public void testCambiaLaDireccionHorizontal() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Direccion direccionDeUnaNave = new DireccionHorizontal();
-		direccionDeUnaNave.sentido(new Derecha());
-	
+
 		direccionDeUnaNave.cambiarSentido();
 		
 		assertEquals(new Izquierda() , direccionDeUnaNave.sentidoDeLaDireccion());
@@ -50,7 +48,6 @@ public class DireccionHorizontalTest extends TestCase{
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('J', 4);
 		
 		Direccion direccionDeUnaNave = new DireccionHorizontal();
-		direccionDeUnaNave.sentido(new Derecha());
 		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
