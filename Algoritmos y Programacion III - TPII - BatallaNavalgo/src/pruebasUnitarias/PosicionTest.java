@@ -5,6 +5,7 @@ import nave.Lancha;
 import nave.Nave;
 import nave.Resistencia;
 import componentesDeTablero.Posicion;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 
@@ -23,7 +24,6 @@ public class PosicionTest extends TestCase {
 		assertEquals ( fila , posicion.filaDeLaPosicion() );
 		assertEquals ( columna , posicion.columnaDeLaPosicion());
 		
-	
 	}
 	
 	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -56,5 +56,22 @@ public class PosicionTest extends TestCase {
 		assertEquals(true , posicion.tieneComponenteDeNave());
 	}
 	
+	public void testBorrarUnaComponente() throws LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+		
+		Posicion posicion = new Posicion();
+		Nave nave1 = new Lancha();
+		Resistencia resistencia1 = new Resistencia(2);
+		
+		ComponenteDeNave componente1 = new ComponenteDeNave(resistencia1,nave1);
+
+		posicion.agregarComponenteAPosicion(componente1);
+		
+		assertEquals(1 , posicion.cantidadDeComponentesEnPosicion());
+		
+		posicion.removerComponente(componente1);
+		
+		assertEquals(0 , posicion.cantidadDeComponentesEnPosicion());
+	}
+
 
 }
