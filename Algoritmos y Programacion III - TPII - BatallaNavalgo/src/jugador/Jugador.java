@@ -45,8 +45,8 @@ public class Jugador {
 	public void realizarDisparoALasPosiciones(Disparo disparo,ColeccionDePosiciones
 			 posicionesADisparar) throws ValorDeParametroFueraDeRango {
 		
-	/* Recorre la coleccion de posiciones para colocar el disparo correspondiente en cada
-	 * 	posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
+	/* Recorre la coleccion de posiciones. Crea el disparo correspondiente y lo
+	 * agrega a la posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
 	 */
 		
 		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesADisparar.cantidadDePosiciones()
@@ -78,6 +78,16 @@ public class Jugador {
 
 	public Posicion elegirPosicion() throws IOException, ValorDeParametroFueraDeRango {
 		
+		/* Metodo de interaccion con el usuario en el cual se elige una posicion
+		 * Se pregunta primero a que fila se quiere disparar y luego a la columna.
+		 * Finalmente se obtiene la posicion deseada del tablero y se devuelve la misma.
+		 * 
+		 * Precondiciones: + La fila debe ser mayor que 1 y menor que la cantidad de filas
+		 * que tenga el tablero
+		 * 				   + La columna debe ser mayor que 1 y menor que la cantidad de
+		 * columnas que tenga el tablero.	
+		 * */
+		
 		@SuppressWarnings("resource")
 		Scanner en = new Scanner(System.in);
 		int fila = 0;int columnaEnInt = 0;
@@ -102,6 +112,11 @@ public class Jugador {
 
 	public Disparo elegirDisparo() throws IOException {
 		
+	/* 	Metodo de interaccion con el usuario en el cual se elige un disparo
+	 *  Se pregunta que disparo se deseea utilizar, luego se devuelve una instancia
+	 *  del disparo elegido
+	 *  Precondiciones: + El disparo debe tomar un valor de 1 a 5 
+	 *  */
 		int disparo = 0;
 		@SuppressWarnings("resource")
 		Scanner en = new Scanner(System.in);
