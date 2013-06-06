@@ -1,6 +1,9 @@
 package tentativoDeTestsIntegrales;
 
 import static org.junit.Assert.*;
+
+import java.io.IOException;
+
 import jugador.Jugador;
 import junit.framework.TestCase;
 
@@ -24,36 +27,31 @@ import excepciones.ValoresDeParametroFueraDeRango;
 
 public class DisparosTest extends TestCase{
 
-	public void testAlDispararConMinaDobleSeColocanDisparonEnPosicionesDeAlrededor() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+	public void testAlDispararConMinaDobleSeColocanDisparonEnPosicionesDeAlrededor() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, IOException{
 		
 		Tablero tableroDelJuego = new Tablero(10, 10);
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
-		Nave naveAProbar = new Lancha();
 		Jugador jugador1 = new Jugador("Juan");
-		
-		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
-
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tableroDelJuego);
-		Disparo disparoARealizar = new DisparoConvencional();
-		Disparo otroDisparo = new MinaSubmarinaDoble();
-
-		ColeccionDePosiciones posicionesDelDisparoARealizar = recolector.obtenerPosicionesDeDisparo(posicionDeProaDeNaveAProbar, disparoARealizar); 
-		ColeccionDePosiciones posicionesDelOtroDisparo = recolector.obtenerPosicionesDeDisparo(posicionDeCuerpoDeNave, otroDisparo);
 		
 		jugador1.asignarTablero(tableroDelJuego);
 		
-		jugador1.realizarDisparoALasPosiciones(disparoARealizar, posicionesDelDisparoARealizar);
-		jugador1.realizarDisparoALasPosiciones(otroDisparo, posicionesDelOtroDisparo);
+		jugador1.disparar();
+		jugador1.disparar();
 		
 		assertEquals(2 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(1 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
 
-		tableroDelJuego.impactarDisparos();
-	
+		tableroDelJuego.impactarDisparos();// Se impactan los disparos. Convencional desaparece,
+                                           // MinaDoble queda en momento = 1	
+		assertEquals(1 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
+		assertEquals(1 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
+		
+		tableroDelJuego.impactarDisparos();// MinaDoble queda en momento = 0
+		tableroDelJuego.impactarDisparos();// Desaparece MinaDoble.
+		
 		assertEquals(0 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(0 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
-		
 	}
 
 }

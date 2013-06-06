@@ -353,11 +353,8 @@ public class Tablero {
 		 * Este es un metodo provisorio para disminuir el puntaje del jugador al
 		 * avanzar un turno, todas las demas funciones que deba cumplir éste
 		 * metodo se irán actualizando
-		 */
-		/* this.realizarDisparos(); a implementar, recorre la coleccion de disparos
-		 * 											actualizando las componentes segun daño 
-		 * this.actualizarNaves();  a implementar, recorre todas las naves verificando si estan
-		 * 											destruidas     */
+		 *
+		 * this.moverNaves();  a implementar, mueve las naves antes de pasar turno     */
 		
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
@@ -414,10 +411,12 @@ public class Tablero {
 				
 				Posicion posicionActual = this.obtenerPosicion(identificadorDeColumnaActual, numeroDeFilaActual);
 				
-					  if(posicionActual.tieneDisparo()){
+					    if(posicionActual.tieneDisparo()){
 						posicionActual.impactoDeLosDisparos();
-					  }
-					  	posicionActual.removerComponentesEliminadas();
+					    }
+					    if(posicionActual.tieneComponenteDeNave()){
+						posicionActual.removerComponentesEliminadas();  
+					    }
 				}
 			}			
 	}

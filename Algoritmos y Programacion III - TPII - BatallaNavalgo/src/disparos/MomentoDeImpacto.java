@@ -11,7 +11,7 @@ public class MomentoDeImpacto {
 	
 	public void DisminuirMomentoDeImpacto(){
 		
-		momento = momento - 1 ;
+		momento = momento -1 ;
 	}
 	
 	public int obtenerMomentoDeImpacto(){

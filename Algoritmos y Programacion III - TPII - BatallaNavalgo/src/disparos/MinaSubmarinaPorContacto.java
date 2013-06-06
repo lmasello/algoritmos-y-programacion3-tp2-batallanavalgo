@@ -22,4 +22,9 @@ public class MinaSubmarinaPorContacto extends Disparo {
 		
 		return false;
 	}
+	
+	public Disparo crearDisparo() {
+		
+		return new MinaSubmarinaPorContacto();
+	}
 }

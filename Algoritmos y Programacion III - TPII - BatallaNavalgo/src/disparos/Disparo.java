@@ -58,4 +58,9 @@ public class Disparo {
 		fueEjecutado = true;
 		
 	}
+
+	public Disparo crearDisparo() {
+		
+		return null;
+	}
 }

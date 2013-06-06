@@ -17,4 +17,9 @@ public class MinaSubmarinaPuntual extends Disparo {
 
 		return costoDeDisparo;
 	}
+	
+	public Disparo crearDisparo() {
+		
+		return new MinaSubmarinaPuntual();
+	}
 }

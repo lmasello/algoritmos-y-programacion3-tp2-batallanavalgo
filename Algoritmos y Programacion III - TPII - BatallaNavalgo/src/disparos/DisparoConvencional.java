@@ -22,4 +22,9 @@ public class DisparoConvencional extends Disparo {
 		
 		return false;
 	}
+	
+	public Disparo crearDisparo() {
+	
+		return new DisparoConvencional();
+	}
 }

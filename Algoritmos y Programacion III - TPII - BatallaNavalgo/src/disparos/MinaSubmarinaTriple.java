@@ -17,4 +17,9 @@ public class MinaSubmarinaTriple extends Disparo {
 		
 		return costoDeDisparo;
 	}
+	
+	public Disparo crearDisparo() {
+		
+		return new MinaSubmarinaTriple();
+	}
 }
