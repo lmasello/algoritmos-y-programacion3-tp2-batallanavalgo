@@ -58,7 +58,10 @@ public class DireccionHorizontal implements Direccion {
 
 	@Override
 	public boolean hayPosicionSiguienteDisponible(Posicion posicionActual) {
-
+		/*
+		 * Evalua si puede existir un movimiento manteniendo el sentido y sin llegar al final del tablero.
+		 * Precondiciones: posicionActual debe pertenecer al tableroDeLaDireccion
+		 */
 		char columnaSiguiente = sentidoDeLaNave.proximoPaso(posicionActual);
 		
 		return tableroDeLaDireccion.tieneLaColumna(columnaSiguiente);

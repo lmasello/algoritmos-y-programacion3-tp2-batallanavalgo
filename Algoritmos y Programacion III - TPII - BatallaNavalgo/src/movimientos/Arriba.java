@@ -31,6 +31,9 @@ public class Arriba implements SentidoVertical {
 
 	@Override
 	public int numeroDeComponenteDelantera(Nave nave) {
+		/*
+		 * Devuelve el numero de la Componente que lidera el movimiento de toda la nave. Esta corresponde a proa o popa
+		 */
 		return nave.numeroDeComponenteDeLaProa();
 	}
 
