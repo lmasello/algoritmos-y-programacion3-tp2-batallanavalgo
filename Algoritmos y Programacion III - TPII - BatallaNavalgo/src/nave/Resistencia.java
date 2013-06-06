@@ -5,7 +5,10 @@ public class Resistencia {
 	private int resistencia;
 
 	public Resistencia(int nivelDeResistencia) {
-
+		/*
+		 * Constructor de la clase, el cual inicializa la clase con un nivel determinado de Resistencia. Mientras
+		 * mayor sea dicho numero, mayor sera la resistencia 
+		 */
 		resistencia = nivelDeResistencia;
 
 	}
@@ -23,7 +26,7 @@ public class Resistencia {
 
 	}
 
-	public void debilitar() {
+	public void reducirACero() {
 
 		resistencia = 0;
 

@@ -26,7 +26,7 @@ public class ResistenciaTest extends TestCase {
 	public void testDestruirResistencia() {
 
 		Resistencia resistencia = new Resistencia(2);
-		resistencia.debilitar();
+		resistencia.reducirACero();
 
 		assertEquals(0, resistencia.obtenerResistencia());
 

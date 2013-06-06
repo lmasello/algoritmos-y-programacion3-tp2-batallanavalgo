@@ -143,7 +143,11 @@ public abstract class Nave implements NaveMovible {
 	
 	@Override
 	public void moverComponentes() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
-
+	/*
+	 * Mueve cada una de las componentes de la Nave, teniendo en cuenta las componentes de los extremos en los rebotes
+	 * con los limites del tablero en donde se mueve. Para ello, toma en cuenta si tiene que comenzar a moverse
+	 * a partir de la componente de proa o de popa, continuando luego por todo el barco
+	 */
 		int numeroDeComponenteQueComienzaAMoverse = this.determinarIndiceDeLaNaveQueSeComienzaAMover();
 		
 		if (numeroDeComponenteQueComienzaAMoverse == this.numeroDeComponenteDeLaProa()){
@@ -220,14 +224,16 @@ public abstract class Nave implements NaveMovible {
 	}
 
 	public void establecerTableroEnDondeMoverse(Tablero tableroBase) throws ValorDeParametroFueraDeRango{
-		
+		/*
+		 * Establece el tablero en donde se mueve la nave, y luego, le establece el mismo tablero a las componentes
+		 * de la nave.
+		 */
 		tableroEnDondeSeDesplaza = tableroBase;
 		this.establecerTableroDeMovimientoALasComponentes(tableroBase);
 		
 	}
 
-	private void establecerTableroDeMovimientoALasComponentes(
-			Tablero tableroBase) throws ValorDeParametroFueraDeRango {
+	private void establecerTableroDeMovimientoALasComponentes(Tablero tableroBase) throws ValorDeParametroFueraDeRango {
 		
 		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
 			
@@ -238,7 +244,10 @@ public abstract class Nave implements NaveMovible {
 	}
 	
 	public void establecerDireccionDelMovimiento(Direccion unaDireccion) throws ValorDeParametroFueraDeRango{
-		
+		/*
+		 * Establece la direccion de movimiento a la nave. Tambien, establece dicha dirección a cada una de las
+		 * componentes de la nave
+		 */
 		direccionDeLaNave = unaDireccion;
 		this.establecerMismaDireccionALasComponentes(unaDireccion);
 	}

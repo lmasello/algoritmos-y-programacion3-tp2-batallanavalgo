@@ -43,7 +43,7 @@ public class ComponenteDeNave implements ComponenteMovible {
 	 * Destruye por completo la componente, luego del impacto de un disparo. En el caso que la componente
 	 * tenga una resistencia mayor a 1, tambien la destruye
 	 */
-		resistencia.debilitar();
+		resistencia.reducirACero();
 		destruida = true;
 	}
 
@@ -70,7 +70,8 @@ public class ComponenteDeNave implements ComponenteMovible {
 	private Posicion posicionSiguiente() throws ValorDeParametroFueraDeRango {
 		/*
 		 * Devuelve la proxima posicion que le corresponde de acuerdo al tipo de direccion y sentido de la componente.
-		 * En caso de encontrarse en el limite del tablero, se cambia el sentido de la direccion y movimiento.
+		 * En caso de encontrarse en el limite del tablero, se cambia el sentido de la direccion y movimiento, para obtener
+		 * el objetivo.
 		 */
 		
 		return direccionDelMovimiento.desplazarPosicion(posicionActual);
@@ -78,14 +79,21 @@ public class ComponenteDeNave implements ComponenteMovible {
 
 	@Override
 	public void establecerPosicionActual(Posicion posicionASerActual) {
-		
+		/*
+		 * Almacena una referencia a la posicion donde esta contenida la componente.
+		 * 
+		 * Precondiciones: posicionASerActual debe encontrarse en el tablero donde se mueve la componente
+		 */
 		posicionActual = posicionASerActual;
 		posicionActual.agregarComponenteAPosicion(this);
 	}
 
 	@Override
 	public void mover() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
-				
+	/*
+	 * Realiza el movimiento de una componente, modificando su posicion actual, por la posicion siguiente de acuerdo a
+	 * la direccion de movimiento que posea la componente.
+	 */
 		Posicion posicionASerLaSiguiente = this.posicionSiguiente();
 		
 		posicionActual.removerComponente(this);
@@ -102,7 +110,10 @@ public class ComponenteDeNave implements ComponenteMovible {
 
 	@Override
 	public boolean puedeAvanzar() {
-		
+	/*
+	 * Determina si es posible avanzar una posicion en el tablero, sin cambiar el sentido del movimiento y sin 
+	 * alcanzar el final del Tablero
+	 */
 		return direccionDelMovimiento.hayPosicionSiguienteDisponible(posicionActual);
 	}
 
