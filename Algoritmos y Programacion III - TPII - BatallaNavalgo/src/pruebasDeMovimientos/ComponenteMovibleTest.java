@@ -85,4 +85,24 @@ public class ComponenteMovibleTest extends TestCase{
 		
 		assertEquals(posicionDondeDeberiaEstar , componenteAMover.posicionActualDeLaComponente());
 	}
+	
+	public void testAlMoverseLaPosicionAnteriorDebeBorrarLaComponente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+		
+		Tablero tableroDondeSeMueve = new Tablero(10,10);
+		Resistencia resistenciaDeNave = new Resistencia(1);
+		Nave naveDeLaComponente = new Lancha();
+		DireccionHorizontal direccionDeLaComponente = new DireccionHorizontal();
+
+		ComponenteMovible componenteAMover = new ComponenteDeNave(resistenciaDeNave, naveDeLaComponente);
+		componenteAMover.establecerTableroEnDondeSeEncuentraLaComponente(tableroDondeSeMueve);
+		componenteAMover.establecerDireccion(direccionDeLaComponente);
+	
+		Posicion posicionDeLaComponente = tableroDondeSeMueve.obtenerPosicion('J', 4);
+		componenteAMover.establecerPosicionActual(posicionDeLaComponente);
+		
+		componenteAMover.mover();
+		
+		assertEquals(false , posicionDeLaComponente.tieneComponenteDeNave());
+	}
+
 }

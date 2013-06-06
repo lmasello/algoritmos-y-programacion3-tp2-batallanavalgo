@@ -20,6 +20,7 @@ import disparos.MinaSubmarinaDoble;
 import disparos.MinaSubmarinaPorContacto;
 import disparos.MinaSubmarinaPuntual;
 import disparos.MinaSubmarinaTriple;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
@@ -189,46 +190,4 @@ public class TableroTest extends TestCase {
 
 	}
 
-	public void testMoverNaveEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
-		
-		Tablero tableroDelJuego = new Tablero(10,10);
-		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
-			
-		Lancha lanchaAColocar = new Lancha();
-		tableroDelJuego.colocarComponentesEnDireccionHorizontal(lanchaAColocar, posicionDeProaDeLanchaAColocar);
-		
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('E', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('C', 5));
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('B', 5));
-		
-		tableroDelJuego.moverNaves();
-		
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('F', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('E', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
-
-	}
-
-	public void testMoverNaveEnElTableroCuandoSeEstaEnLimiteDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
-		
-		Tablero tableroDelJuego = new Tablero(10,10);
-		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
-			
-		Lancha lanchaAColocar = new Lancha();
-		tableroDelJuego.colocarComponentesEnDireccionHorizontal(lanchaAColocar, posicionDeProaDeLanchaAColocar);
-		
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('J', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('I', 5));
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('B', 5));
-		
-		tableroDelJuego.moverNaves();
-		
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('J', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('I', 5));
-		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('H', 5));
-		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
-
-	}
 }
