@@ -245,11 +245,8 @@ public class Tablero {
 		
 		int columnaActual = (int) posicionDeProa.columnaDeLaPosicion();
 		int filaActual = posicionDeProa.filaDeLaPosicion();
-
-		int numeroDeComponenteActualDelBarco;
-		int cantidadDeComponentes = naveAColocar.cantidadDeComponentes();
 		
-		for(numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+		for(int numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= naveAColocar.cantidadDeComponentes() ; numeroDeComponenteActualDelBarco++){
 			
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion((char)columnaActual, filaActual);
 			ComponenteDeNave componenteAAgregar = naveAColocar.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
@@ -274,11 +271,8 @@ public class Tablero {
 
 		char columnaActual = posicionDeProa.columnaDeLaPosicion();
 		int filaActual = posicionDeProa.filaDeLaPosicion();
-
-		int numeroDeComponenteActualDelBarco;
-		int cantidadDeComponentes = naveAColocar.cantidadDeComponentes();
 		
-		for(numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+		for(int numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= naveAColocar.cantidadDeComponentes() ; numeroDeComponenteActualDelBarco++){
 			
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion(columnaActual, filaActual);
 			ComponenteDeNave componenteAAgregar = naveAColocar.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
@@ -371,7 +365,9 @@ public class Tablero {
 	}
 
 	public boolean hayComponenteEnPosicion(char columnaDeLaPosicion, int filaDeLaPosicion) throws ValorDeParametroFueraDeRango {
-		
+		/*
+		 * Evalua si una posicion del tablero pasada por parametro, tiene una componente de nave
+		 */
 		Posicion posicionAEvaluar = this.obtenerPosicion(columnaDeLaPosicion, filaDeLaPosicion);
 		
 		return posicionAEvaluar.tieneComponenteDeNave();
