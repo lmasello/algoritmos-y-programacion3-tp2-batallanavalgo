@@ -1,5 +1,6 @@
 package movimientos;
 
+import nave.Nave;
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 import excepciones.ValorDeParametroFueraDeRango;
@@ -48,6 +49,20 @@ public class DireccionHorizontal implements Direccion {
 	@Override
 	public Sentido sentidoDeLaDireccion() {
 		return sentidoDeLaNave;
+	}
+
+	@Override
+	public int numeroDeComponenteDelantera(Nave nave) {
+		return sentidoDeLaNave.numeroDeComponenteDelantera(nave);
+	}
+
+	@Override
+	public boolean hayPosicionSiguienteDisponible(Posicion posicionActual) {
+
+		char columnaSiguiente = sentidoDeLaNave.proximoPaso(posicionActual);
+		
+		return tableroDeLaDireccion.tieneLaColumna(columnaSiguiente);
+		
 	}
 
 }

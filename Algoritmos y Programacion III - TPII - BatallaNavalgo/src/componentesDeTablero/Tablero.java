@@ -10,6 +10,7 @@ import colecciones.ColeccionDeColumnas;
 import colecciones.ColeccionDeNaves;
 import colecciones.ColeccionDePosiciones;
 import disparos.Disparo;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
@@ -48,21 +49,26 @@ public class Tablero {
 	 * 
 	 */
  
-		navesDelTablero.establecerNavesDelJuego();
+		this.establecerNavesDelJuego();
 		
 		ColeccionDeNaves navesAColocar = navesDelTablero;
 		
 		for (int numeroDeNaveActual=1 ; numeroDeNaveActual <= navesAColocar.cantidadDeNaves() ; numeroDeNaveActual++){
 			
 			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
-			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 
-			naveActual.tableroEnDondeSeVaADesplazarLaNave(this);
+			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 		
 			
+			naveActual.establecerTableroEnDondeMoverse(this);
 			this.colocarNave(naveActual);
 		}
 		
 	}
 	
+	private void establecerNavesDelJuego() throws LargoDeNaveIncorrecto {
+		
+		navesDelTablero.establecerNavesDelJuego();
+	}
+
 	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Metodo que coloca una nave en el tablero.
@@ -77,24 +83,24 @@ public class Tablero {
 		
 		Posicion posicionDeProa;
 		char orientacion = this.establecerOrientacion(); // 'V' vertical | 'H' horizontal
-		
+		/*Probar refactorizacion haciendo los ifs con double dispatch, teniendo un objeto de clase orientacion*/
 		if(orientacion == 'H'){ 
 			
-			naveActual.direccionDeLaNave(new DireccionHorizontal());
-			
+			naveActual.establecerDireccionDelMovimiento(new DireccionHorizontal());
+
 			posicionDeProa = this.determinarPosicionDeProaParaNaveHorizontal(naveActual);
 			this.colocarComponentesEnDireccionHorizontal(naveActual , posicionDeProa);
+	
 		}
 		else if(orientacion == 'V'){ 
 			
-			naveActual.direccionDeLaNave(new DireccionVertical());
-			
+			naveActual.establecerDireccionDelMovimiento(new DireccionVertical());
+
 			posicionDeProa = this.determinarPosicionDeProaParaNaveVertical(naveActual);
 			this.colocarComponentesEnDireccionVertical(naveActual , posicionDeProa);
 		}
 	}
 		
-
 	private Posicion determinarPosicionDeProaParaNaveVertical(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara verticalmente. 
@@ -134,7 +140,6 @@ public class Tablero {
 		return filaSeleccionada;
 	}
 	
-
 	private char seleccionarColumnaParaProa() {
 	/*
 	 * Devuelve un char, haciendo referencia al identificador de una columna del tablero destinada a ubicar
@@ -226,8 +231,7 @@ public class Tablero {
 		
 	}
 
-
-	public void colocarComponentesEnDireccionHorizontal(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
+	public void colocarComponentesEnDireccionHorizontal(Nave naveAColocar,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera horizontal las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a la izquierda de la posicionDeProa de acuerdo al largo de la nave.	
@@ -243,21 +247,20 @@ public class Tablero {
 		int filaActual = posicionDeProa.filaDeLaPosicion();
 
 		int numeroDeComponenteActualDelBarco;
-		int cantidadDeComponentes = naveActual.cantidadDeComponentes();
+		int cantidadDeComponentes = naveAColocar.cantidadDeComponentes();
 		
-		for(numeroDeComponenteActualDelBarco = naveActual.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+		for(numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
 			
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion((char)columnaActual, filaActual);
-			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
+			ComponenteDeNave componenteAAgregar = naveAColocar.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
 
-			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
 			componenteAAgregar.establecerPosicionActual(posicionAAgregarElComponente);
 			
 			columnaActual = columnaActual-1; 
 		}
 	}
 
-	public void colocarComponentesEnDireccionVertical(Nave naveActual,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
+	public void colocarComponentesEnDireccionVertical(Nave naveAColocar,Posicion posicionDeProa) throws ValorDeParametroFueraDeRango {
 		/*
 		 * Metodo que coloca de manera vertical las componentes de una nave en las posiciones del tablero, tomando como referencia la posicion de proa.
 		 * En base a estos datos, el metodo procede a poblar las posiciones ubicadas a abajo de la posicionDeProa de acuerdo al largo de la nave.	
@@ -268,25 +271,23 @@ public class Tablero {
 		 * Postcondiciones:
 		 * 		Agrega a cada posicion correspondiente del tablero una componente de la nave 
 		 */		
-		
+
 		char columnaActual = posicionDeProa.columnaDeLaPosicion();
 		int filaActual = posicionDeProa.filaDeLaPosicion();
 
 		int numeroDeComponenteActualDelBarco;
-		int cantidadDeComponentes = naveActual.cantidadDeComponentes();
+		int cantidadDeComponentes = naveAColocar.cantidadDeComponentes();
 		
-		for(numeroDeComponenteActualDelBarco = naveActual.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
+		for(numeroDeComponenteActualDelBarco = naveAColocar.numeroDeComponenteDeLaProa() ; numeroDeComponenteActualDelBarco <= cantidadDeComponentes ; numeroDeComponenteActualDelBarco++){
 			
 			Posicion posicionAAgregarElComponente = this.obtenerPosicion(columnaActual, filaActual);
-			ComponenteDeNave componenteAAgregar = naveActual.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
+			ComponenteDeNave componenteAAgregar = naveAColocar.obtenerComponenteDeNumero(numeroDeComponenteActualDelBarco);
 		
-			posicionAAgregarElComponente.agregarComponenteAPosicion(componenteAAgregar);
 			componenteAAgregar.establecerPosicionActual(posicionAAgregarElComponente);
 			
 			filaActual=filaActual+1; 
 		}
 	}
-
 
 	private ColeccionDeColumnas inicializarColumnasConFilas(int cantidadDeColumnas, int cantidadDePosiciones) {
 		/*
@@ -367,12 +368,10 @@ public class Tablero {
 		return navesDelTablero;
 	}
 
-
 	public int cantidadDeBarcosEnTablero() {
 		
 		return navesDelTablero.cantidadDeNaves();
 	}
-
 
 	public boolean hayComponenteEnPosicion(char columnaDeLaPosicion, int filaDeLaPosicion) throws ValorDeParametroFueraDeRango {
 		
@@ -380,7 +379,6 @@ public class Tablero {
 		
 		return posicionAEvaluar.tieneComponenteDeNave();
 	}
-
 
 	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango{
 		/* Devuelve una coleccion de posiciones con todas aquellas posiciones afectadas por el disparo.
@@ -401,7 +399,6 @@ public class Tablero {
 		
 		return posicionesADisparar;
 	}
-
 
 	public void impactarDisparos() throws ValorDeParametroFueraDeRango {
 		
@@ -425,7 +422,6 @@ public class Tablero {
 			}			
 	}
 
-
 	public boolean noTieneLaColumna(char unaColumna) {
 		/*
 		 * Devuelve true si el tablero no contiene la columna de identificador pasado por parametro
@@ -435,7 +431,6 @@ public class Tablero {
 		
 	}
 
-
 	public boolean noTieneLaFila(int unaFila) {
 		/*
 		 * Devuelve true si el tablero no contiene la fila de identificador pasado por parametro
@@ -443,8 +438,7 @@ public class Tablero {
 		return (!columnasDelTablero.tieneFila(unaFila));
 	}
 
-
-	public void moverNaves() {
+	public void moverNaves() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 	/*
 	 * Realiza el desplazamiento de cada nave del tablero. 
 	 */
@@ -455,6 +449,49 @@ public class Tablero {
 			naveAMover.moverComponentes();
 		}
 	}
+
+
+	public boolean tieneLaColumna(char unaColumna) {
 		
+		return (columnasDelTablero.tieneLaColumnaDeIdentificador(unaColumna));
+
+	}
+
+
+	public boolean tieneLaFila(int unaFila) {
+		
+		return (columnasDelTablero.tieneFila(unaFila));
+		
+	}
+	
+	public void agregarNaveHorizontalManualmenteConPosicionDeProa(Nave naveAgregada , Posicion posicionDeProa) throws ValorDeParametroFueraDeRango{
+	/*
+	 * Metodo creado para poder tener un control sobre las posiciones en donde se ubicara la nave, ya que cuando se
+	 * realiza la asignacion automatica, esta asignacion es aleatoria y se pierde el control de que posiciones 
+	 * continen componentes y cuales otras no.	
+	 */
+		navesDelTablero.agregarNave(naveAgregada);
+		
+		naveAgregada.establecerTableroEnDondeMoverse(this);
+		naveAgregada.establecerDireccionDelMovimiento(new DireccionHorizontal());
+
+		this.colocarComponentesEnDireccionHorizontal(naveAgregada, posicionDeProa);
+	}
+
+
+	public void agregarNaveVerticalManualmenteConPosicionDeProa(Nave naveAColocar, Posicion posicionDeProaDeLanchaAColocar) throws ValorDeParametroFueraDeRango {
+		/*
+		 * Metodo creado para poder tener un control sobre las posiciones en donde se ubicara la nave, ya que cuando se
+		 * realiza la asignacion automatica, esta asignacion es aleatoria y se pierde el control de que posiciones 
+		 * continen componentes y cuales otras no.	
+		 */
+		navesDelTablero.agregarNave(naveAColocar);
+			
+		naveAColocar.establecerTableroEnDondeMoverse(this);
+		naveAColocar.establecerDireccionDelMovimiento(new DireccionVertical());
+
+		this.colocarComponentesEnDireccionVertical(naveAColocar, posicionDeProaDeLanchaAColocar);
+	}
+	
 }
 

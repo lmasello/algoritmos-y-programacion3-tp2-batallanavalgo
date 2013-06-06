@@ -3,13 +3,14 @@ package nave;
 import componentesDeTablero.Tablero;
 
 import movimientos.Direccion;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 
 public interface NaveMovible {
 
-	public void moverComponentes();
+	public void moverComponentes() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 	
-	public void direccionDeLaNave(Direccion direccionQueVaATenerLaNave);
+	public abstract void establecerTableroEnDondeMoverse(Tablero tableroBase) throws ValorDeParametroFueraDeRango;
 	
-	public void tableroEnDondeSeVaADesplazarLaNave(Tablero tableroEnDondeMoverse);
+	public abstract void establecerDireccionDelMovimiento(Direccion unaDireccion) throws ValorDeParametroFueraDeRango;
 }

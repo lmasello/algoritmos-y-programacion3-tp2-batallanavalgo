@@ -1,5 +1,6 @@
 package movimientos;
 
+import nave.Nave;
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 
@@ -52,5 +53,19 @@ public class DireccionVertical implements Direccion {
 	
 	public Sentido sentidoDeLaDireccion(){
 		return sentidoDeLaNave;
+	}
+
+	@Override
+	public int numeroDeComponenteDelantera(Nave nave) {
+		return sentidoDeLaNave.numeroDeComponenteDelantera(nave);
+	}
+
+	@Override
+	public boolean hayPosicionSiguienteDisponible(Posicion posicionActual) {
+		
+		int filaSiguiente = sentidoDeLaNave.proximoPaso(posicionActual);
+		
+		return tableroDeLaDireccion.tieneLaFila(filaSiguiente);
+		
 	}
 }

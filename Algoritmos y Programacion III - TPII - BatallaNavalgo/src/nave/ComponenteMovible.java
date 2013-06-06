@@ -17,4 +17,7 @@ public interface ComponenteMovible {
 	public abstract void mover() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 	
 	public void establecerDireccion(Direccion direccionDelMovimiento);
+
+	public abstract boolean puedeAvanzar();
+	
 }

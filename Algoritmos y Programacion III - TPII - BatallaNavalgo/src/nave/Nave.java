@@ -6,6 +6,7 @@ import movimientos.Derecha;
 import movimientos.Direccion;
 import movimientos.Sentido;
 import colecciones.ColeccionDeComponentes;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 
@@ -22,8 +23,10 @@ public abstract class Nave implements NaveMovible {
 	Tablero tableroEnDondeSeDesplaza;
 
 	public Nave() {
+		
 		componentes = new ColeccionDeComponentes();
 		estaDestruida = false;
+		
 	}
 	
 	public void agregarComponentes(){
@@ -34,8 +37,6 @@ public abstract class Nave implements NaveMovible {
 		for (int indiceDeComponentes = 0; indiceDeComponentes < largoDeLaNave; indiceDeComponentes++) {
 
 			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave,this);
-			componenteAAgregar.establecerTableroEnDondeSeEncuentraLaComponente(tableroEnDondeSeDesplaza);
-			componenteAAgregar.establecerDireccion(direccionDeLaNave);
 			
 			this.agregarComponenteALaNave(componenteAAgregar);
 		}
@@ -105,6 +106,13 @@ public abstract class Nave implements NaveMovible {
 	 */
 		return 1;
 	}
+	
+	public int numeroDeComponenteDeLaPopa() {
+	/*
+	 * Se establece la ultima componente de la nave como Popa del barco
+	 */
+		return this.cantidadDeComponentes();
+	}
 
 	protected Resistencia resistenciaDeLaNave(){
 		
@@ -134,33 +142,115 @@ public abstract class Nave implements NaveMovible {
 	}
 	
 	@Override
-	public void moverComponentes(){
-	
-		Sentido sentidoActualDelMovimiento = direccionDeLaNave.sentidoDeLaDireccion();  
-		/*El proximo indice hace referencia a que si por ejemplo el sentido es Derecha, la nave se tiene que comenzar a mover de la 
-		 * posicion que se encuentre mas a la derecha, sucede lo contrario con el sentido Izquierda
-		 */
-		int indiceDeLaComponenteQueSeComienzaAMover = this.determinarIndiceDeLaNaveQueSeComienzaAMover();
+	public void moverComponentes() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+
+		int numeroDeComponenteQueComienzaAMoverse = this.determinarIndiceDeLaNaveQueSeComienzaAMover();
 		
-		if (indiceDeLaComponenteQueSeComienzaAMover = 1){
+		if (numeroDeComponenteQueComienzaAMoverse == this.numeroDeComponenteDeLaProa()){
 			this.moverEnSentidoPositivo();
 		}
-		else if(indiceDeLaComponenteQueSeComienzaAMover = this.cantidadDeComponentes()){
+		if(numeroDeComponenteQueComienzaAMoverse == this.cantidadDeComponentes()){
 			this.moverEnSentidoNegativo();
 		}
 
 	}
 	
-	@Override
-	public void tableroEnDondeSeVaADesplazarLaNave(Tablero tableroEnDondeMoverse){
-		tableroEnDondeSeDesplaza = tableroEnDondeMoverse;
-	}
-	
-	@Override
-	public void direccionDeLaNave(Direccion direccionQueVaATenerLaNave){
-		direccionDeLaNave = direccionQueVaATenerLaNave;
-		direccionDeLaNave.tableroDeLasPosiciones(tableroEnDondeSeDesplaza);
+	private void establecerSentidoDelProximoMovimiento(ComponenteMovible componenteQueComienzaAMoverse) {
+		/*
+		 * Determina si es necesario cambiar el sentido de la nave para realizar el movimiento en conjunto de todas sus componentes
+		 * En caso de considerarlo necesario, cambia al sentido opuesto. Este caso se da si la componenteAMoverse chocaria con el borde del
+		 * tablero y tenga que cambiar su sentido. En caso que no tenga que hacer un cambio de direccion, no hace nada
+		 */
+		if(!componenteQueComienzaAMoverse.puedeAvanzar()){//Si no puede avanzar, quiere decir que la primer componente va a chocar contra el final del tablero y cambiar el sentido de su movimiento
+
+			direccionDeLaNave.cambiarSentido();
+			}
 	}
 
+	private int determinarIndiceDeLaNaveQueSeComienzaAMover() throws ValorDeParametroFueraDeRango {
+		/*
+		 * Determina que componente de la nave comienza a desplazarse, si la proa o la popa.
+		 * Esto se realiza para que todas las componentes se muevan 
+		 * como un solo bloque (la nave) y se eviten situaciones en las que una componente se mueva en un sentido y las otras componentes
+		 * en otro sentido.
+		 * Por ejemplo: El sentido inicial de la nave es hacia la derecha, la nave contiene 3 componentes y aquella componente que se encuentra
+		 * mas hacia la derecha esta en el borde derecho del tablero. Si no se aplica una logica, dicha componente se va a mover hacia
+		 * la izquierda y las demas componentes hacia la derecha. Lo que hace este metodo es, una vez que la componente que cambia de sentido
+		 * , actualizar dicho sentido en la nave, y asi las demas componentes se van a desplazar en el mismo sentido 
+		 */
+		int numeroDeComponenteQueComienzaAMoverse = direccionDeLaNave.numeroDeComponenteDelantera(this);
+		
+		this.establecerSentidoDelProximoMovimiento(this.obtenerComponenteDeNumero(numeroDeComponenteQueComienzaAMoverse));
+
+		numeroDeComponenteQueComienzaAMoverse = direccionDeLaNave.numeroDeComponenteDelantera(this);
+
+		return numeroDeComponenteQueComienzaAMoverse;
+		
+	}
+
+	private void moverEnSentidoNegativo() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
+	/*
+	 * Realiza el movimiento de las componentes comenzando por la componente que se encuentre en la posicion más negativa (ala izquierda o bien ala inferior)
+	 */
+	
+		int indiceDeLaPopa;
+		
+		for(indiceDeLaPopa=this.cantidadDeComponentes() ; indiceDeLaPopa>=1  ; indiceDeLaPopa--){
+			
+			ComponenteMovible componenteAMover = this.obtenerComponenteDeNumero(indiceDeLaPopa);
+			
+			componenteAMover.mover();
+		}
+	}
+
+	private void moverEnSentidoPositivo() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
+	/*
+	 * Realiza el movimiento de las componentes comenzando por la componente que se encuentre en la posicion más positiva (ala derecha o bien ala superior)
+	 */
+	
+		int indiceDeLaProa;
+		
+		for(indiceDeLaProa=1 ; indiceDeLaProa<= this.cantidadDeComponentes() ; indiceDeLaProa++){
+			
+			ComponenteMovible componenteAMover = this.obtenerComponenteDeNumero(indiceDeLaProa);
+			
+			componenteAMover.mover();
+		}
+		
+	}
+
+	public void establecerTableroEnDondeMoverse(Tablero tableroBase) throws ValorDeParametroFueraDeRango{
+		
+		tableroEnDondeSeDesplaza = tableroBase;
+		this.establecerTableroDeMovimientoALasComponentes(tableroBase);
+		
+	}
+
+	private void establecerTableroDeMovimientoALasComponentes(
+			Tablero tableroBase) throws ValorDeParametroFueraDeRango {
+		
+		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
+			
+			ComponenteMovible componenteDeLaNave = this.obtenerComponenteDeNumero(numeroDeComponente);
+			
+			componenteDeLaNave.establecerTableroEnDondeSeEncuentraLaComponente(tableroBase);
+		}
+	}
+	
+	public void establecerDireccionDelMovimiento(Direccion unaDireccion) throws ValorDeParametroFueraDeRango{
+		
+		direccionDeLaNave = unaDireccion;
+		this.establecerMismaDireccionALasComponentes(unaDireccion);
+	}
+
+	private void establecerMismaDireccionALasComponentes(Direccion unaDireccion) throws ValorDeParametroFueraDeRango {
+		
+		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
+			
+			ComponenteMovible componenteDeLaNave = this.obtenerComponenteDeNumero(numeroDeComponente);
+			
+			componenteDeLaNave.establecerDireccion(unaDireccion);
+		}
+	}
 	
 }

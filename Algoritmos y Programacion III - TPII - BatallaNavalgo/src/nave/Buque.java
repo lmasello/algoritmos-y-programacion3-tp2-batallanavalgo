@@ -1,5 +1,8 @@
 package nave;
 
+import componentesDeTablero.Tablero;
+
+import movimientos.Direccion;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 

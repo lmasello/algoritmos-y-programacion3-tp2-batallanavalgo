@@ -99,4 +99,11 @@ public class ComponenteDeNave implements ComponenteMovible {
 		direccionDelMovimiento = unaDireccion;
 		direccionDelMovimiento.tableroDeLasPosiciones(tableroEnDondeSeMueve);
 	}
+
+	@Override
+	public boolean puedeAvanzar() {
+		
+		return direccionDelMovimiento.hayPosicionSiguienteDisponible(posicionActual);
+	}
+
 }

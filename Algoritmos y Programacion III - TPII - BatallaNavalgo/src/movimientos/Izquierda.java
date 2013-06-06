@@ -1,5 +1,6 @@
 package movimientos;
 
+import nave.Nave;
 import componentesDeTablero.Posicion;
 
 public class Izquierda implements SentidoHorizontal{
@@ -24,5 +25,10 @@ public class Izquierda implements SentidoHorizontal{
 
 	public boolean equals(Object otro){
 		return this.getClass().equals(otro.getClass());
+	}
+
+	@Override
+	public int numeroDeComponenteDelantera(Nave nave) {
+		return nave.numeroDeComponenteDeLaPopa();
 	}
 }

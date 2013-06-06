@@ -1,5 +1,8 @@
 package nave;
 
+import movimientos.Direccion;
+import componentesDeTablero.Tablero;
+
 import excepciones.LargoDeNaveIncorrecto;
 
 public class Destructor extends Nave{
