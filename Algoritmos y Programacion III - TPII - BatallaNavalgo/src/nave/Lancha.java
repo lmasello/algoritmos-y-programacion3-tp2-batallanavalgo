@@ -6,7 +6,7 @@ import componentesDeTablero.Tablero;
 import excepciones.LargoDeNaveIncorrecto;
 
 public class Lancha extends Nave {
-
+	/* Nave compuesta por 2 componentes */
 	public Lancha() throws LargoDeNaveIncorrecto {
 
 		super();

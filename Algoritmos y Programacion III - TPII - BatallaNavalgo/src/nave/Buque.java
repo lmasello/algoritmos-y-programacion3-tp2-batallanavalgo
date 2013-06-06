@@ -7,7 +7,7 @@ import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 
 public class Buque extends Nave{
-	
+	/* Nave compuesta por 4 componentes */
 	public Buque() throws LargoDeNaveIncorrecto{
 		
 		super();

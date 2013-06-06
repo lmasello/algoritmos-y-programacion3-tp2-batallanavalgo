@@ -6,6 +6,7 @@ import movimientos.Direccion;
 import excepciones.LargoDeNaveIncorrecto;
 
 public class RompeHielos extends Nave {
+	/* Nave compuesta por 3 componentes */
 	
 	public RompeHielos() throws LargoDeNaveIncorrecto {
 			

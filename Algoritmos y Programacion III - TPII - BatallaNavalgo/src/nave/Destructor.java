@@ -6,6 +6,7 @@ import componentesDeTablero.Tablero;
 import excepciones.LargoDeNaveIncorrecto;
 
 public class Destructor extends Nave{
+	/* Nave compuesta por 3 componentes */
 	
 	public Destructor() throws LargoDeNaveIncorrecto {
 

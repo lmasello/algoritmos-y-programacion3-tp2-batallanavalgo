@@ -6,6 +6,7 @@ import movimientos.Direccion;
 import excepciones.LargoDeNaveIncorrecto;
 
 public class PortaAviones extends Nave {
+	/* Nave compuesta por 5 componentes */
 	
 	public PortaAviones() throws LargoDeNaveIncorrecto {
 		
