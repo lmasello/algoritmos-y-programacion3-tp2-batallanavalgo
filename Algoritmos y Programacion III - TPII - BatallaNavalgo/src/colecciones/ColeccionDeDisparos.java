@@ -14,12 +14,16 @@ public class ColeccionDeDisparos {
 	}
 
 	public void agregarDisparo(Disparo disparo) {
+		/* Agrega el disparo recibido por parametro al 
+		 * final de la coleccion	 */
 
 		coleccionDeDisparos.add(disparo);
 
 	}
 	
 	public Disparo obtenerDisparoDeIndice(int indice){
+		/* Devuelve el disparo de la coleccion respecto del indice
+		 * recibido  */
 		
 		return coleccionDeDisparos.get(indice);
 	}
@@ -30,6 +34,8 @@ public class ColeccionDeDisparos {
 	}
 
 	public void quitarDisparo(Disparo disparo) {
+		/* Elimina el disparo recibido en la coleccion,
+		 * si no se encuentra no hace nada	 */
 		
 		coleccionDeDisparos.remove(disparo);
 	}

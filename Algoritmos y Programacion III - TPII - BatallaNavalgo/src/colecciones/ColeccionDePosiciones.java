@@ -15,11 +15,15 @@ public class ColeccionDePosiciones {
 	}
 
 	public void agregarPosicion(Posicion posicionAAgregar) {
+		/* Agrega la posicion recibida por parametro al 
+		 * final de la coleccion */
 
 		posicionesDeLaColumna.add(posicionAAgregar);
 	}
 
 	public Posicion obtenerPosicionDeLaFila(int filaDeLaPosicion) {
+		/* Devuelve la posicion respecto de la fila recibida por
+		 * parametro */
 
 		int indiceDeLaPosicion = filaDeLaPosicion - 1;
 
