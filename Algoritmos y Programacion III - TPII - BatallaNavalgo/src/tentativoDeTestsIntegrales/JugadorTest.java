@@ -15,6 +15,7 @@ import componentesDeTablero.Tablero;
 import disparos.Disparo;
 import disparos.DisparoConvencional;
 import disparos.MinaSubmarinaPuntual;
+import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -28,7 +29,7 @@ public class JugadorTest extends TestCase {
 
 	}
 
-	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
+	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 
 		Tablero tableroDePrueba = new Tablero(10, 10);
 		Jugador jugadorHumano = new Jugador("Leandro Masello");

@@ -1,5 +1,6 @@
 package componentesDeTablero;
 
+import recolectorDePosiciones.RecolectorDePosicionesDeDisparo;
 import jugador.Jugador;
 import movimientos.DireccionHorizontal;
 import movimientos.DireccionVertical;
@@ -342,14 +343,11 @@ public class Tablero {
 		return unaColumna.cantidadDePosiciones();
 	}
 
-	public void pasarTurno(Jugador jugador) {
+	public void pasarTurno(Jugador jugador) throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 		/*
-		 * Este es un metodo provisorio para disminuir el puntaje del jugador al
-		 * avanzar un turno, todas las demas funciones que deba cumplir éste
-		 * metodo se irán actualizando
-		 *
-		 * this.moverNaves();  a implementar, mueve las naves antes de pasar turno     */
-		
+		 * Mueve las naves y avanza el turno
+		 */
+		this.moverNaves();  
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
 	}

@@ -1,9 +1,9 @@
 package pruebasUnitarias;
 
+import recolectorDePosiciones.RecolectorDePosicionesDeDisparo;
 import colecciones.ColeccionDePosiciones;
 import junit.framework.TestCase;
 import componentesDeTablero.Posicion;
-import componentesDeTablero.RecolectorDePosicionesDeDisparo;
 import componentesDeTablero.Tablero;
 import disparos.DisparoConvencional;
 import disparos.MinaSubmarinaDoble;

@@ -1,4 +1,7 @@
-package componentesDeTablero;
+package recolectorDePosiciones;
+
+import componentesDeTablero.Posicion;
+import componentesDeTablero.Tablero;
 
 import colecciones.ColeccionDePosiciones;
 import disparos.Disparo;
@@ -55,9 +58,7 @@ public class RecolectorDePosicionesDeDisparo {
 	}
 		
 	private Posicion obtenerEsquinaSuperiorIzquierda(int numeroDeFila, int numeroDeColumna, int radio) throws ValorDeParametroFueraDeRango{
-		/* Devuelve la posicion referida a lo que seria la esquina superior izquierda respecto de la posicion
-		 * y el radio.
-		 */
+		
 		int numeroDeColumnaValida = numeroDeColumna - radio;
 		int numeroDeFilaValida = numeroDeFila - radio;
 		
@@ -76,9 +77,7 @@ public class RecolectorDePosicionesDeDisparo {
 	
 	
 	private Posicion obtenerEsquinaInferiorDerecha(int numeroDeFila, int numeroDeColumna, int radio) throws ValorDeParametroFueraDeRango{
-		/* Devuelve la posicion referida a lo que seria la esquina inferior derecha respecto de la posicion
-		 * y el radio.
-		 */
+		
 		int numeroDeColumnaValida = numeroDeColumna + radio;
 		int numeroDeFilaValida = numeroDeFila + radio;
 		
@@ -98,7 +97,6 @@ public class RecolectorDePosicionesDeDisparo {
 	}
 	
 	private ColeccionDePosiciones recolectarPosiciones(Posicion esquinaSuperiorIzquierda,Posicion esquinaInferiorDerecha) throws ValorDeParametroFueraDeRango{
-		/* Devuelve una coleccion de posiciones respecto al rectangulo formado por las esquinas */
 		
 		int desdeColumna = (int)esquinaSuperiorIzquierda.columnaDeLaPosicion();
 		int hastaColumna = (int)esquinaInferiorDerecha.columnaDeLaPosicion();

@@ -12,10 +12,11 @@ import nave.Nave;
 
 import org.junit.Test;
 
+import recolectorDePosiciones.RecolectorDePosicionesDeDisparo;
+
 import colecciones.ColeccionDePosiciones;
 
 import componentesDeTablero.Posicion;
-import componentesDeTablero.RecolectorDePosicionesDeDisparo;
 import componentesDeTablero.Tablero;
 
 import disparos.Disparo;
