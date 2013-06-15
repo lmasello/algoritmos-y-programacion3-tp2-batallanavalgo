@@ -18,6 +18,18 @@
 		<javac srcdir="${src.dir}" classpath="${lib.dir}" destdir="${build.dir}" />
  	</target>
 	
+	 <target name="compilar1" depends="limpiar">
+	 	<mkdir dir="${build.dir}" />
+	    <javac srcdir="${src.dir}" classpath="${lib.dir}" destdir="${build.dir}">
+			<classpath>
+	                    <pathelement path="." />
+	                    <fileset dir="lib">
+	                          <include name="**/*.jar"/>
+	                    </fileset>
+	        </classpath>
+	    </javac>
+	 </target>
+	
 	
 	<target name="correr" depends="compilar">
 		<java fork="yes" classname="algo3.Principal">
