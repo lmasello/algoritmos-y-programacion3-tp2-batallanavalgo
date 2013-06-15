@@ -12,13 +12,9 @@
 		<delete dir = "${doc.dir}" />
 		<delete file= "${zip.name}" />
 	</target>
+
 	
-	<target name="compilar" depends="limpiar">
-  		<mkdir dir="${build.dir}" /> 
-		<javac srcdir="${src.dir}" classpath="${lib.dir}" destdir="${build.dir}" />
- 	</target>
-	
-	 <target name="compilar1" depends="limpiar">
+	 <target name="compilar" depends="limpiar">
 	 	<mkdir dir="${build.dir}" />
 	    <javac srcdir="${src.dir}" classpath="${lib.dir}" destdir="${build.dir}">
 			<classpath>
