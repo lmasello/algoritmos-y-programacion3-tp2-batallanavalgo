@@ -28,6 +28,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	* Unicamente la prueba se realiza en consola
 	*/
 	
+		System.out.println("\nGrafica una ubicacion aleatoria de los barcos en el tablero, donde los numeros indican la cantidad de partes de nave que se encuentran en dicha posicion\n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -42,6 +44,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	* Unicamente la prueba se realiza en consola
 	*/
 	
+		System.out.println("\nGrafica una serie de movimientos de los barcos en el tablero\n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -60,7 +64,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	/*
 	* Unicamente la prueba se realiza en consola
 	*/
-	
+		System.out.println("\nGrafica la ubicacion de dos lanchas en el tablero\n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -79,7 +84,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	/*
 	* Unicamente la prueba se realiza en consola
 	*/
-	
+		System.out.println("\nGrafica la ubicacion de dos destructores en el tablero\n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -98,7 +104,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	/*
 	* Unicamente la prueba se realiza en consola
 	*/
-	
+		System.out.println("\nGrafica la ubicacion de un buque en el tablero\n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -115,7 +122,9 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	/*
 	* Unicamente la prueba se realiza en consola
 	*/
-	
+
+		System.out.println("\nGrafica la ubicacion de un porta aviones en el tablero\n");
+
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
@@ -132,6 +141,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 	* Unicamente la prueba se realiza en consola
 	*/
 	
+		System.out.println("\nGrafica la ubicacion de un rompe hielos en el tablero \n");
+		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
 		Tablero tableroAGraficar = new Tablero(10,10);
 		
