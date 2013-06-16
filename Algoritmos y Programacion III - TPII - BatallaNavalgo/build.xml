@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="iso-8859-1" ?> 
-<project name="ProyectoBaseAlgo3" default="ayuda" basedir=".">
+<project name="Algoritmos y Programacion III - TPN2 - Batalla Navalgo" default="ayuda" basedir=".">
   
   	<property name="build.dir" value="bin/" /> 
   	<property name="src.dir" value="src/" /> 
@@ -26,9 +26,11 @@
 	    </javac>
 	 </target>
 	
+<!--
+***El siguiente target se debera ejecutar cuando se cree el main del juego***
 	
 	<target name="correr" depends="compilar">
-		<java fork="yes" classname="algo3.Principal">
+		<java fork="yes" classname="batallaNavalgo.Principal">
 			<classpath>	
 				<pathelement path="${build.dir}" />
 				<fileset dir="lib">
@@ -37,7 +39,7 @@
 			</classpath>
 		</java>
   	</target>
-	
+-->	
 	<target name="corrertests" depends="compilar">	
 		<junit>
 			<classpath>	
@@ -61,8 +63,8 @@
 	           author="true"
 	           version="true"
 	           use="true"
-	           windowtitle="Proyecto Base Algo3">
-	    <doctitle><![CDATA[<h1>Proyecto Base Algo3</h1>]]></doctitle>
+	           windowtitle="Algoritmos y Programacion III - TPN2 - Batalla Navalgo">
+	    <doctitle><![CDATA[<h1>Algoritmos y Programacion III - TPN2 - Batalla Navalgo</h1>]]></doctitle>
 	  </javadoc>
 	</target>
 	
@@ -74,7 +76,9 @@
 	<target name="ayuda">
 		<echo>ant compilar : compila el programa</echo>
 		<echo>ant corrertests : compila el programa y corre los tests</echo>
+<!--	
 		<echo>ant correr : compila el programa y ejecuta el programa</echo>
+-->		
 		<echo>ant generarjavadocs : generar los javadocs</echo>
 		<echo>ant generarentrega : genera un zip listo para entregar</echo>
 	</target>
