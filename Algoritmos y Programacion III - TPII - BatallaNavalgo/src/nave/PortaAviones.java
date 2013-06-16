@@ -4,11 +4,12 @@ import componentesDeTablero.Tablero;
 
 import movimientos.Direccion;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class PortaAviones extends Nave {
 	/* Nave compuesta por 5 componentes */
 	
-	public PortaAviones() throws LargoDeNaveIncorrecto {
+	public PortaAviones() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		super();
 		

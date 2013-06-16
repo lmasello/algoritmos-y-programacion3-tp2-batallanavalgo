@@ -13,7 +13,7 @@ public class ValoresAleatoriosTest extends TestCase{
 
 	public void testGenerarValorAleatorioEntreDosValores() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
-		Tablero tableroAProbar = new Tablero(10,10);
+		Tablero tableroAProbar = Tablero.getInstance();
 		
 		for(int contador=0;contador<10;contador++){
 			
@@ -21,11 +21,13 @@ public class ValoresAleatoriosTest extends TestCase{
 
 			assertTrue(numeroAleatorio>0);
 			assertTrue(numeroAleatorio<=tableroAProbar.cantidadDeColumnas());
+		
+			Tablero.deleteInstance();
 		}
 	}
 	public void testGenerarValorAleatorioEntre0Y1() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
-		Tablero tableroAProbar = new Tablero(10,10);
+		Tablero tableroAProbar = Tablero.getInstance();
 		
 		for(int contador=0;contador<10;contador++){
 			
@@ -34,5 +36,7 @@ public class ValoresAleatoriosTest extends TestCase{
 			assertTrue(numeroAleatorio>=0);
 			assertTrue(numeroAleatorio<=1);
 		}
+	
+		Tablero.deleteInstance();
 	}
 }

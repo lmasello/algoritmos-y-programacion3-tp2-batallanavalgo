@@ -9,6 +9,7 @@ import colecciones.ColeccionDeComponentes;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public abstract class Nave implements NaveMovible {
 
@@ -22,14 +23,15 @@ public abstract class Nave implements NaveMovible {
 	Direccion direccionDeLaNave;
 	Tablero tableroEnDondeSeDesplaza;
 
-	public Nave() {
+	public Nave() throws ValoresDeParametroFueraDeRango {
 		
 		componentes = new ColeccionDeComponentes();
 		estaDestruida = false;
-		
+		tableroEnDondeSeDesplaza = Tablero.getInstance();
+
 	}
 	
-	public void agregarComponentes(){
+	public void agregarComponentes() throws ValoresDeParametroFueraDeRango{
 	/*
 	 * Agrega la cantidad de componentes correspondientes a cada nave,
 	 * Cada nave tiene una cantidad determinada de componentes	
@@ -222,26 +224,6 @@ public abstract class Nave implements NaveMovible {
 		}
 		
 	}
-
-	public void establecerTableroEnDondeMoverse(Tablero tableroBase) throws ValorDeParametroFueraDeRango{
-		/*
-		 * Establece el tablero en donde se mueve la nave, y luego, le establece el mismo tablero a las componentes
-		 * de la nave.
-		 */
-		tableroEnDondeSeDesplaza = tableroBase;
-		this.establecerTableroDeMovimientoALasComponentes(tableroBase);
-		
-	}
-
-	private void establecerTableroDeMovimientoALasComponentes(Tablero tableroBase) throws ValorDeParametroFueraDeRango {
-		
-		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
-			
-			ComponenteMovible componenteDeLaNave = this.obtenerComponenteDeNumero(numeroDeComponente);
-			
-			componenteDeLaNave.establecerTableroEnDondeSeEncuentraLaComponente(tableroBase);
-		}
-	}
 	
 	public void establecerDireccionDelMovimiento(Direccion unaDireccion) throws ValorDeParametroFueraDeRango{
 		/*
@@ -249,17 +231,22 @@ public abstract class Nave implements NaveMovible {
 		 * componentes de la nave
 		 */
 		direccionDeLaNave = unaDireccion;
-		this.establecerMismaDireccionALasComponentes(unaDireccion);
+		this.establecerMismaDireccionALasComponentes();
 	}
 
-	private void establecerMismaDireccionALasComponentes(Direccion unaDireccion) throws ValorDeParametroFueraDeRango {
+	private void establecerMismaDireccionALasComponentes() throws ValorDeParametroFueraDeRango {
 		
 		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
 			
 			ComponenteMovible componenteDeLaNave = this.obtenerComponenteDeNumero(numeroDeComponente);
 			
-			componenteDeLaNave.establecerDireccion(unaDireccion);
+			componenteDeLaNave.establecerDireccion();
 		}
+	}
+
+
+	public Direccion direccionDeLaNave() {
+		return direccionDeLaNave;
 	}
 	
 }

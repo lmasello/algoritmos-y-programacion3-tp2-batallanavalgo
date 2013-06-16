@@ -20,10 +20,16 @@ import excepciones.ValoresDeParametroFueraDeRango;
 
 public class Tablero {
 
+	private static Tablero INSTANCE = null;
+	
+	public static int CANTIDAD_DE_COLUMNAS = 10;
+	public static int CANTIDAD_DE_FILAS = 10;
+	
 	ColeccionDeColumnas columnasDelTablero;
 	ColeccionDeNaves navesDelTablero;
 
-	public Tablero(int cantidadDeColumnas, int cantidadDeFilas) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
+	//Constructor privado
+	private Tablero() throws ValoresDeParametroFueraDeRango{
 		/*
 		 * Constructor de la clase. Inicializa la clase Tablero con una cantidad
 		 * determinada de columnas y filas.
@@ -32,17 +38,33 @@ public class Tablero {
 		 * mayores a 0.
 		 */
 
-		 if((cantidadDeColumnas<=0) | (cantidadDeFilas<=0)){
+		 if((CANTIDAD_DE_COLUMNAS<=0) | (CANTIDAD_DE_FILAS<=0)){
 			 throw new ValoresDeParametroFueraDeRango();
 		 }
 		 
-		columnasDelTablero = this.inicializarColumnasConFilas(cantidadDeColumnas, cantidadDeFilas);
+		columnasDelTablero = this.inicializarColumnasConFilas(CANTIDAD_DE_COLUMNAS, CANTIDAD_DE_FILAS);
 		navesDelTablero = new ColeccionDeNaves();
 	
 	}
 	
+	public static Tablero getInstance() throws ValoresDeParametroFueraDeRango{
+		createInstance();
+		return INSTANCE;
+	}
+	
+	private synchronized static void createInstance() throws ValoresDeParametroFueraDeRango {
+	    // creador sincronizado para protegerse de posibles problemas  multi-hilo
+	    // otra prueba para evitar instanciación múltiple 	
+		if(INSTANCE == null){
+			INSTANCE = new Tablero();
+		}
+	}
+	
+	public static Tablero deleteInstance() throws ValoresDeParametroFueraDeRango{
+		return INSTANCE = null;
+	}
 
-	public void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void colocarNavesEnElTablero() throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 	/*
 	 * Metodo que consiste en agregar naves en el tablero.
 	 * Esta determinado por la consigna del trabajo la cantidad de naves a colocar.
@@ -60,18 +82,17 @@ public class Tablero {
 			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
 			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 		
 			
-			naveActual.establecerTableroEnDondeMoverse(this);
 			this.colocarNave(naveActual);
 		}
 		
 	}
 	
-	private void establecerNavesDelJuego() throws LargoDeNaveIncorrecto {
+	private void establecerNavesDelJuego() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		navesDelTablero.establecerNavesDelJuego();
 	}
 
-	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango {
+	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 	/*
 	 * Metodo que coloca una nave en el tablero, de acuerdo a una direccion aleatoria.
 	 * A su vez, setea la direccion del movimiento de la nave. 
@@ -85,7 +106,7 @@ public class Tablero {
 		
 	}
 		
-	private void ubicarNaveEnTablero(Nave naveActual, Direccion direccion) throws ValorDeParametroFueraDeRango {
+	private void ubicarNaveEnTablero(Nave naveActual, Direccion direccion) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 	/*
 	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar, y
 	 * la direccion inicial de la nave.
@@ -221,7 +242,7 @@ public class Tablero {
 		
 	}
 
-	private Direccion establecerOrientacion() {
+	private Direccion establecerOrientacion() throws ValoresDeParametroFueraDeRango {
 	/*
 	 * Establece una orientacion aleatoria, o bien 'H' haciendo referencia a horizontal o bien 'V' haciendo referencia
 	 * a vertical.
@@ -469,7 +490,7 @@ public class Tablero {
 		
 	}
 	
-	public void agregarNaveHorizontalManualmenteConPosicionDeProa(Nave naveAgregada , Posicion posicionDeProa) throws ValorDeParametroFueraDeRango{
+	public void agregarNaveHorizontalManualmenteConPosicionDeProa(Nave naveAgregada , Posicion posicionDeProa) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 	/*
 	 * Metodo creado para poder tener un control sobre las posiciones en donde se ubicara la nave, ya que cuando se
 	 * realiza la asignacion automatica, esta asignacion es aleatoria y se pierde el control de que posiciones 
@@ -477,14 +498,13 @@ public class Tablero {
 	 */
 		navesDelTablero.agregarNave(naveAgregada);
 		
-		naveAgregada.establecerTableroEnDondeMoverse(this);
 		naveAgregada.establecerDireccionDelMovimiento(new DireccionHorizontal());
 
 		this.colocarComponentesEnDireccionHorizontal(naveAgregada, posicionDeProa);
 	}
 
 
-	public void agregarNaveVerticalManualmenteConPosicionDeProa(Nave naveAColocar, Posicion posicionDeProaDeLanchaAColocar) throws ValorDeParametroFueraDeRango {
+	public void agregarNaveVerticalManualmenteConPosicionDeProa(Nave naveAColocar, Posicion posicionDeProaDeLanchaAColocar) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 		/*
 		 * Metodo creado para poder tener un control sobre las posiciones en donde se ubicara la nave, ya que cuando se
 		 * realiza la asignacion automatica, esta asignacion es aleatoria y se pierde el control de que posiciones 
@@ -492,7 +512,6 @@ public class Tablero {
 		 */
 		navesDelTablero.agregarNave(naveAColocar);
 			
-		naveAColocar.establecerTableroEnDondeMoverse(this);
 		naveAColocar.establecerDireccionDelMovimiento(new DireccionVertical());
 
 		this.colocarComponentesEnDireccionVertical(naveAColocar, posicionDeProaDeLanchaAColocar);

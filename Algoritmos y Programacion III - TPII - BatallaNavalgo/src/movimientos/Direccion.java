@@ -11,8 +11,6 @@ public interface Direccion {
 	public abstract Posicion desplazarPosicion(Posicion posicionAConocerLaSiguiente) throws ValorDeParametroFueraDeRango;
 
 	public void cambiarSentido();
-
-	public void tableroDeLasPosiciones(Tablero tableroParaConocerDireccion);
 	
 	public Sentido sentidoDeLaDireccion();
 

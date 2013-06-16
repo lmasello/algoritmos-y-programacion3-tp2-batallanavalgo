@@ -1,6 +1,7 @@
 package pruebasUnitarias;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 import junit.framework.TestCase;
 
 import nave.ComponenteDeNave;
@@ -12,7 +13,7 @@ import nave.Resistencia;
 
 public class ComponenteDeNaveTest extends TestCase {
 
-	public void testNoEstaDestruidaComponenteDeNaveAlCrearse() throws LargoDeNaveIncorrecto {
+	public void testNoEstaDestruidaComponenteDeNaveAlCrearse() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
 		Resistencia resistenciaDeLaNave = new Resistencia(1);
@@ -22,7 +23,7 @@ public class ComponenteDeNaveTest extends TestCase {
 
 	}
 
-	public void testDispararComponenteConResistencia1() throws LargoDeNaveIncorrecto {
+	public void testDispararComponenteConResistencia1() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
 		Resistencia resistenciaDeLaNave = new Resistencia(1);
@@ -33,7 +34,7 @@ public class ComponenteDeNaveTest extends TestCase {
 
 	}
 
-	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto {
+	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 
 		Nave nave1 = new Lancha();
 		Resistencia resistenciaDeLaNave = new Resistencia(2);
@@ -47,7 +48,7 @@ public class ComponenteDeNaveTest extends TestCase {
 		assertEquals(true, componente.estaDestruida());
 	}
 
-	public void testDestruirComponente() throws LargoDeNaveIncorrecto {
+	public void testDestruirComponente() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
 		Resistencia resistenciaDeLaNave = new Resistencia(2);

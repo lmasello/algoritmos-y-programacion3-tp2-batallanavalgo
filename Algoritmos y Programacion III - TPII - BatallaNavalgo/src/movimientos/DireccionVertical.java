@@ -5,6 +5,7 @@ import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 
 public class DireccionVertical implements Direccion {
@@ -12,8 +13,9 @@ public class DireccionVertical implements Direccion {
 	Tablero tableroDeLaDireccion;
 	SentidoVertical sentidoDeLaNave;
 	
-	public DireccionVertical(){
+	public DireccionVertical() throws ValoresDeParametroFueraDeRango{
 		sentidoDeLaNave = new Arriba();
+		tableroDeLaDireccion = Tablero.getInstance();
 	}
 	
 	@Override
@@ -43,12 +45,6 @@ public class DireccionVertical implements Direccion {
 	public void cambiarSentido() {
 		
 		sentidoDeLaNave = (sentidoDeLaNave).proximoSentido();
-	}
-
-	@Override
-	public void tableroDeLasPosiciones(Tablero tableroParaConocerDireccion) {
-		
-		tableroDeLaDireccion = tableroParaConocerDireccion;
 	}
 	
 	public Sentido sentidoDeLaDireccion(){

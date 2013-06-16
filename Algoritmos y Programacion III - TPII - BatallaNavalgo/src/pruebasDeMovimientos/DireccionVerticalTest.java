@@ -19,17 +19,17 @@ public class DireccionVerticalTest extends TestCase{
 
 	public void testObtenerLaPosicionVerticalSiguienteAUnaPosicionDeUnTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
-		Tablero tableroParaConocerDireccion = new Tablero(10,10);
+		Tablero tableroParaConocerDireccion = Tablero.getInstance();
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 4);
 		
-		Direccion direccionDeUnaNave = new DireccionVertical();
-		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
-		
+		Direccion direccionDeUnaNave = new DireccionVertical();		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		
 		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('D', 3);
 		
 		assertEquals(posicionQueDeberiaSerLaSiguiente , posicionSiguiente);
+		
+		Tablero.deleteInstance();
 	}
 
 	public void testCambiaLaDireccionVertical() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
@@ -43,17 +43,18 @@ public class DireccionVerticalTest extends TestCase{
 	
 	public void testProximaPosicionAlLlegarAlFinalDelTableroEnDireccionVertical() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
-		Tablero tableroParaConocerDireccion = new Tablero(10,10);
+		Tablero tableroParaConocerDireccion = Tablero.getInstance();
 		Posicion posicionAConocerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('J', 10);
 		
 		Direccion direccionDeUnaNave = new DireccionVertical();
-		direccionDeUnaNave.tableroDeLasPosiciones(tableroParaConocerDireccion);
 		
 		Posicion posicionSiguiente = direccionDeUnaNave.desplazarPosicion(posicionAConocerLaSiguiente);
 		
 		Posicion posicionQueDeberiaSerLaSiguiente = tableroParaConocerDireccion.obtenerPosicion('J', 9);
 		
 		assertEquals(posicionQueDeberiaSerLaSiguiente , posicionSiguiente);
+	
+		Tablero.deleteInstance();
 	}
 	
 }

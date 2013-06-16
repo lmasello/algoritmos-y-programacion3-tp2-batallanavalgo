@@ -31,12 +31,14 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica una ubicacion aleatoria de los barcos en el tablero, donde los numeros indican la cantidad de partes de nave que se encuentran en dicha posicion\n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		tableroAGraficar.colocarNavesEnElTablero();
 		
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeGraficadorDeTableroDelJuegoConMovimiento() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
@@ -47,7 +49,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica una serie de movimientos de los barcos en el tablero\n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		tableroAGraficar.colocarNavesEnElTablero();
 		
@@ -58,6 +60,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 			tableroAGraficar.moverNaves();
 			unGraficador.graficarEnConsola();
 		}
+		Tablero.deleteInstance();
 	}
 
 	public void testDeGraficadorDeDosLanchas() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -67,7 +70,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica la ubicacion de dos lanchas en el tablero\n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaLanchaAColocar = tableroAGraficar.obtenerPosicion('D', 5);
 		Posicion posicionDeProaDeOtraLanchaAColocar = tableroAGraficar.obtenerPosicion('H', 7);
@@ -78,6 +81,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeGraficadorDeDosDestructores() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -87,7 +92,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica la ubicacion de dos destructores en el tablero\n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaLanchaAColocar = tableroAGraficar.obtenerPosicion('D', 5);
 		Posicion posicionDeProaDeOtraLanchaAColocar = tableroAGraficar.obtenerPosicion('H', 7);
@@ -98,6 +103,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+	
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeGraficadorDeUnBuque() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -107,7 +114,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica la ubicacion de un buque en el tablero\n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaNaveAColocar = tableroAGraficar.obtenerPosicion('J', 5);
 
@@ -116,6 +123,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeGraficadorDeUnPortaAviones() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -126,7 +135,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica la ubicacion de un porta aviones en el tablero\n");
 
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaNaveAColocar = tableroAGraficar.obtenerPosicion('J', 10);
 
@@ -134,6 +143,8 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+		
+		Tablero.deleteInstance();
 	}
 
 	public void testDeGraficadorDeUnRompeHielos() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
@@ -144,7 +155,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		System.out.println("\nGrafica la ubicacion de un rompe hielos en el tablero \n");
 		
 		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
-		Tablero tableroAGraficar = new Tablero(10,10);
+		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaNaveAColocar = tableroAGraficar.obtenerPosicion('A', 1);
 
@@ -152,5 +163,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
+		
+		Tablero.deleteInstance();
 	}
 }

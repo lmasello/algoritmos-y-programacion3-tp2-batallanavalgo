@@ -19,7 +19,7 @@ public class NaveMovibleTest extends TestCase{
 
 	public void testMoverNaveHorizontalmenteEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDelJuego = new Tablero(10,10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
 			
 		Nave naveAColocar = new Lancha();
@@ -38,11 +38,12 @@ public class NaveMovibleTest extends TestCase{
 		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
 		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
 	
+		Tablero.deleteInstance();
 	}
 	
 	public void testMoverNaveEnElTableroCuandoSeEstaEnLimiteDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDelJuego = new Tablero(10,10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('J', 5);
 		
 		Nave naveAColocar = new Lancha();
@@ -60,11 +61,12 @@ public class NaveMovibleTest extends TestCase{
 		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('H', 5));
 		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('C', 5));
 	
+		Tablero.deleteInstance();
 	}
 
 	public void testMoverNaveVerticalmenteEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDelJuego = new Tablero(10,10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
 			
 		Nave naveAColocar = new Lancha();
@@ -83,6 +85,7 @@ public class NaveMovibleTest extends TestCase{
 		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 5));
 		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('D', 6));
 	
+		Tablero.deleteInstance();
 	}
 
 }

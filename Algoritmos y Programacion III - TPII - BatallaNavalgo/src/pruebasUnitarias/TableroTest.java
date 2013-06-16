@@ -24,24 +24,26 @@ public class TableroTest extends TestCase {
 		 * representa el numero de columnas y el segundo parametro representa el
 		 * numero de filas.
 		 */
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 
 		assertEquals(10, tableroDelJuego.cantidadDeColumnas());
 		assertEquals(10, tableroDelJuego.cantidadDeFilas());
+		Tablero.deleteInstance();
 	}
 
 	public void testObtenerUnaPosicionDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion unaPosicionDelTablero = tableroDelJuego.obtenerPosicion('C', 2);
 
 		assertNotNull(unaPosicionDelTablero);
+		Tablero.deleteInstance();
 
 	}
 	
 	public void testCantidadDeBarcosInicialesEnElTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 		
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		
 		assertEquals(0 , tableroDelJuego.cantidadDeBarcosEnTablero());
 		
@@ -49,11 +51,12 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(7 , tableroDelJuego.cantidadDeBarcosEnTablero());
 		
+		Tablero.deleteInstance();
 	}
 	
 	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveHorizontalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 	
-		Tablero tableroDelJuego = new Tablero(10,10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeLanchaAColocar = tableroDelJuego.obtenerPosicion('D', 5);
 		
 		assertEquals(false , tableroDelJuego.hayComponenteEnPosicion('D', 5));
@@ -66,12 +69,13 @@ public class TableroTest extends TestCase {
 		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('C', 5));
 		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('B', 5));
 		
+		Tablero.deleteInstance();
 	}
 
 
 	public void testExaminarSiLasPosicionesDelTableroContienenComponentesAlAgregarUnaNaveVerticalmente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 	
-		Tablero tableroDelJuego = new Tablero(10,10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeBuqueAColocar = tableroDelJuego.obtenerPosicion('D', 5);
 		
 		assertEquals(false , tableroDelJuego.hayComponenteEnPosicion('D', 5));
@@ -86,6 +90,7 @@ public class TableroTest extends TestCase {
 		assertEquals(true, tableroDelJuego.hayComponenteEnPosicion('D', 8));
 		assertEquals(false, tableroDelJuego.hayComponenteEnPosicion('D', 9));
 		
+		Tablero.deleteInstance();
 	}
 
 }

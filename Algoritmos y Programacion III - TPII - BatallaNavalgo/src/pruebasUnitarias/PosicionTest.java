@@ -8,6 +8,7 @@ import componentesDeTablero.Posicion;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 import junit.framework.TestCase;
 
@@ -26,7 +27,7 @@ public class PosicionTest extends TestCase {
 		
 	}
 	
-	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+	public void testAgregarComponentes () throws ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango{
 		
 		Posicion posicion = new Posicion();
 		Resistencia resistencia1 = new Resistencia(2);
@@ -44,7 +45,7 @@ public class PosicionTest extends TestCase {
 		
 	}
 	
-	public void testLuegoDeAgregarUnaComponenteDeberiaDarVerdaderoElMetodoDeSiTieneComponente() throws LargoDeNaveIncorrecto{
+	public void testLuegoDeAgregarUnaComponenteDeberiaDarVerdaderoElMetodoDeSiTieneComponente() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango{
 		Posicion posicion = new Posicion();
 		Nave nave1 = new Lancha();
 		
@@ -56,7 +57,7 @@ public class PosicionTest extends TestCase {
 		assertEquals(true , posicion.tieneComponenteDeNave());
 	}
 	
-	public void testBorrarUnaComponente() throws LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+	public void testBorrarUnaComponente() throws LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene, ValoresDeParametroFueraDeRango{
 		
 		Posicion posicion = new Posicion();
 		Nave nave1 = new Lancha();

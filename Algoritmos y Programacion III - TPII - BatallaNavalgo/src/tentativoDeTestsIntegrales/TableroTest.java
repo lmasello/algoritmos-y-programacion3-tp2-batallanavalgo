@@ -30,7 +30,7 @@ public class TableroTest extends TestCase {
 	
 	public void testRealizarDisparoAUnaNaveDeResistenciaDeUnTiro() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Nave naveAProbar = new Lancha();
@@ -48,11 +48,12 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
+		Tablero.deleteInstance();
 	}
 
 	public void testRealizarDisparoAUnaNaveDeResistenciaDeDosTiros() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Posicion posicionDePopaDeNave = tableroDelJuego.obtenerPosicion('B', 4);
@@ -78,11 +79,12 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
+		Tablero.deleteInstance();
 	}
 
 	public void testRealizarDisparoAUnaNaveQueAlRecibirUnImpactoSeDestruye() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Nave naveAProbar = new Buque();
@@ -99,11 +101,12 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
+		Tablero.deleteInstance();
 	}
 	
 	public void testRealizarDisparoAUnaNaveQueSoloRecibeDanioDeUnDisparoConvencional() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Posicion posicionDePopaDeNave = tableroDelJuego.obtenerPosicion('B', 4);
@@ -124,11 +127,12 @@ public class TableroTest extends TestCase {
 		
 		assertEquals(true, naveAProbar.estaDestruida());
 		
+		Tablero.deleteInstance();
 	}
 
 	public void testNoSeDaniaUnaNaveQueSoloRecibeDanioDeUnDisparoConvencionalYSeDisparaConOtroDisparo() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
 
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Posicion posicionDePopaDeNave = tableroDelJuego.obtenerPosicion('B', 4);
@@ -155,12 +159,13 @@ public class TableroTest extends TestCase {
 		tableroDelJuego.impactarDisparos();
 
 		assertEquals(false, naveAProbar.estaDestruida());
-		
+	
+		Tablero.deleteInstance();
 	}
 	
 	public void testCantidadDeDisparosYComponentesEnPosicionesDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
 		
-		Tablero tableroDelJuego = new Tablero(10, 10);
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Posicion posicionDePopaDeNave = tableroDelJuego.obtenerPosicion('B', 4);
@@ -188,6 +193,7 @@ public class TableroTest extends TestCase {
 
 		assertEquals(0 , posicionDeAgua.cantidadDeComponentesEnPosicion());
 
+		Tablero.deleteInstance();
 	}
 
 }

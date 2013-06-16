@@ -31,13 +31,14 @@ public class JugadorTest extends TestCase {
 
 	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 
-		Tablero tableroDePrueba = new Tablero(10, 10);
+		Tablero tableroDePrueba = Tablero.getInstance();
 		Jugador jugadorHumano = new Jugador("Leandro Masello");
 
 		tableroDePrueba.pasarTurno(jugadorHumano);
 
 		assertEquals(9990, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
 
+		Tablero.deleteInstance();
 	}
 
 	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango {

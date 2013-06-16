@@ -6,6 +6,7 @@ import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class ComponenteDeNave implements ComponenteMovible {
 
@@ -18,12 +19,13 @@ public class ComponenteDeNave implements ComponenteMovible {
 	Posicion posicionActual;
 	Direccion direccionDelMovimiento;
 
-	public ComponenteDeNave(Resistencia resistenciaDeNave, Nave nave) {
+	public ComponenteDeNave(Resistencia resistenciaDeNave, Nave nave) throws ValoresDeParametroFueraDeRango {
 
 		resistencia = resistenciaDeNave;
 		destruida = false;
 		naveALaQuePertenece = nave;
 
+		tableroEnDondeSeMueve = Tablero.getInstance();
 	}
 
 	public void disparoAComponente() {
@@ -57,10 +59,6 @@ public class ComponenteDeNave implements ComponenteMovible {
 		return naveALaQuePertenece;
 	}
 
-	@Override
-	public void establecerTableroEnDondeSeEncuentraLaComponente(Tablero tableroDeLaNave) {
-		tableroEnDondeSeMueve = tableroDeLaNave;
-	}
 
 	@Override
 	public Posicion posicionActualDeLaComponente() {
@@ -102,19 +100,18 @@ public class ComponenteDeNave implements ComponenteMovible {
 	}
 
 	@Override
-	public void establecerDireccion(Direccion unaDireccion) {
-		
-		direccionDelMovimiento = unaDireccion;
-		direccionDelMovimiento.tableroDeLasPosiciones(tableroEnDondeSeMueve);
-	}
-
-	@Override
 	public boolean puedeAvanzar() {
 	/*
 	 * Determina si es posible avanzar una posicion en el tablero, sin cambiar el sentido del movimiento y sin 
 	 * alcanzar el final del Tablero
 	 */
 		return direccionDelMovimiento.hayPosicionSiguienteDisponible(posicionActual);
+	}
+
+	@Override
+	public void establecerDireccion() {
+		
+		direccionDelMovimiento = naveALaQuePertenece.direccionDeLaNave();
 	}
 
 }

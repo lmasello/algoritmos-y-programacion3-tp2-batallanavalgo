@@ -4,11 +4,12 @@ import movimientos.Direccion;
 import componentesDeTablero.Tablero;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class Destructor extends Nave{
 	/* Nave compuesta por 3 componentes */
 	
-	public Destructor() throws LargoDeNaveIncorrecto {
+	public Destructor() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 
 		super();
 		

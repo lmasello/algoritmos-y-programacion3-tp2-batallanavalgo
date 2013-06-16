@@ -25,15 +25,14 @@ public class ComponenteMovibleTest extends TestCase{
 
 	public void testDeMovimientoHorizontalDeUnaComponente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 	
-		Tablero tableroDondeSeMueve = new Tablero(10,10);
-		Resistencia resistenciaDeNave = new Resistencia(1);
-		Nave naveDeLaComponente = new Lancha();
+		Tablero tableroDondeSeMueve = Tablero.getInstance();
 		DireccionHorizontal direccionDeLaComponente = new DireccionHorizontal();
 		
-		ComponenteMovible componenteAMover = new ComponenteDeNave(resistenciaDeNave, naveDeLaComponente);
-		componenteAMover.establecerTableroEnDondeSeEncuentraLaComponente(tableroDondeSeMueve);
-		componenteAMover.establecerDireccion(direccionDeLaComponente);
+		Nave naveDeLaComponente = new Lancha();
+		ComponenteMovible componenteAMover = naveDeLaComponente.obtenerComponenteDeNumero(1);
 
+		naveDeLaComponente.establecerDireccionDelMovimiento(direccionDeLaComponente);
+		
 		Posicion posicionDeLaComponente = tableroDondeSeMueve.obtenerPosicion('D', 4);
 		componenteAMover.establecerPosicionActual(posicionDeLaComponente);
 		
@@ -42,18 +41,19 @@ public class ComponenteMovibleTest extends TestCase{
 		Posicion posicionDondeDeberiaEstar = tableroDondeSeMueve.obtenerPosicion('E', 4);
 		
 		assertEquals(posicionDondeDeberiaEstar , componenteAMover.posicionActualDeLaComponente());
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeMovimientoVerticalDeUnaComponente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDondeSeMueve = new Tablero(10,10);
-		Resistencia resistenciaDeNave = new Resistencia(1);
-		Nave naveDeLaComponente = new Lancha();
+		Tablero tableroDondeSeMueve = Tablero.getInstance();
 		DireccionVertical direccionDeLaComponente = new DireccionVertical();
 		
-		ComponenteMovible componenteAMover = new ComponenteDeNave(resistenciaDeNave, naveDeLaComponente);
-		componenteAMover.establecerTableroEnDondeSeEncuentraLaComponente(tableroDondeSeMueve);
-		componenteAMover.establecerDireccion(direccionDeLaComponente);
+		Nave naveDeLaComponente = new Lancha();
+		ComponenteMovible componenteAMover = naveDeLaComponente.obtenerComponenteDeNumero(1);
+		
+		naveDeLaComponente.establecerDireccionDelMovimiento(direccionDeLaComponente);
 		
 		Posicion posicionDeLaComponente = tableroDondeSeMueve.obtenerPosicion('D', 4);
 		componenteAMover.establecerPosicionActual(posicionDeLaComponente);
@@ -63,19 +63,20 @@ public class ComponenteMovibleTest extends TestCase{
 		Posicion posicionDondeDeberiaEstar = tableroDondeSeMueve.obtenerPosicion('D', 3);
 		
 		assertEquals(posicionDondeDeberiaEstar , componenteAMover.posicionActualDeLaComponente());
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testDeMovimientoHorizontalDeUnaComponenteAlAlcanzarFinDeTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDondeSeMueve = new Tablero(10,10);
-		Resistencia resistenciaDeNave = new Resistencia(1);
-		Nave naveDeLaComponente = new Lancha();
+		Tablero tableroDondeSeMueve = Tablero.getInstance();
 		DireccionHorizontal direccionDeLaComponente = new DireccionHorizontal();
 
-		ComponenteMovible componenteAMover = new ComponenteDeNave(resistenciaDeNave, naveDeLaComponente);
-		componenteAMover.establecerTableroEnDondeSeEncuentraLaComponente(tableroDondeSeMueve);
-		componenteAMover.establecerDireccion(direccionDeLaComponente);
-	
+		Nave naveDeLaComponente = new Lancha();
+		ComponenteMovible componenteAMover = naveDeLaComponente.obtenerComponenteDeNumero(1);
+
+		naveDeLaComponente.establecerDireccionDelMovimiento(direccionDeLaComponente);
+		
 		Posicion posicionDeLaComponente = tableroDondeSeMueve.obtenerPosicion('J', 4);
 		componenteAMover.establecerPosicionActual(posicionDeLaComponente);
 		
@@ -84,25 +85,28 @@ public class ComponenteMovibleTest extends TestCase{
 		Posicion posicionDondeDeberiaEstar = tableroDondeSeMueve.obtenerPosicion('I', 4);
 		
 		assertEquals(posicionDondeDeberiaEstar , componenteAMover.posicionActualDeLaComponente());
+		
+		Tablero.deleteInstance();
 	}
 	
 	public void testAlMoverseLaPosicionAnteriorDebeBorrarLaComponente() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
 		
-		Tablero tableroDondeSeMueve = new Tablero(10,10);
-		Resistencia resistenciaDeNave = new Resistencia(1);
-		Nave naveDeLaComponente = new Lancha();
+		Tablero tableroDondeSeMueve = Tablero.getInstance();
 		DireccionHorizontal direccionDeLaComponente = new DireccionHorizontal();
 
-		ComponenteMovible componenteAMover = new ComponenteDeNave(resistenciaDeNave, naveDeLaComponente);
-		componenteAMover.establecerTableroEnDondeSeEncuentraLaComponente(tableroDondeSeMueve);
-		componenteAMover.establecerDireccion(direccionDeLaComponente);
-	
+		Nave naveDeLaComponente = new Lancha();
+		ComponenteMovible componenteAMover = naveDeLaComponente.obtenerComponenteDeNumero(1);
+
+		naveDeLaComponente.establecerDireccionDelMovimiento(direccionDeLaComponente);
+				
 		Posicion posicionDeLaComponente = tableroDondeSeMueve.obtenerPosicion('J', 4);
 		componenteAMover.establecerPosicionActual(posicionDeLaComponente);
 		
 		componenteAMover.mover();
 		
 		assertEquals(false , posicionDeLaComponente.tieneComponenteDeNave());
+		
+		Tablero.deleteInstance();
 	}
 
 }

@@ -8,8 +8,6 @@ import excepciones.ValorDeParametroFueraDeRango;
 
 public interface ComponenteMovible {
 
-	public abstract void establecerTableroEnDondeSeEncuentraLaComponente(Tablero tableroDeLaNave);
-
 	/*Almacena una referencia a la posicion donde esta contenida la componente*/
 	public abstract void establecerPosicionActual(Posicion posicionActual);
 
@@ -20,11 +18,11 @@ public interface ComponenteMovible {
 	 */
 	public abstract void mover() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 	
-	public void establecerDireccion(Direccion direccionDelMovimiento);
-
 	/*Determina si es posible avanzar una posicion en el tablero, sin cambiar el sentido del movimiento y sin 
 	 * alcanzar el final del Tablero
 	 */
 	public abstract boolean puedeAvanzar();
-	
+
+	public abstract void establecerDireccion();
+		
 }

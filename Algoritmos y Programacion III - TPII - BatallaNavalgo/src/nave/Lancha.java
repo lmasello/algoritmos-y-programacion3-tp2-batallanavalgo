@@ -4,10 +4,11 @@ import movimientos.Direccion;
 import componentesDeTablero.Tablero;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class Lancha extends Nave {
 	/* Nave compuesta por 2 componentes */
-	public Lancha() throws LargoDeNaveIncorrecto {
+	public Lancha() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 
 		super();
 		

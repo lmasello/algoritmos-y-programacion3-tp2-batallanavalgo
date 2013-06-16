@@ -8,6 +8,7 @@ import junit.framework.TestCase;
 import colecciones.ColeccionDeComponentes;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class ColeccionDeComponentesTest extends TestCase {
 	
@@ -20,7 +21,7 @@ public class ColeccionDeComponentesTest extends TestCase {
 		assertEquals(false, coleccionDeComponentes.tieneComponente());
 	}
 	
-	public void testAgregarComponentes() throws LargoDeNaveIncorrecto{
+	public void testAgregarComponentes() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango{
 		
 		ColeccionDeComponentes coleccionDeComponentes = new ColeccionDeComponentes(); 
 		Resistencia resistenciaUno = new Resistencia(3);
@@ -40,7 +41,7 @@ public class ColeccionDeComponentesTest extends TestCase {
 	
 	}
 	
-	public void testObtenerComponentes() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango{
+	public void testObtenerComponentes() throws LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		ColeccionDeComponentes coleccionDeComponentes = new ColeccionDeComponentes(); 
 		Resistencia resistenciaUno = new Resistencia(3);
@@ -58,7 +59,7 @@ public class ColeccionDeComponentesTest extends TestCase {
 		
 	}
 	
-	public void testQuitarComponentes() throws LargoDeNaveIncorrecto{
+	public void testQuitarComponentes() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango{
 		
 		ColeccionDeComponentes coleccionDeComponentes = new ColeccionDeComponentes(); 
 		Resistencia resistenciaUno = new Resistencia(3);

@@ -4,11 +4,12 @@ import componentesDeTablero.Tablero;
 
 import movimientos.Direccion;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class RompeHielos extends Nave {
 	/* Nave compuesta por 3 componentes */
 	
-	public RompeHielos() throws LargoDeNaveIncorrecto {
+	public RompeHielos() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 			
 		super();
 		

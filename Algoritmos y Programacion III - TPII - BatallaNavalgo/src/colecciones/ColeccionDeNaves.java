@@ -3,6 +3,7 @@ package colecciones;
 import java.util.ArrayList;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 import nave.Buque;
 import nave.Destructor;
@@ -25,7 +26,7 @@ public class ColeccionDeNaves {
 		coleccion.add(naveAAgregar);
 	}
 
-	public void establecerNavesDelJuego() throws LargoDeNaveIncorrecto {
+	public void establecerNavesDelJuego() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 	/*
 	 * Agrega las naves establecidas por la consigna del trabajo a la coleccion.	
 	 */
@@ -38,22 +39,22 @@ public class ColeccionDeNaves {
 		
 	}
 
-	private void agregarRompeHielos() throws LargoDeNaveIncorrecto {
+	private void agregarRompeHielos() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		Nave naveAAgregar = new RompeHielos(); 
 		this.agregarNave(naveAAgregar);	
 	}
 
-	private void agregarPortaAviones() throws LargoDeNaveIncorrecto {
+	private void agregarPortaAviones() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		Nave naveAAgregar = new PortaAviones(); 
 		this.agregarNave(naveAAgregar);	
 	}
 
-	private void agregarBuque() throws LargoDeNaveIncorrecto {
+	private void agregarBuque() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		Nave naveAAgregar = new Buque(); 
 		this.agregarNave(naveAAgregar);	
 	}
 
-	private void agregarUnaCantidadDeVecesNaveDestructor(int cantidadDeNaves) throws LargoDeNaveIncorrecto {
+	private void agregarUnaCantidadDeVecesNaveDestructor(int cantidadDeNaves) throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		for(int numeroDeNaveActual = 0 ; numeroDeNaveActual < cantidadDeNaves ; numeroDeNaveActual++){
 			
 			Nave naveAAgregar = new Destructor(); 
@@ -61,7 +62,7 @@ public class ColeccionDeNaves {
 		}
 	}
 
-	private void agregarUnaCantidadDeVecesNaveLancha(int cantidadDeNaves) throws LargoDeNaveIncorrecto {
+	private void agregarUnaCantidadDeVecesNaveLancha(int cantidadDeNaves) throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
 		
 		for(int numeroDeNaveActual = 0 ; numeroDeNaveActual < cantidadDeNaves ; numeroDeNaveActual++){
 			

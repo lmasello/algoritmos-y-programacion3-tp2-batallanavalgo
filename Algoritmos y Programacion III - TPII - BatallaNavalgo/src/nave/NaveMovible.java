@@ -13,7 +13,8 @@ public interface NaveMovible {
 	 */
 	public void moverComponentes() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 	
-	public abstract void establecerTableroEnDondeMoverse(Tablero tableroBase) throws ValorDeParametroFueraDeRango;
-	
 	public abstract void establecerDireccionDelMovimiento(Direccion unaDireccion) throws ValorDeParametroFueraDeRango;
+
+	public Direccion direccionDeLaNave();
+
 }
