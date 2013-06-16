@@ -22,4 +22,6 @@ public interface Direccion {
 	/*Evalua si puede existir un movimiento manteniendo el sentido y sin llegar al final del tablero*/
 	public abstract boolean hayPosicionSiguienteDisponible(Posicion posicionActual);
 
+	public boolean equals(Object otro);
+	
 }

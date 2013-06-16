@@ -2,6 +2,7 @@ package componentesDeTablero;
 
 import recolectorDePosiciones.RecolectorDePosicionesDeDisparo;
 import jugador.Jugador;
+import movimientos.Direccion;
 import movimientos.DireccionHorizontal;
 import movimientos.DireccionVertical;
 import nave.ComponenteDeNave;
@@ -72,8 +73,22 @@ public class Tablero {
 
 	private void colocarNave(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
-	 * Metodo que coloca una nave en el tablero.
-	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar.
+	 * Metodo que coloca una nave en el tablero, de acuerdo a una direccion aleatoria.
+	 * A su vez, setea la direccion del movimiento de la nave. 
+	 * 
+	 */
+		
+		Direccion direccion = this.establecerOrientacion(); // direccionVertical | direccionHorizontal
+		naveActual.establecerDireccionDelMovimiento(direccion);
+
+		this.ubicarNaveEnTablero(naveActual, direccion);
+		
+	}
+		
+	private void ubicarNaveEnTablero(Nave naveActual, Direccion direccion) throws ValorDeParametroFueraDeRango {
+	/*
+	 * Establece las posiciones aleatoriamente, pero teniendo en cuenta las dimensiones del barco a colocar, y
+	 * la direccion inicial de la nave.
 	 * A su vez, setea la direccion del movimiento de la nave. 
 	 * 
 	 * Para establecer las posiciones, se selecciona aleatoriamente una posicion determinada,
@@ -81,27 +96,24 @@ public class Tablero {
 	 * Una vez establecida dicha posicion las demas componentes de la nave se ubicaran de acuerdo al largo
 	 * determinado de la nave en cuestion y de acuerdo a la orientacion.	
 	 */
-		
+				
 		Posicion posicionDeProa;
-		char orientacion = this.establecerOrientacion(); // 'V' vertical | 'H' horizontal
-		/*Probar refactorizacion haciendo los ifs con double dispatch, teniendo un objeto de clase orientacion*/
-		if(orientacion == 'H'){ 
-			
-			naveActual.establecerDireccionDelMovimiento(new DireccionHorizontal());
+		
+		if(direccion.equals(new DireccionHorizontal())){ 
 
 			posicionDeProa = this.determinarPosicionDeProaParaNaveHorizontal(naveActual);
 			this.colocarComponentesEnDireccionHorizontal(naveActual , posicionDeProa);
-	
 		}
-		else if(orientacion == 'V'){ 
+		
 			
-			naveActual.establecerDireccionDelMovimiento(new DireccionVertical());
-
+		else if(direccion.equals(new DireccionVertical())){ 
+			
 			posicionDeProa = this.determinarPosicionDeProaParaNaveVertical(naveActual);
 			this.colocarComponentesEnDireccionVertical(naveActual , posicionDeProa);
 		}
 	}
-		
+
+
 	private Posicion determinarPosicionDeProaParaNaveVertical(Nave naveActual) throws ValorDeParametroFueraDeRango {
 	/*
 	 * Determina aleatoriamente una posicion determinada para la proa de la nave, la cual se ubicara verticalmente. 
@@ -209,7 +221,7 @@ public class Tablero {
 		
 	}
 
-	private char establecerOrientacion() {
+	private Direccion establecerOrientacion() {
 	/*
 	 * Establece una orientacion aleatoria, o bien 'H' haciendo referencia a horizontal o bien 'V' haciendo referencia
 	 * a vertical.
@@ -218,12 +230,12 @@ public class Tablero {
 	 */
 		
 		int numeroAleatorio = this.generarNumeroAleatorioEntreDosValores(0,1); //El numeroAleatorio sera 1 o 0
-		char valorADevolver='H'; //Se inicializa con dicho valor, para evitar error de compilador, ya que si se devuelve directo de la estructura condicional, no detecta el tipo y lanza error
+		Direccion direccionADevolver = null;
 		
-		if(numeroAleatorio == 0){valorADevolver='H';}
-		else if(numeroAleatorio ==1){valorADevolver='V';}
+		if(numeroAleatorio == 0){direccionADevolver= new DireccionHorizontal();}
+		else if(numeroAleatorio ==1){direccionADevolver=new DireccionVertical();}
 		
-		return valorADevolver;
+		return direccionADevolver;
 	}
 
 	public int generarNumeroAleatorioEntreDosValores(int desde, int hasta) {

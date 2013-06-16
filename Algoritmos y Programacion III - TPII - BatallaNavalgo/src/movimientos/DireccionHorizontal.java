@@ -35,6 +35,11 @@ public class DireccionHorizontal implements Direccion {
 		return posicionADevolver;
 	}
 
+	public boolean equals(Object otro){
+		return this.getClass().equals(otro.getClass());
+	}
+
+
 	@Override
 	public void cambiarSentido() {
 		sentidoDeLaNave = (sentidoDeLaNave).proximoSentido();

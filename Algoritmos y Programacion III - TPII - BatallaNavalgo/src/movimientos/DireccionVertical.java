@@ -71,4 +71,8 @@ public class DireccionVertical implements Direccion {
 		return tableroDeLaDireccion.tieneLaFila(filaSiguiente);
 		
 	}
+	public boolean equals(Object otro){
+		return this.getClass().equals(otro.getClass());
+	}
+
 }
