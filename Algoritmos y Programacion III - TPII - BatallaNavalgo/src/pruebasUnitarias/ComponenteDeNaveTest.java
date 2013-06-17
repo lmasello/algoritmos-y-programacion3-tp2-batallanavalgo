@@ -1,5 +1,7 @@
 package pruebasUnitarias;
 
+import disparos.Disparo;
+import disparos.DisparoConvencional;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
@@ -27,8 +29,9 @@ public class ComponenteDeNaveTest extends TestCase {
 	public void testDispararComponenteConResistencia1() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
+		Disparo disparo1 = new DisparoConvencional();
 		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
-		componente.disparoAComponente();
+		componente.recibirDisparo(disparo1);
 
 		assertEquals(true, componente.estaDestruida());
 
@@ -37,12 +40,13 @@ public class ComponenteDeNaveTest extends TestCase {
 	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 
 		Nave nave1 = new RompeHielos();
+		Disparo disparo1 = new DisparoConvencional();
 		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
-		componente.disparoAComponente();
+		componente.recibirDisparo(disparo1);
 
 		assertEquals(false, componente.estaDestruida());
 
-		componente.disparoAComponente();
+		componente.recibirDisparo(disparo1);
 
 		assertEquals(true, componente.estaDestruida());
 	}

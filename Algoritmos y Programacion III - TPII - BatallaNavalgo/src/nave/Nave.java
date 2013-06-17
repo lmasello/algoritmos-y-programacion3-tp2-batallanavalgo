@@ -8,6 +8,7 @@ import movimientos.Derecha;
 import movimientos.Direccion;
 import movimientos.Sentido;
 import colecciones.ColeccionDeComponentes;
+import disparos.Disparo;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
@@ -254,5 +255,11 @@ public abstract class Nave implements NaveMovible {
 	public Direccion direccionDeLaNave() {
 		return direccionDeLaNave;
 	}
-	
+
+	public boolean puedeRecibirDisparoDe(Disparo disparo){
+		/* Las naves pueden recibir cualquiera disparo, excepto la nave Destructor
+		 * que solo puede ser impactada por un disparo convencional (Ver Destructor).
+		 */
+		return true;
+	}
 }

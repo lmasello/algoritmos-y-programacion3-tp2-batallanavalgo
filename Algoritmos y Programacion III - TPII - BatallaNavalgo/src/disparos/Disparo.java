@@ -2,7 +2,7 @@ package disparos;
 
 import nave.ComponenteDeNave;
 
-public class Disparo {
+public abstract class Disparo {
 	
 	MomentoDeImpacto momentoDeImpacto;
 	int tiempoPredefinidoDeImpacto;
@@ -14,22 +14,9 @@ public class Disparo {
 		return 0;
 	}
 	
-	public void dispararA(ComponenteDeNave componente){
-		/* Caso especial en el cual la nave Destructor solo es afectada por 
-		 * un disparo convencional
-		 *  */
-		
-		if(componente.obtenerNaveALaQuePertenece().esDestructor()
-				&& this.noEsDisparoConvencional()){
-			//No dispara
-		}else{
-			componente.disparoAComponente();
-		}
-	}
-	
-	public boolean noEsDisparoConvencional() {
+	public boolean esDisparoConvencional() {
 
-		return true;
+		return false;
 	}
 
 	public MomentoDeImpacto obtenerMomentoDeImpacto(){
@@ -59,8 +46,6 @@ public class Disparo {
 		
 	}
 
-	public Disparo crearDisparo() {
-		
-		return null;
-	}
+	public abstract Disparo crearDisparo();
+	
 }

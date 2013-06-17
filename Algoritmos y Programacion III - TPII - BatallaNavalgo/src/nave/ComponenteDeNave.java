@@ -4,6 +4,7 @@ import movimientos.Direccion;
 
 import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
+import disparos.Disparo;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
@@ -28,13 +29,15 @@ public class ComponenteDeNave implements ComponenteMovible {
 		tableroEnDondeSeMueve = Tablero.getInstance();
 	}
 
-	public void disparoAComponente() {
+	public void recibirDisparo(Disparo disparo) {
 	/*
-	 * Un disparo impacta a la componente. Provoca una disminucion de la resistencia, la cual en caso que 
-	 * alcance el valor 0, significa que la componente ha sido destruida.
+	 * Un disparo impacta a la componente. Provoca una disminucion de la resistencia, si puede recibir 
+	 * tal disparo,  la cual en caso que alcance el valor 0, significa que la componente ha sido destruida.
 	 */
-		resistencia.disminuir();
-
+		if(this.naveALaQuePertenece.puedeRecibirDisparoDe(disparo)){
+			resistencia.disminuir();
+		}
+		
 		if (resistencia.obtenerResistencia() == 0) {
 			destruida = true;
 		}

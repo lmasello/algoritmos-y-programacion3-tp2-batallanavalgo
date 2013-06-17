@@ -118,7 +118,7 @@ public class Posicion {
 			for(int posicionEnColeccion = 1; posicionEnColeccion <= componentesDeNaveEnPosicion.cantidadDeComponentes();
 						posicionEnColeccion++){
 				ComponenteDeNave componenteADisparar = componentesDeNaveEnPosicion.obtenerComponente(posicionEnColeccion);
-				disparo.dispararA(componenteADisparar);
+				componenteADisparar.recibirDisparo(disparo);
 				disparo.marcarComoEjecutado();
 			}
 		}else{
