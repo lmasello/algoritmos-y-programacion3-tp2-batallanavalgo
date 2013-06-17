@@ -9,6 +9,7 @@ import nave.ComponenteDeNave;
 import nave.Lancha;
 import nave.Nave;
 import nave.Resistencia;
+import nave.RompeHielos;
 
 ;
 
@@ -35,7 +36,7 @@ public class ComponenteDeNaveTest extends TestCase {
 
 	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 
-		Nave nave1 = new Lancha();
+		Nave nave1 = new RompeHielos();
 		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
 		componente.disparoAComponente();
 

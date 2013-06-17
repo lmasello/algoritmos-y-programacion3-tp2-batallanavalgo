@@ -22,8 +22,8 @@ public class Tablero {
 
 	private static Tablero INSTANCE = null;
 	
-	public static int CANTIDAD_DE_COLUMNAS = 10;
-	public static int CANTIDAD_DE_FILAS = 10;
+	private static int CANTIDAD_DE_COLUMNAS = 10;
+	private static int CANTIDAD_DE_FILAS = 10;
 	
 	ColeccionDeColumnas columnasDelTablero;
 	ColeccionDeNaves navesDelTablero;
