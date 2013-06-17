@@ -1,6 +1,7 @@
 package colecciones;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValoresDeParametroFueraDeRango;
@@ -81,6 +82,11 @@ public class ColeccionDeNaves {
 		 */
 		return coleccion.get(numeroDeNaveActual-1);
 		
+	}
+
+	public Iterator iterator() {
+		
+		return coleccion.iterator();
 	}
 	
 }

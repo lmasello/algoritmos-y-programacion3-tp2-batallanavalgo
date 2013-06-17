@@ -1,5 +1,7 @@
 package componentesDeTablero;
 
+import java.util.Iterator;
+
 import recolectorDePosiciones.RecolectorDePosicionesDeDisparo;
 import jugador.Jugador;
 import movimientos.Direccion;
@@ -74,17 +76,13 @@ public class Tablero {
 	 */
  
 		this.establecerNavesDelJuego();
+
+		Iterator iterator = navesDelTablero.iterator();
 		
-		ColeccionDeNaves navesAColocar = navesDelTablero;
-		
-		for (int numeroDeNaveActual=1 ; numeroDeNaveActual <= navesAColocar.cantidadDeNaves() ; numeroDeNaveActual++){
-			
-			/*Obtiene nave de la coleccion de naves del juego y coloca una por una en el tablero*/
-			Nave naveActual = navesAColocar.naveDeLaPosicion(numeroDeNaveActual); 		
-			
+		while(iterator.hasNext()){
+			Nave naveActual = (Nave) iterator.next();
 			this.colocarNave(naveActual);
-		}
-		
+		}		
 	}
 	
 	private void establecerNavesDelJuego() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
@@ -468,12 +466,12 @@ public class Tablero {
 	/*
 	 * Realiza el desplazamiento de cada nave del tablero. 
 	 */
-		for(int indiceDeNaveActual = 1 ; indiceDeNaveActual<=this.cantidadDeBarcosEnTablero(); indiceDeNaveActual++){
-			
-			NaveMovible naveAMover = navesDelTablero.naveDeLaPosicion(indiceDeNaveActual);
-			
+		Iterator<ColeccionDeNaves> iterator = navesDelTablero.iterator();
+		while(iterator.hasNext()){
+			NaveMovible naveAMover = (NaveMovible) iterator.next();
 			naveAMover.moverComponentes();
 		}
+
 	}
 
 
