@@ -1,6 +1,7 @@
 package pruebasUnitarias;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 import junit.framework.TestCase;
 
@@ -13,32 +14,29 @@ import nave.Resistencia;
 
 public class ComponenteDeNaveTest extends TestCase {
 
-	public void testNoEstaDestruidaComponenteDeNaveAlCrearse() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
+	public void testNoEstaDestruidaComponenteDeNaveAlCrearse() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
-		Resistencia resistenciaDeLaNave = new Resistencia(1);
-		ComponenteDeNave componente = new ComponenteDeNave(resistenciaDeLaNave,nave1);
+		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
 
 		assertEquals(false, componente.estaDestruida());
 
 	}
 
-	public void testDispararComponenteConResistencia1() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
+	public void testDispararComponenteConResistencia1() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
-		Resistencia resistenciaDeLaNave = new Resistencia(1);
-		ComponenteDeNave componente = new ComponenteDeNave(resistenciaDeLaNave,nave1);
+		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
 		componente.disparoAComponente();
 
 		assertEquals(true, componente.estaDestruida());
 
 	}
 
-	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
+	public void testDispararComponenteConResistencia2() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 
 		Nave nave1 = new Lancha();
-		Resistencia resistenciaDeLaNave = new Resistencia(2);
-		ComponenteDeNave componente = new ComponenteDeNave(resistenciaDeLaNave, nave1);
+		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
 		componente.disparoAComponente();
 
 		assertEquals(false, componente.estaDestruida());
@@ -48,11 +46,10 @@ public class ComponenteDeNaveTest extends TestCase {
 		assertEquals(true, componente.estaDestruida());
 	}
 
-	public void testDestruirComponente() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango {
+	public void testDestruirComponente() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		
 		Nave nave1 = new Lancha();
-		Resistencia resistenciaDeLaNave = new Resistencia(2);
-		ComponenteDeNave componente = new ComponenteDeNave(resistenciaDeLaNave, nave1);
+		ComponenteDeNave componente = nave1.obtenerComponenteDeNumero(1);
 		componente.destruirComponente();
 
 		assertEquals(true, componente.estaDestruida());
