@@ -1,5 +1,7 @@
 package nave;
 
+import java.util.Iterator;
+
 import componentesDeTablero.Tablero;
 
 import movimientos.Derecha;
@@ -13,6 +15,8 @@ import excepciones.ValoresDeParametroFueraDeRango;
 
 public abstract class Nave implements NaveMovible {
 
+	private static int NUMERO_DE_PROA=1;
+	
 	ColeccionDeComponentes componentes;
 	boolean estaDestruida;
 	int largoDeLaNave;
@@ -50,11 +54,16 @@ public abstract class Nave implements NaveMovible {
 	 * Si todas estan destruidas entonces la nave esta destruida 
 	 * */
 		
-		for( int numeroDeComponente = 1; numeroDeComponente <= componentes.cantidadDeComponentes();
-				 	numeroDeComponente++){
-			estaDestruida = componentes.obtenerComponente(numeroDeComponente).estaDestruida();
-		}
-				
+		boolean estaDestruida=true;
+		
+		Iterator<ComponenteDeNave> iterator = componentes.iterator();
+		
+		while(iterator.hasNext()){
+			ComponenteDeNave componente = iterator.next();
+			if(!componente.estaDestruida()){
+				estaDestruida = false;
+			}
+		}				
 		return estaDestruida;
 	}
 	
@@ -92,13 +101,11 @@ public abstract class Nave implements NaveMovible {
 	public void destruirNave() throws ValorDeParametroFueraDeRango {
 		/* Destruye cada componente de la nave */
 			
-		for (int indiceDeComponentes = 1; indiceDeComponentes <= componentes.cantidadDeComponentes(); indiceDeComponentes++) {
-
-			ComponenteDeNave componente = componentes.obtenerComponente(indiceDeComponentes);
+		Iterator<ComponenteDeNave> iterator = componentes.iterator();
+		while(iterator.hasNext()){
+			ComponenteDeNave componente = iterator.next();
 			componente.destruirComponente();
-
 		}
-
 		estaDestruida = true;
 	}
 
@@ -106,7 +113,7 @@ public abstract class Nave implements NaveMovible {
 	/*
 	 * Se toma como supuesto que la proa es la primer componente de la nave	
 	 */
-		return 1;
+		return NUMERO_DE_PROA;
 	}
 	
 	public int numeroDeComponenteDeLaPopa() {
@@ -155,7 +162,7 @@ public abstract class Nave implements NaveMovible {
 		if (numeroDeComponenteQueComienzaAMoverse == this.numeroDeComponenteDeLaProa()){
 			this.moverEnSentidoPositivo();
 		}
-		if(numeroDeComponenteQueComienzaAMoverse == this.cantidadDeComponentes()){
+		else if(numeroDeComponenteQueComienzaAMoverse == this.cantidadDeComponentes()){
 			this.moverEnSentidoNegativo();
 		}
 
@@ -236,10 +243,9 @@ public abstract class Nave implements NaveMovible {
 
 	private void establecerMismaDireccionALasComponentes() throws ValorDeParametroFueraDeRango {
 		
-		for(int numeroDeComponente = 1 ; numeroDeComponente<=this.cantidadDeComponentes(); numeroDeComponente++){
-			
-			ComponenteMovible componenteDeLaNave = this.obtenerComponenteDeNumero(numeroDeComponente);
-			
+		Iterator<ComponenteDeNave> iterator = componentes.iterator();
+		while(iterator.hasNext()){
+			ComponenteMovible componenteDeLaNave = iterator.next();
 			componenteDeLaNave.establecerDireccion();
 		}
 	}

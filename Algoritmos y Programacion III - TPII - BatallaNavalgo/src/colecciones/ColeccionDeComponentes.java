@@ -1,6 +1,7 @@
 package colecciones;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
@@ -78,5 +79,8 @@ public class ColeccionDeComponentes {
 		
 	}
 
+	public Iterator<ComponenteDeNave> iterator() {
+		return componentes.iterator();
+	}
 
 }
