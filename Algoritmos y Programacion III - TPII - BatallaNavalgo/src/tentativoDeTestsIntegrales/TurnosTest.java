@@ -117,5 +117,5 @@ public class TurnosTest extends TestCase {
 		unGraficador.graficarEnConsola();
 		
 		Tablero.deleteInstance();
-}
+	}
 }
