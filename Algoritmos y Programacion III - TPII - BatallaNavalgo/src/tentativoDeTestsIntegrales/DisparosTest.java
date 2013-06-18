@@ -30,15 +30,18 @@ public class DisparosTest extends TestCase{
 
 	public void testAlDispararConMinaDobleSeColocanDisparonEnPosicionesDeAlrededor() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, IOException{
 		
-		/*Tablero tableroDelJuego = Tablero.getInstance();
+		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Jugador jugador1 = new Jugador("Juan");
 		
 		jugador1.asignarTablero(tableroDelJuego);
 		
-		jugador1.disparar();
-		jugador1.disparar();
+		Disparo disparo1 = new DisparoConvencional();
+		Disparo disparo2 = new MinaSubmarinaDoble();
+		
+		jugador1.realizarDisparoALaPosicion(disparo1, posicionDeProaDeNaveAProbar);
+		jugador1.realizarDisparoALaPosicion(disparo2, posicionDeCuerpoDeNave);
 		
 		assertEquals(2 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(1 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
@@ -55,6 +58,6 @@ public class DisparosTest extends TestCase{
 		assertEquals(0 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
 	
 		Tablero.deleteInstance();
-		*/
+		
 	}
 }

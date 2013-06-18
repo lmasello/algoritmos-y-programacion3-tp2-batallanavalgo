@@ -376,13 +376,28 @@ public class Tablero {
 
 	public void pasarTurno(Jugador jugador) throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 		/*
-		 * Mueve las naves y avanza el turno
+		 * Remueve las componentes de las naves que fueron eliminadas, las mueve 
+		 * y avanza el turno
 		 */
+		this.removerComponentesDeNavesEliminadas();
 		this.moverNaves();  
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
 	}
 	
+	private void removerComponentesDeNavesEliminadas() throws ValorDeParametroFueraDeRango {
+		/*
+		 * Recorre las naves que se encuentran en el tablero removiendo las componentes de cada
+		 * una que hayan sido eliminadas previamente.
+		 */
+		for(int numeroDeNave = 1; numeroDeNave <= navesDelTablero.cantidadDeNaves(); numeroDeNave++){
+			
+			Nave naveActual = navesDelTablero.naveDeLaPosicion(numeroDeNave);
+			naveActual.eliminarComponentesDestruidas();
+			
+		}
+	}
+
 	public ColeccionDeNaves obtenerNavesDelTablero(){
 		
 		return navesDelTablero;

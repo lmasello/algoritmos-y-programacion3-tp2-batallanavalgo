@@ -41,22 +41,25 @@ public class JugadorTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 
-	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango {
-
+	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
+		
+		Tablero tableroDePrueba = Tablero.getInstance();
 		Jugador jugadorHumano = new Jugador("Leandro Masello");
 		Disparo disparo1 = new DisparoConvencional();
 		Disparo disparo2 = new MinaSubmarinaPuntual();
-		ColeccionDePosiciones posiciones = new ColeccionDePosiciones();
-		Posicion posicion = new Posicion();
-		posiciones.agregarPosicion(posicion);
-
-		jugadorHumano.realizarDisparoALasPosiciones(disparo1, posiciones);
+		
+		Posicion posicion = tableroDePrueba.obtenerPosicion('C', 5);
+		jugadorHumano.asignarTablero(tableroDePrueba);
+		
+		jugadorHumano.realizarDisparoALaPosicion(disparo1, posicion);
 
 		assertEquals(9800, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
 
-		jugadorHumano.realizarDisparoALasPosiciones(disparo2, posiciones);
+		jugadorHumano.realizarDisparoALaPosicion(disparo2, posicion);
 
 		assertEquals(9750, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
+		
+		Tablero.deleteInstance();
 	}
-
+		
 }

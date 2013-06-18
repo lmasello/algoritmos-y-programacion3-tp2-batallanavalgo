@@ -57,14 +57,8 @@ public class ColeccionDeComponentes {
 
 	public boolean tieneLaComponente(ComponenteDeNave componenteDeNave) {
 		
-		for(int indiceActual = 0 ; indiceActual<this.cantidadDeComponentes() ; indiceActual++){
-				
-			if(componenteDeNave.equals(componentes.get(indiceActual))){
-				return true;
-			}
-		}
+		return componentes.contains(componenteDeNave);
 		
-		return false;
 	}
 
 	public void borrarComponente(ComponenteDeNave componenteDeNave) throws ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {

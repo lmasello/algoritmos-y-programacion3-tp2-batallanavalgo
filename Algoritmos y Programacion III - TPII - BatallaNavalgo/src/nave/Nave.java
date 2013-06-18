@@ -262,4 +262,19 @@ public abstract class Nave implements NaveMovible {
 		 */
 		return true;
 	}
+	
+	public void eliminarComponentesDestruidas() throws ValorDeParametroFueraDeRango{
+		/*
+		 * Recorre las componentes de la nave y elimina las que estan destruidas
+		 */
+		
+		for(int componenteEnPosicion = 1; componenteEnPosicion <= componentes.cantidadDeComponentes(); 
+				componenteEnPosicion++){
+			ComponenteDeNave componenteActual = componentes.obtenerComponente(componenteEnPosicion);
+			if(componenteActual.estaDestruida()){
+				componentes.quitarComponente(componenteActual);
+				componenteEnPosicion = componenteEnPosicion - 1;
+			}
+		}
+	}
 }
