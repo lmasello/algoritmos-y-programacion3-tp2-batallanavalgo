@@ -6,6 +6,7 @@ import componentesDeTablero.Tablero;
 import colecciones.ColeccionDePosiciones;
 import disparos.Disparo;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 
 public class RecolectorDePosicionesDeDisparo {
 	
@@ -15,12 +16,12 @@ public class RecolectorDePosicionesDeDisparo {
 	int numeroDeUltimaFila;
 	Tablero tablero;
 	
-	public RecolectorDePosicionesDeDisparo(Tablero tableroRecibido) throws ValorDeParametroFueraDeRango{
+	public RecolectorDePosicionesDeDisparo() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		/* Constructor del recolector que tiene al tablero como atributo y al numero
 		 * ascii correspondiente a la ultima columna y fila 
 		 */
 		
-		tablero = tableroRecibido;
+		tablero = Tablero.getInstance();
 		numeroDeUltimaColumna = (tablero.cantidadDeColumnas() + numeroDePrimeraColumna - 1);
 		numeroDeUltimaFila = tablero.cantidadDeFilas();
 		

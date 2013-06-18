@@ -17,7 +17,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioCeroEnEsquinaSuperiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 			Tablero tablero = Tablero.getInstance();
-			RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+			RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 			Posicion posicionADisparar = tablero.obtenerPosicion('A', 1);
 			DisparoConvencional disparo = new DisparoConvencional();
 			ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -33,7 +33,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioUnoEnEsquinaSuperiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('A', 1);
 		MinaSubmarinaDoble minaDoble = new MinaSubmarinaDoble();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -52,7 +52,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioDosEnEsquinaSuperiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('A', 1);
 		MinaSubmarinaTriple minaTriple = new MinaSubmarinaTriple();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -76,7 +76,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioCeroEnEsquinaInferiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('A', 10);
 		DisparoConvencional disparo = new DisparoConvencional();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -92,7 +92,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioUnoEnEsquinaInferiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('A', 10);
 		MinaSubmarinaDoble minaDoble = new MinaSubmarinaDoble();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -111,7 +111,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioDosEnEsquinaInferiorIzquierda() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('A', 10);
 		MinaSubmarinaTriple minaTriple = new MinaSubmarinaTriple();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -136,7 +136,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioCeroEnEsquinaSuperiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 1);
 		DisparoConvencional disparo = new DisparoConvencional();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -152,7 +152,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioUnoEnEsquinaSuperiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 1);
 		MinaSubmarinaDoble minaDoble = new MinaSubmarinaDoble();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -171,7 +171,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioDosEnEsquinaSuperiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 1);
 		MinaSubmarinaTriple minaTriple = new MinaSubmarinaTriple();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -195,7 +195,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioCeroEnEsquinaInferiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 10);
 		DisparoConvencional disparo = new DisparoConvencional();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -211,7 +211,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioUnoEnEsquinaInferiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 10);
 		MinaSubmarinaDoble minaDoble = new MinaSubmarinaDoble();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -230,7 +230,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioDosEnEsquinaInferiorDerecha() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('J', 10);
 		MinaSubmarinaTriple minaTriple = new MinaSubmarinaTriple();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -255,7 +255,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioCero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('C', 3);
 		DisparoConvencional disparo = new DisparoConvencional();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -271,7 +271,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioUno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('H', 7);
 		MinaSubmarinaDoble minaDoble = new MinaSubmarinaDoble();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;
@@ -295,7 +295,7 @@ public class RecolectorDePosicionesDeDisparoTest extends TestCase {
 	public void testRecolectarPosicionConDisparoDeRadioDos() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		Tablero tablero = Tablero.getInstance();
-		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo(tablero);
+		RecolectorDePosicionesDeDisparo recolector = new RecolectorDePosicionesDeDisparo();
 		Posicion posicionADisparar = tablero.obtenerPosicion('E', 5);
 		MinaSubmarinaTriple minaTriple = new MinaSubmarinaTriple();
 		ColeccionDePosiciones coleccionDePosicionesADisparar;

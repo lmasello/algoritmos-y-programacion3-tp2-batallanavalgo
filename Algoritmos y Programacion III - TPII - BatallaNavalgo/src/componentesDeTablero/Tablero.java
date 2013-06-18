@@ -402,7 +402,7 @@ public class Tablero {
 		return posicionAEvaluar.tieneComponenteDeNave();
 	}
 
-	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango{
+	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		/* Devuelve una coleccion de posiciones con todas aquellas posiciones afectadas por el disparo.
 		 * Por convension del trabajo, las posiciones afectadas de acuerdo a cada disparo seran:
 		 * Disparo Convensional: 1 posicion
@@ -416,7 +416,7 @@ public class Tablero {
 		 *      disparo debe ser un disparo valido (convencional, mina puntual, mina por contacto, mina doble o mina triple)
 		*/
 
-		RecolectorDePosicionesDeDisparo unRecolectorDePosiciones = new RecolectorDePosicionesDeDisparo(this);
+		RecolectorDePosicionesDeDisparo unRecolectorDePosiciones = new RecolectorDePosicionesDeDisparo();
 		ColeccionDePosiciones posicionesADisparar = unRecolectorDePosiciones.obtenerPosicionesDeDisparo(posicionElegida, disparo);
 		
 		return posicionesADisparar;
