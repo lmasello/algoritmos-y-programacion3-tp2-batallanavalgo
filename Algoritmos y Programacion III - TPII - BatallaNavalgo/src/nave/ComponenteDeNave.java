@@ -9,7 +9,7 @@ import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContien
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
-public class ComponenteDeNave implements ComponenteMovible {
+public class ComponenteDeNave implements ComponenteMovible, Disparable {
 
 	Resistencia resistencia;
 	boolean destruida;

@@ -1,6 +1,7 @@
 package componentesDeTablero;
 
 import nave.ComponenteDeNave;
+import nave.Disparable;
 import colecciones.ColeccionDeComponentes;
 import colecciones.ColeccionDeDisparos;
 import disparos.Disparo;
@@ -117,7 +118,7 @@ public class Posicion {
 		if(componentesDeNaveEnPosicion.tieneComponente()){
 			for(int posicionEnColeccion = 1; posicionEnColeccion <= componentesDeNaveEnPosicion.cantidadDeComponentes();
 						posicionEnColeccion++){
-				ComponenteDeNave componenteADisparar = componentesDeNaveEnPosicion.obtenerComponente(posicionEnColeccion);
+				Disparable componenteADisparar = componentesDeNaveEnPosicion.obtenerComponente(posicionEnColeccion);
 				componenteADisparar.recibirDisparo(disparo);
 				disparo.marcarComoEjecutado();
 			}
@@ -141,9 +142,9 @@ public class Posicion {
 		
 		for(int componenteEnPosicion = 1; componenteEnPosicion <= componentesDeNaveEnPosicion.cantidadDeComponentes(); 
 					componenteEnPosicion++){
-			ComponenteDeNave componenteActual = componentesDeNaveEnPosicion.obtenerComponente(componenteEnPosicion);
+			Disparable componenteActual = componentesDeNaveEnPosicion.obtenerComponente(componenteEnPosicion);
 			if(componenteActual.estaDestruida()){
-				componentesDeNaveEnPosicion.quitarComponente(componenteActual);
+				componentesDeNaveEnPosicion.quitarComponente((ComponenteDeNave)componenteActual);
 				componenteEnPosicion = componenteEnPosicion - 1;
 			}
 			
