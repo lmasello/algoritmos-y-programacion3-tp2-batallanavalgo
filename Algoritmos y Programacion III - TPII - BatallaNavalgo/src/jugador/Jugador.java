@@ -14,6 +14,7 @@ import disparos.MinaSubmarinaPorContacto;
 import disparos.MinaSubmarinaPuntual;
 import disparos.MinaSubmarinaTriple;
 import excepciones.ValorDeParametroFueraDeRango;
+import excepciones.ValoresDeParametroFueraDeRango;
 import puntaje.Puntaje;
 
 public class Jugador {
@@ -61,7 +62,7 @@ public class Jugador {
 
 	}
 
-	public void disparar() throws IOException, ValorDeParametroFueraDeRango{
+	public void disparar() throws IOException, ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
 		/*	El Jugador elige un tipo de disparo, junto con una posicion (metodos a desarrollar)
 		 *  sobre la cual quiera disparar. Luego de acuerdo al tipo de disparo, se recolectan las 
