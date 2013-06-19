@@ -1,6 +1,7 @@
 package colecciones;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import disparos.Disparo;
 
@@ -43,6 +44,11 @@ public class ColeccionDeDisparos {
 	public boolean noEstaVacia(){
 		
 		return (!coleccionDeDisparos.isEmpty());
+	}
+
+	public Iterator<Disparo> iterator() {
+		
+		return coleccionDeDisparos.iterator();
 	}
 
 }
