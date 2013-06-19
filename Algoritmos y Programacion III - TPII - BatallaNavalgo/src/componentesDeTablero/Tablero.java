@@ -379,6 +379,7 @@ public class Tablero {
 		 * Remueve las componentes de las naves que fueron eliminadas, las mueve 
 		 * y avanza el turno
 		 */
+		this.quitarNavesEliminadas();
 		this.moverNaves();  
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
@@ -528,6 +529,16 @@ public class Tablero {
 		naveAColocar.establecerDireccionDelMovimiento(new DireccionVertical());
 
 		this.colocarComponentesEnDireccionVertical(naveAColocar, posicionDeProaDeLanchaAColocar);
+	}
+	
+	public void quitarNavesEliminadas() throws ValorDeParametroFueraDeRango{
+		
+		for(int numeroDeNave = 1; numeroDeNave<= navesDelTablero.cantidadDeNaves(); numeroDeNave++){
+			Nave naveAEliminar = navesDelTablero.naveDeLaPosicion(numeroDeNave);
+			if(naveAEliminar.estaDestruida()){
+				navesDelTablero.quitarNave(naveAEliminar);
+			}
+		}
 	}
 	
 }

@@ -88,5 +88,10 @@ public class ColeccionDeNaves {
 		
 		return coleccion.iterator();
 	}
+
+	public void quitarNave(Nave naveAEliminar) {
+		
+		coleccion.remove(naveAEliminar);
+	}
 	
 }

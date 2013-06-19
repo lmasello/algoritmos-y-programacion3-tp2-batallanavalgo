@@ -42,7 +42,7 @@ public class Jugador {
 		return puntajeDelJugador;
 
 	}
-	
+
 	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		/* Metodo que a partir de un disparo y una posicion elegida, obtiene todas las posiciones afectadas por ese disparo,
 		 * y lo ubica en las mismas.
@@ -67,8 +67,9 @@ public class Jugador {
 		
 		this.obtenerPuntaje().disminuirPuntajePorDisparo(disparo);
 	
-
 	}
+	
+
 
 	public void disparar() throws IOException, ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 			
@@ -79,9 +80,8 @@ public class Jugador {
 		 */  
 		Disparo disparo = this.elegirDisparo();
 		Posicion posicionElegida = this.elegirPosicion();
-		ColeccionDePosiciones posicionesADisparar = tableroDelJugador.obtenerPosicionesDondeDisparar(posicionElegida,disparo);
-			  
-		this.colocarDisparoEnPosicionesAfectadas(disparo, posicionesADisparar);
+		
+		this.realizarDisparoALaPosicion(disparo, posicionElegida);
 		
 	}
 

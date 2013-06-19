@@ -118,4 +118,36 @@ public class TurnosTest extends TestCase {
 		
 		Tablero.deleteInstance();
 	}
+	
+	public void testSeDestruyeUnaNavePorCompletoEnElTablero() throws ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+		
+		Tablero tableroDelJuego = Tablero.getInstance();
+		Jugador jugador1 = new Jugador("Robert");
+		Nave nave1 = new Lancha();
+		Disparo disparo1 = new DisparoConvencional();
+		Disparo disparo2 = new DisparoConvencional();
+		GraficadorDeTableroEnConsola unGraficador = new GraficadorDeTableroEnConsola();
+		
+		unGraficador.establecerTableroAGraficar(tableroDelJuego);
+		jugador1.asignarTablero(tableroDelJuego);
+		
+		Posicion posicion1 = tableroDelJuego.obtenerPosicion('D', 5);
+		Posicion posicion2 = tableroDelJuego.obtenerPosicion('C', 5);
+		
+		tableroDelJuego.agregarNaveHorizontalManualmenteConPosicionDeProa(nave1, posicion1);
+		
+		unGraficador.graficarEnConsola();
+		System.out.println();
+		
+		jugador1.realizarDisparoALaPosicion(disparo1, posicion1);
+		jugador1.realizarDisparoALaPosicion(disparo2, posicion2);
+		
+		tableroDelJuego.impactarDisparos();
+		tableroDelJuego.pasarTurno(jugador1);
+		
+		unGraficador.graficarEnConsola();
+		
+		assertEquals(true, tableroDelJuego.cantidadDeBarcosEnTablero() == 0);
+		
+	}
 }
