@@ -40,8 +40,8 @@ public class DisparosTest extends TestCase{
 		Disparo disparo1 = new DisparoConvencional();
 		Disparo disparo2 = new MinaSubmarinaDoble();
 		
-		jugador1.realizarDisparoALaPosicion(disparo1, posicionDeProaDeNaveAProbar);
-		jugador1.realizarDisparoALaPosicion(disparo2, posicionDeCuerpoDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparo1, posicionDeProaDeNaveAProbar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparo2, posicionDeCuerpoDeNave);
 		
 		assertEquals(2 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(1 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());

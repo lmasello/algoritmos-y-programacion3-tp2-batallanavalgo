@@ -43,32 +43,6 @@ public class Jugador {
 
 	}
 
-	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
-		/* Metodo que a partir de un disparo y una posicion elegida, obtiene todas las posiciones afectadas por ese disparo,
-		 * y lo ubica en las mismas.
-		 */
-		ColeccionDePosiciones posicionesAfectadas = tableroDelJugador.obtenerPosicionesDondeDisparar(posicionElegida, disparo);
-		this.colocarDisparoEnPosicionesAfectadas(disparo, posicionesAfectadas);
-	}
-
-	private void colocarDisparoEnPosicionesAfectadas(Disparo disparo,ColeccionDePosiciones
-			 posicionesAfectadas) throws ValorDeParametroFueraDeRango {
-		
-	/* Recorre la coleccion de posiciones. Crea el disparo correspondiente y lo
-	 * agrega a la posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
-	 */
-		
-		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesAfectadas.cantidadDePosiciones()
-				; posicionEnColeccion++){
-				Posicion posicionActual = posicionesAfectadas.obtenerPosicionDeLaFila(posicionEnColeccion);
-				Disparo disparoAAgregar = disparo.crearDisparo();
-				posicionActual.agregarDisparoAPosicion(disparoAAgregar);
-		}
-		
-		this.obtenerPuntaje().disminuirPuntajePorDisparo(disparo);
-	
-	}
-	
 
 
 	public void disparar() throws IOException, ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
@@ -80,9 +54,7 @@ public class Jugador {
 		 */  
 		Disparo disparo = this.elegirDisparo();
 		Posicion posicionElegida = this.elegirPosicion();
-		
-		this.realizarDisparoALaPosicion(disparo, posicionElegida);
-		
+				
 	}
 
 	public Posicion elegirPosicion() throws IOException, ValorDeParametroFueraDeRango {

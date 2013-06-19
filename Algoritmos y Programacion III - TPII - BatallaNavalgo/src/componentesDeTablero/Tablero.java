@@ -20,7 +20,7 @@ import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
 
-public class Tablero {
+public class Tablero implements Modelo {
 
 	private static Tablero INSTANCE = null;
 	
@@ -417,7 +417,7 @@ public class Tablero {
 		return posicionAEvaluar.tieneComponenteDeNave();
 	}
 
-	public ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+	private ColeccionDePosiciones obtenerPosicionesDondeDisparar(Posicion posicionElegida, Disparo disparo) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
 		/* Devuelve una coleccion de posiciones con todas aquellas posiciones afectadas por el disparo.
 		 * Por convension del trabajo, las posiciones afectadas de acuerdo a cada disparo seran:
 		 * Disparo Convensional: 1 posicion
@@ -541,5 +541,27 @@ public class Tablero {
 		}
 	}
 	
+
+	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+		/* Metodo que a partir de un disparo y una posicion elegida, obtiene todas las posiciones afectadas por ese disparo,
+		 * y lo ubica en las mismas.
+		 */
+		ColeccionDePosiciones posicionesAfectadas = this.obtenerPosicionesDondeDisparar(posicionElegida, disparo);
+		this.colocarDisparoEnPosicionesAfectadas(disparo, posicionesAfectadas);
+	}
+
+	private void colocarDisparoEnPosicionesAfectadas(Disparo disparo,ColeccionDePosiciones posicionesAfectadas) throws ValorDeParametroFueraDeRango {
+		
+	/* Recorre la coleccion de posiciones. Crea el disparo correspondiente y lo
+	 * agrega a la posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
+	 */
+		
+		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesAfectadas.cantidadDePosiciones()
+				; posicionEnColeccion++){
+				Posicion posicionActual = posicionesAfectadas.obtenerPosicionDeLaFila(posicionEnColeccion);
+				Disparo disparoAAgregar = disparo.crearDisparo();
+				posicionActual.agregarDisparoAPosicion(disparoAAgregar);
+		}	
+	}
 }
 

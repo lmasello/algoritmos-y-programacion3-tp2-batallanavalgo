@@ -41,8 +41,8 @@ public class TableroTest extends TestCase {
 		
 		Disparo disparoARealizar = new DisparoConvencional();
 
-		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeCuerpoDeNave);
 				
 		tableroDelJuego.impactarDisparos();
 		
@@ -63,17 +63,17 @@ public class TableroTest extends TestCase {
 	
 		Disparo disparoARealizar = new DisparoConvencional();
 		
-		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDePopaDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeCuerpoDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
 
 		tableroDelJuego.impactarDisparos();
 		
 		assertEquals(false, naveAProbar.estaDestruida());
 		
-		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDePopaDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeCuerpoDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
 
 		tableroDelJuego.impactarDisparos();
 		
@@ -86,7 +86,6 @@ public class TableroTest extends TestCase {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
-		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Nave naveAProbar = new Buque();
 		
 		tableroDelJuego.colocarComponentesEnDireccionHorizontal(naveAProbar, posicionDeProaDeNaveAProbar);
@@ -95,7 +94,7 @@ public class TableroTest extends TestCase {
 		
 		Disparo disparoARealizar = new DisparoConvencional();
 
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
 
 		tableroDelJuego.impactarDisparos();
 		
@@ -119,9 +118,9 @@ public class TableroTest extends TestCase {
 
  		Disparo disparoARealizar = new DisparoConvencional();
 
- 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar);
+ 		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
+ 		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeCuerpoDeNave);
+ 		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDePopaDeNave);
 
 		tableroDelJuego.impactarDisparos();
 		
@@ -148,10 +147,10 @@ public class TableroTest extends TestCase {
 		Disparo disparoARealizar3 = new MinaSubmarinaTriple();
 		Disparo disparoARealizar4 = new MinaSubmarinaPorContacto();
 		
- 		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar1);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar2);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar3);
-		posicionDePopaDeNave.agregarDisparoAPosicion(disparoARealizar4);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar1, posicionDeProaDeNaveAProbar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar2, posicionDeCuerpoDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar3, posicionDePopaDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar4, posicionDePopaDeNave);
 		
 		/*Se impacta varias veces debido al momento de disparo que tiene cada disparo.*/
 		tableroDelJuego.impactarDisparos();
@@ -178,9 +177,9 @@ public class TableroTest extends TestCase {
 		Disparo disparoARealizar = new DisparoConvencional();
 		Disparo otroDisparo = new MinaSubmarinaPuntual();
 		
-		posicionDeProaDeNaveAProbar.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(disparoARealizar);
-		posicionDeCuerpoDeNave.agregarDisparoAPosicion(otroDisparo);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeProaDeNaveAProbar);
+		tableroDelJuego.realizarDisparoALaPosicion(disparoARealizar, posicionDeCuerpoDeNave);
+		tableroDelJuego.realizarDisparoALaPosicion(otroDisparo, posicionDeCuerpoDeNave);
 
 		assertEquals(1 , posicionDeProaDeNaveAProbar.obtenerDisparosEnPosicion().cantidadDeDisparos());
 		assertEquals(2 , posicionDeCuerpoDeNave.obtenerDisparosEnPosicion().cantidadDeDisparos());
