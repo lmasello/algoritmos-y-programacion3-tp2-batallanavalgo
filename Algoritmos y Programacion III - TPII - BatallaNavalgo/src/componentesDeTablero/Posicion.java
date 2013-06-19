@@ -98,17 +98,20 @@ public class Posicion {
 	 * 					disparo para cada una de ellas. Luego quita el disparo de la posicion
 	 * 	  si no tiene:  Y no es una mina por contacto quita el disparo de la posicion
 	 * */
-		Iterator<ComponenteDeNave> iterator = componentesDeNaveEnPosicion.iterator();
-		while(iterator.hasNext()){
-			Disparable componenteADisparar = iterator.next();
-			componenteADisparar.recibirDisparo(disparo);
-			disparo.marcarComoEjecutado();
-		}
-		if(disparo.noEsMinaPorContacto()){
-			disparo.marcarComoEjecutado();
+		
+		if(componentesDeNaveEnPosicion.tieneComponente()){
+			Iterator<ComponenteDeNave> iterator = componentesDeNaveEnPosicion.iterator();
+			while(iterator.hasNext()){
+				Disparable componenteADisparar = iterator.next();
+				componenteADisparar.recibirDisparo(disparo);
+				disparo.marcarComoEjecutado();
+			}
+		}else{
+			if(disparo.noEsMinaPorContacto()){
+				disparo.marcarComoEjecutado();
+			}
 		}
 	}
-
 
 	public boolean tieneDisparo() {
 		
@@ -120,11 +123,12 @@ public class Posicion {
 	/* Recorre los componentes en la posicion para chequear si hay alguna destruida en cuyo
 	 * caso la elimina de la coleccion
 	 * */
+		
 		Iterator<ComponenteDeNave> iterator = componentesDeNaveEnPosicion.iterator();
 		while(iterator.hasNext()){
 			Disparable componenteActual = iterator.next();
 			if(componenteActual.estaDestruida()){
-				componentesDeNaveEnPosicion.quitarComponente((ComponenteDeNave)componenteActual);
+				iterator.remove();
 			}
 		}
 	}
