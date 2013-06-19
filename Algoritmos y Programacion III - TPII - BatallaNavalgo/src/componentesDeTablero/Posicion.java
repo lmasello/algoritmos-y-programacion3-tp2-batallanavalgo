@@ -1,5 +1,7 @@
 package componentesDeTablero;
 
+import java.util.Iterator;
+
 import nave.ComponenteDeNave;
 import nave.Disparable;
 import colecciones.ColeccionDeComponentes;
@@ -76,37 +78,19 @@ public class Posicion {
 	 * Si no, disminuye el momento de impacto del disparo
 	 * Al finalizar, quita los disparos que fueron ejectuados.
 	 * */
-		
-		for(int posicionEnColeccion = 0 ; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
-					posicionEnColeccion++){
-			Disparo disparoActual = disparosEnPosicion.obtenerDisparoDeIndice(posicionEnColeccion);
+		Iterator<Disparo> iterator = disparosEnPosicion.iterator();
+		while(iterator.hasNext()){
+			Disparo disparoActual = iterator.next();
 			if( disparoActual.obtenerMomentoDeImpacto().obtenerMomentoDeImpacto() == 0){
 				this.realizarImpactoDe(disparoActual);
+				iterator.remove();
 			}else{
 				disparoActual.obtenerMomentoDeImpacto().DisminuirMomentoDeImpacto();
-			}	
-		}
-		
-		this.quitarDisparosEjecutados();
-		
-	}
-
-	private void quitarDisparosEjecutados() {
-		
-		/* Recorre los disparos en la posicion en busca de los que fueron ejectuados,
-		 * para tales los quita de la lista y coloca a la posicion del iterador (posicionEnColeccion)
-		 * un lugar "atras" para que no se vaya de rango.
-		 * */
-		
-		for(int posicionEnColeccion = 0 ; posicionEnColeccion < disparosEnPosicion.cantidadDeDisparos(); 
-					posicionEnColeccion++){
-			Disparo disparoActual = disparosEnPosicion.obtenerDisparoDeIndice(posicionEnColeccion);
-			if(disparoActual.fueEjecutado()){
-				disparosEnPosicion.quitarDisparo(disparoActual);
-				posicionEnColeccion = posicionEnColeccion - 1;
 			}
 		}
+				
 	}
+
 
 	private void realizarImpactoDe(Disparo disparo) throws ValorDeParametroFueraDeRango {
 	/* Chequea si la posicion tiene componentes,
