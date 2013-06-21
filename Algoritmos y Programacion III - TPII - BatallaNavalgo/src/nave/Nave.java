@@ -13,8 +13,9 @@ import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContien
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
+import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
-public abstract class Nave implements NaveMovible {
+public abstract class Nave implements NaveMovible, ObjetoVivo {
 
 	private static int NUMERO_DE_PROA=1;
 	
@@ -276,5 +277,20 @@ public abstract class Nave implements NaveMovible {
 				componenteEnPosicion = componenteEnPosicion - 1;
 			}
 		}
+	}
+	@Override
+	public void vivir(){
+		try {
+			this.moverComponentes();
+		} catch (
+				ValorDeParametroFueraDeRango
+				| ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+	public ColeccionDeComponentes obtenerComponentes() {
+		return componentes;
 	}
 }

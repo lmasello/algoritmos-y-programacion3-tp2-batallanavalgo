@@ -1,5 +1,9 @@
 package componentesDeTablero;
 
+import java.util.Iterator;
+
+import colecciones.ColeccionDeNaves;
+
 import disparos.Disparo;
 import jugador.Jugador;
 import nave.Nave;
@@ -26,5 +30,6 @@ public interface Modelo {
 	//Impacta los disparos de todas las posiciones del tablero
 	
 	public void moverNaves() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
-	
+
+	public ColeccionDeNaves obtenerNavesDelTablero();	
 }

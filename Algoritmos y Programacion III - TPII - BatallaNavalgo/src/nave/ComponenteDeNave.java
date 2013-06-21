@@ -8,8 +8,10 @@ import disparos.Disparo;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
+import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
-public class ComponenteDeNave implements ComponenteMovible, Disparable {
+public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoVivo, ObjetoPosicionable {
 
 	Resistencia resistencia;
 	boolean destruida;
@@ -115,6 +117,34 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable {
 	public void establecerDireccion() {
 		
 		direccionDelMovimiento = naveALaQuePertenece.direccionDeLaNave();
+	}
+
+	@Override
+	public int getX() {
+	/*
+	 * Devuelve un entero que representa el numero de columna en donde se encuentra
+	 * siendo la 'A'=1 y siguiendo en orden ascendente ('B'=2 , 'C'=3, etc)
+	 */
+		Posicion posicionActual = this.posicionActualDeLaComponente();
+		return posicionActual.getNumeroDeColumna();
+	}
+
+	@Override
+	public int getY() {
+		Posicion posicionActual = this.posicionActualDeLaComponente();
+		return posicionActual.filaDeLaPosicion();		
+	}
+
+	@Override
+	public void vivir() {
+		try {
+			this.mover();
+		} catch (
+				ValorDeParametroFueraDeRango
+				| ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

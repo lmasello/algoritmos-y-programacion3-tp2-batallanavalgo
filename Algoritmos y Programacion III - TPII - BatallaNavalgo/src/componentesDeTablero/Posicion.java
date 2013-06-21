@@ -12,6 +12,8 @@ import excepciones.ValorDeParametroFueraDeRango;
 
 public class Posicion {
 	
+	private static char COLUMNA_INICIAL = 'A';
+	
 	char columnaDePosicion;
 	int filaDePosicion;
 	ColeccionDeComponentes componentesDeNaveEnPosicion;
@@ -147,6 +149,13 @@ public class Posicion {
 	public int cantidadDeComponentesEnPosicion() {
 		
 		return componentesDeNaveEnPosicion.cantidadDeComponentes();
+	}
+
+	public int getNumeroDeColumna() {
+		
+		int numeroDeColumna = (int)(this.columnaDePosicion)- (int)(COLUMNA_INICIAL);
+		
+		return numeroDeColumna+1;
 	}
 	
 }
