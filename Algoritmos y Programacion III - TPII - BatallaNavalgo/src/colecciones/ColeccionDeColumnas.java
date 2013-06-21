@@ -36,7 +36,7 @@ public class ColeccionDeColumnas {
 		// Si el tablero tiene la columna buscada, el indice de la columna buscada debera ser mayor o igual
 		// a indice de la primera columna
 
-		boolean tieneLaColumna = (indiceDeLaColumnaBuscada < this.cantidadDeColumnas());
+		boolean tieneLaColumna = (indiceDeLaColumnaBuscada < this.cantidadDeColumnas())&(indiceDeLaColumnaBuscada>=0);
 
 		return tieneLaColumna;
 
