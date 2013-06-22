@@ -10,9 +10,11 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.util.Iterator;
 
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 import colecciones.ColeccionDeNaves;
 
@@ -72,7 +74,7 @@ public class VentanaPrincipal {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setForeground(new Color(0, 0, 0));
-		frame.setBounds(300, 10, 700, 700);
+		frame.setBounds(300, 10, 900, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
@@ -80,6 +82,8 @@ public class VentanaPrincipal {
 		JButton btnIniciar = this.addBotonIniciar();
 		
 		JButton btnDetener = this.addBotonDetener();
+		
+		JPanel panelDeDisparos = this.agregarPanelDeDisparos();
 		
 		JPanel panel = this.addSuperficiePanel();
 		
@@ -176,7 +180,7 @@ public class VentanaPrincipal {
 	private JPanel addSuperficiePanel() {
 		JPanel panel = new SuperficiePanel();
 		panel.setBackground(new Color(0, 0, 0));
-		panel.setBounds(42, 53, 500,500);
+		panel.setBounds(325, 153, 500,500);
 		frame.getContentPane().add(panel);
 		return panel;
 	}
@@ -203,6 +207,36 @@ public class VentanaPrincipal {
 		btnIniciar.setBounds(42, 16, 77, 25);
 		frame.getContentPane().add(btnIniciar);
 		return btnIniciar;
+	}
+	
+	private JPanel agregarPanelDeDisparos(){
+		
+		JRadioButton botonOpcion1=new JRadioButton("Disparo Convencional",true);
+		JRadioButton botonOpcion2=new JRadioButton("Mina Submarina Doble",false);
+		JRadioButton botonOpcion3=new JRadioButton("Mina Submarina Por Contacto",false);
+		JRadioButton botonOpcion4=new JRadioButton("Mina Submarina Puntual",false);
+		JRadioButton botonOpcion5=new JRadioButton("Mina Submarina Triple",false);
+		
+		ButtonGroup botonera = new ButtonGroup();
+		botonera.add(botonOpcion1);
+		botonera.add(botonOpcion2);
+		botonera.add(botonOpcion3);
+		botonera.add(botonOpcion4);
+		botonera.add(botonOpcion5);
+		
+		JPanel panelDeDisparos = new JPanel();
+		panelDeDisparos.add(botonOpcion1);
+		panelDeDisparos.add(botonOpcion2);
+		panelDeDisparos.add(botonOpcion3);
+		panelDeDisparos.add(botonOpcion4);
+		panelDeDisparos.add(botonOpcion5);
+		
+		panelDeDisparos.setBounds(5, 300, 300, 300);
+		frame.getContentPane().add(panelDeDisparos);
+		
+		return panelDeDisparos;
+		
+		
 	}
 
 }
