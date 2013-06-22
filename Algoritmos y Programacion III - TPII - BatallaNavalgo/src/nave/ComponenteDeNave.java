@@ -123,16 +123,23 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoVi
 	public int getX() {
 	/*
 	 * Devuelve un entero que representa el numero de columna en donde se encuentra
-	 * siendo la 'A'=1 y siguiendo en orden ascendente ('B'=2 , 'C'=3, etc)
+	 * siendoe la 'A'=1 y siguiendo en orden ascendente ('B'=2 , 'C'=3, etc).
+	 * 
+	 * Agregado: Se multiplica por 50 ya que las celdas son de 50*50 y se le resta
+	 * 50 ya que en la pantalla se cuenta desde el cero.
 	 */
 		Posicion posicionActual = this.posicionActualDeLaComponente();
-		return posicionActual.getNumeroDeColumna();
+		return (posicionActual.getNumeroDeColumna()*50)-50;
 	}
 
 	@Override
 	public int getY() {
+		/* Agregado: Se multiplica por 50 ya que las celdas son de 50*50 y se le resta
+		 * 	50 ya que en la pantalla se cuenta desde el cero.
+		 * */
+		
 		Posicion posicionActual = this.posicionActualDeLaComponente();
-		return posicionActual.filaDeLaPosicion();		
+		return (posicionActual.filaDeLaPosicion()*50)-50;		
 	}
 
 	@Override

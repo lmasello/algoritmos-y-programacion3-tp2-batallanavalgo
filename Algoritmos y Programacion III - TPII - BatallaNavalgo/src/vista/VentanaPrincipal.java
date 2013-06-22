@@ -72,7 +72,7 @@ public class VentanaPrincipal {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setForeground(new Color(0, 0, 0));
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(300, 10, 700, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
@@ -176,7 +176,7 @@ public class VentanaPrincipal {
 	private JPanel addSuperficiePanel() {
 		JPanel panel = new SuperficiePanel();
 		panel.setBackground(new Color(0, 0, 0));
-		panel.setBounds(42, 53, 375, 187);
+		panel.setBounds(42, 53, 500,500);
 		frame.getContentPane().add(panel);
 		return panel;
 	}
