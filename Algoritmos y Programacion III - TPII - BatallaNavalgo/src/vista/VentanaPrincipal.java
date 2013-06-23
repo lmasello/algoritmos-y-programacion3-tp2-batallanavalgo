@@ -78,7 +78,7 @@ public class VentanaPrincipal {
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setForeground(new Color(0, 0, 0));
-		frame.setBounds(300, 10, 900, 700);
+		frame.setBounds(200, 10, 900, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
@@ -89,7 +89,7 @@ public class VentanaPrincipal {
 				
 		JButton botonPasarTurno = this.agregarBotonPasarTurno();
 		
-		JPanel panelDeDisparos = this.agregarPanelDeDisparos();
+		JPanel panelDeDisparos = this.agregarPanelDeDisparos();// Atencion aca, no se usa esta variable!!!
 		
 		JPanel superficie = this.addSuperficiePanel();
 		
@@ -208,7 +208,7 @@ public class VentanaPrincipal {
 				estaEjecutando = true;
 			}
 		});
-		btnIniciar.setBounds(42, 16, 77, 25);
+		btnIniciar.setBounds(85, 16, 77, 25);
 		frame.getContentPane().add(btnIniciar);
 		return btnIniciar;
 	}

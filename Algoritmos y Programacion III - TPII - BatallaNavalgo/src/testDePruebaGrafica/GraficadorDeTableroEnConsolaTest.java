@@ -55,7 +55,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		
 		unGraficador.establecerTableroAGraficar(tableroAGraficar);
 		unGraficador.graficarEnConsola();
-		for(int i=0 ; i<5 ; i++){
+		for(int i=0 ; i<10 ; i++){
 			System.out.println();
 			tableroAGraficar.moverNaves();
 			unGraficador.graficarEnConsola();
@@ -73,7 +73,7 @@ public class GraficadorDeTableroEnConsolaTest extends TestCase{
 		Tablero tableroAGraficar = Tablero.getInstance();
 		
 		Posicion posicionDeProaDeUnaLanchaAColocar = tableroAGraficar.obtenerPosicion('D', 5);
-		Posicion posicionDeProaDeOtraLanchaAColocar = tableroAGraficar.obtenerPosicion('H', 7);
+		Posicion posicionDeProaDeOtraLanchaAColocar = tableroAGraficar.obtenerPosicion('H', 9);
 
 		tableroAGraficar.agregarNaveHorizontalManualmenteConPosicionDeProa(new Lancha(), posicionDeProaDeUnaLanchaAColocar);
 
