@@ -211,12 +211,25 @@ public class VentanaPrincipal {
 	}
 	
 	private JButton agregarBotonPasarTurno(){
-		//Al hacer click se mueven todas las naves y se actualiza la vista.
+		/*
+		 * Al hacer click en dicho boton se realizan los impactos de los disparos,
+		 * se mueven todas las naves y se actualiza la vista.
+		 */
 		JButton botonPasarTurno = new JButton("Pasar Turno");
 		botonPasarTurno.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent arg0){
 				if(estaEjecutando){
-					// Aca falta disparar a las naves
+
+					try {
+						Modelo modelo = Tablero.getInstance();
+						
+						modelo.impactarDisparos();
+						
+					} catch (ValoresDeParametroFueraDeRango | ValorDeParametroFueraDeRango e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 					for(ObjetoVivo objetoVivo : objetosVivos) {
 						objetoVivo.vivir();
 					}
