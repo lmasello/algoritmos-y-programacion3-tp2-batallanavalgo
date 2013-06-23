@@ -380,7 +380,6 @@ public class Tablero implements Modelo {
 		 * Remueve las componentes de las naves que fueron eliminadas, las mueve 
 		 * y avanza el turno
 		 */
-		this.quitarNavesEliminadas();
 		this.moverNaves();  
 		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
 
@@ -461,6 +460,8 @@ public class Tablero implements Modelo {
 				}
 			}
 			this.removerComponentesDeNavesEliminadas();
+			this.quitarNavesEliminadas();
+
 	}
 
 	public boolean noTieneLaColumna(char unaColumna) {

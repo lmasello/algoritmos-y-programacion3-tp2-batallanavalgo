@@ -291,6 +291,8 @@ public class VentanaPrincipal {
 						
 						modelo.impactarDisparos();
 						
+						this.actualizarObjetosARepresentar();
+						
 					} catch (ValoresDeParametroFueraDeRango | ValorDeParametroFueraDeRango e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -302,8 +304,44 @@ public class VentanaPrincipal {
 					for(ObjetoDibujable objetoDibujable : objetosDibujables) {
 						objetoDibujable.dibujar(superficieDeDibujo);
 					}
+					
 					superficieDeDibujo.actualizar();
+					
 				};
+			}
+
+			private void actualizarObjetosARepresentar() throws ValoresDeParametroFueraDeRango {
+				Modelo modelo = Tablero.getInstance();
+				Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
+								
+				objetosVivos = new HashSet<ObjetoVivo>();
+				objetosDibujables= new HashSet<ObjetoDibujable>();
+
+				while(iterator.hasNext()){
+					Nave naveARepresentar = iterator.next();
+					
+					this.establecerObjetosPosicionables(naveARepresentar);
+					this.establecerObjetosVivos(naveARepresentar);
+				}
+				
+			}
+
+			private void establecerObjetosVivos(ObjetoVivo naveARepresentar) {
+				
+				objetosVivos.add(naveARepresentar);
+			}
+			
+
+			private void establecerObjetosPosicionables(Nave naveARepresentar) {
+				Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
+				while (iterator.hasNext()){
+					ObjetoPosicionable componenteDeLaNave = iterator.next();
+					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave(componenteDeLaNave);
+					
+					objetosDibujables.add(vista);
+				}
+
+				
 			}		
 		});
 		botonPasarTurno.setBounds(72,260, 115, 25);
