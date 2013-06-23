@@ -8,7 +8,9 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.Set;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -16,28 +18,28 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 
-import colecciones.ColeccionDeNaves;
+import nave.ComponenteDeNave;
+import nave.Nave;
 
 import componentesDeTablero.Modelo;
 import componentesDeTablero.Tablero;
-
-import nave.ComponenteDeNave;
-import nave.Lancha;
-import nave.Nave;
-import nave.Resistencia;
 
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
-import fiuba.algo3.titiritero.modelo.GameLoop;
+import fiuba.algo3.titiritero.modelo.ObjetoDibujable;
 import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 public class VentanaPrincipal {
 	private JFrame frame;
-	private GameLoop gameLoop;
+	private Set<ObjetoVivo> objetosVivos;
+	private Set<ObjetoDibujable> objetosDibujables;
+	private SuperficieDeDibujo superficieDeDibujo;
+	private Boolean estaEjecutando;
+
 
 	/**
 	 * Launch the application.
@@ -71,6 +73,8 @@ public class VentanaPrincipal {
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
 	 */
+	
+
 	private void initialize() throws IOException {
 		frame = new JFrame();
 		frame.setForeground(new Color(0, 0, 0));
@@ -78,17 +82,20 @@ public class VentanaPrincipal {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
+		estaEjecutando = false;
 		
-		JButton btnIniciar = this.addBotonIniciar();
 		
-		JButton btnDetener = this.addBotonDetener();
+		JButton botonIniciar = this.agregarBotonIniciar();
+				
+		JButton botonPasarTurno = this.agregarBotonPasarTurno();
 		
 		JPanel panelDeDisparos = this.agregarPanelDeDisparos();
 		
-		JPanel panel = this.addSuperficiePanel();
+		JPanel superficie = this.addSuperficiePanel();
 		
-		this.gameLoop = new GameLoop((SuperficieDeDibujo) panel);
-		
+		superficieDeDibujo = (SuperficieDeDibujo) superficie;
+	
+				
 		try {
 			this.inicializarModelo();
 		} catch (LargoDeNaveIncorrecto | ValoresDeParametroFueraDeRango
@@ -97,11 +104,11 @@ public class VentanaPrincipal {
 			e.printStackTrace();
 		}
 		
-		this.addMouseListener(panel);
+		this.addMouseListener(superficie);
 		
 		this.addKeyListener();
 
-		this.setComponentsFocus(btnIniciar, btnDetener);
+		this.setComponentsFocus(botonIniciar,botonPasarTurno);
 
 	}
 
@@ -109,6 +116,9 @@ public class VentanaPrincipal {
 
 		Modelo modelo = Tablero.getInstance();
 		modelo.colocarNavesEnElTablero();
+		
+		objetosVivos = new HashSet<ObjetoVivo>();
+		objetosDibujables= new HashSet<ObjetoDibujable>();
 		
 		Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 		
@@ -126,7 +136,7 @@ public class VentanaPrincipal {
 		Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 		while (iterator.hasNext()){
 			ObjetoVivo componenteDeLaNave = iterator.next();		
-			this.gameLoop.agregar(componenteDeLaNave);
+			objetosVivos.add(componenteDeLaNave);
 		}
 	}
 
@@ -137,7 +147,7 @@ public class VentanaPrincipal {
 			ObjetoPosicionable componenteDeLaNave = iterator.next();
 			VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave(componenteDeLaNave);
 			
-			this.gameLoop.agregar(vista);
+			objetosDibujables.add(vista);
 		}
 		
 	}
@@ -179,29 +189,23 @@ public class VentanaPrincipal {
 
 	private JPanel addSuperficiePanel() {
 		JPanel panel = new SuperficiePanel();
-		panel.setBackground(new Color(0, 0, 0));
+		panel.setBackground(new Color(87, 174, 221));
 		panel.setBounds(325, 153, 500,500);
+		
 		frame.getContentPane().add(panel);
 		return panel;
 	}
 
-	private JButton addBotonDetener() {
-		JButton btnDetener = new JButton("Detener");
-		btnDetener.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				gameLoop.detenerEjecucion();
-			}
-		});
-		btnDetener.setBounds(325, 16, 92, 25);
-		frame.getContentPane().add(btnDetener);
-		return btnDetener;
-	}
-
-	private JButton addBotonIniciar() {
+	
+	private JButton agregarBotonIniciar() {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				gameLoop.iniciarEjecucion();
+				for(ObjetoDibujable objetoDibujable : objetosDibujables) {
+					objetoDibujable.dibujar(superficieDeDibujo);
+				}
+				superficieDeDibujo.actualizar();
+				estaEjecutando = true;
 			}
 		});
 		btnIniciar.setBounds(42, 16, 77, 25);
@@ -209,7 +213,33 @@ public class VentanaPrincipal {
 		return btnIniciar;
 	}
 	
+	private JButton agregarBotonPasarTurno(){
+		//Al hacer click se mueven todas las naves y se actualiza la vista.
+		JButton botonPasarTurno = new JButton("Pasar Turno");
+		botonPasarTurno.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				if(estaEjecutando){
+					// Aca falta disparar a las naves
+					for(ObjetoVivo objetoVivo : objetosVivos) {
+						objetoVivo.vivir();
+					}
+					for(ObjetoDibujable objetoDibujable : objetosDibujables) {
+						objetoDibujable.dibujar(superficieDeDibujo);
+					}
+					superficieDeDibujo.actualizar();
+				};
+			}		
+		});
+		botonPasarTurno.setBounds(72,260, 115, 25);
+		frame.getContentPane().add(botonPasarTurno);
+		return botonPasarTurno;
+	}
+	
 	private JPanel agregarPanelDeDisparos(){
+		/* Tablero de disparos, falta que al seleccionar
+		 * cada opcion modifique el tipo de disparo a ejecutar
+		 */
+		
 		
 		JRadioButton botonOpcion1=new JRadioButton("Disparo Convencional",true);
 		JRadioButton botonOpcion2=new JRadioButton("Mina Submarina Doble",false);
@@ -231,7 +261,7 @@ public class VentanaPrincipal {
 		panelDeDisparos.add(botonOpcion4);
 		panelDeDisparos.add(botonOpcion5);
 		
-		panelDeDisparos.setBounds(5, 300, 300, 300);
+		panelDeDisparos.setBounds(5, 300, 250, 300);
 		frame.getContentPane().add(panelDeDisparos);
 		
 		return panelDeDisparos;
