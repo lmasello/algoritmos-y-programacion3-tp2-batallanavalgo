@@ -22,13 +22,14 @@ import disparos.MinaSubmarinaPuntual;
 import disparos.MinaSubmarinaTriple;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
 
 public class TableroTest extends TestCase {
 	
-	public void testRealizarDisparoAUnaNaveDeResistenciaDeUnTiro() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void testRealizarDisparoAUnaNaveDeResistenciaDeUnTiro() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
@@ -51,7 +52,7 @@ public class TableroTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 
-	public void testRealizarDisparoAUnaNaveDeResistenciaDeDosTiros() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void testRealizarDisparoAUnaNaveDeResistenciaDeDosTiros() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
@@ -82,7 +83,7 @@ public class TableroTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 
-	public void testRealizarDisparoAUnaNaveQueAlRecibirUnImpactoSeDestruye() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void testRealizarDisparoAUnaNaveQueAlRecibirUnImpactoSeDestruye() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
@@ -103,7 +104,7 @@ public class TableroTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 	
-	public void testRealizarDisparoAUnaNaveQueSoloRecibeDanioDeUnDisparoConvencional() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void testRealizarDisparoAUnaNaveQueSoloRecibeDanioDeUnDisparoConvencional() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
@@ -129,7 +130,7 @@ public class TableroTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 
-	public void testNoSeDaniaUnaNaveQueSoloRecibeDanioDeUnDisparoConvencionalYSeDisparaConOtroDisparo() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto {
+	public void testNoSeDaniaUnaNaveQueSoloRecibeDanioDeUnDisparoConvencionalYSeDisparaConOtroDisparo() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion {
 
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);
@@ -162,7 +163,7 @@ public class TableroTest extends TestCase {
 		Tablero.deleteInstance();
 	}
 	
-	public void testCantidadDeDisparosYComponentesEnPosicionesDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto{
+	public void testCantidadDeDisparosYComponentesEnPosicionesDelTablero() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, NoHayDisparoParaColocarEnLaPosicion{
 		
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);

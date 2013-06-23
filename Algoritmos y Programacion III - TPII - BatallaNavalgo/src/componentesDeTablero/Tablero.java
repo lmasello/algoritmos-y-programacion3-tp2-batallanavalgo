@@ -16,6 +16,7 @@ import colecciones.ColeccionDePosiciones;
 import disparos.Disparo;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -542,10 +543,14 @@ public class Tablero implements Modelo {
 	}
 	
 
-	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango{
+	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, NoHayDisparoParaColocarEnLaPosicion{
 		/* Metodo que a partir de un disparo y una posicion elegida, obtiene todas las posiciones afectadas por ese disparo,
 		 * y lo ubica en las mismas.
 		 */
+		
+		if(disparo==null){
+			throw new NoHayDisparoParaColocarEnLaPosicion();
+		}
 		ColeccionDePosiciones posicionesAfectadas = this.obtenerPosicionesDondeDisparar(posicionElegida, disparo);
 		this.colocarDisparoEnPosicionesAfectadas(disparo, posicionesAfectadas);
 	}

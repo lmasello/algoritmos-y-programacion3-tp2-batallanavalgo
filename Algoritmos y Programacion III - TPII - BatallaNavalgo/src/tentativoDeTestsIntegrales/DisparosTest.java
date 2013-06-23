@@ -23,12 +23,13 @@ import disparos.Disparo;
 import disparos.DisparoConvencional;
 import disparos.MinaSubmarinaDoble;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
 public class DisparosTest extends TestCase{
 
-	public void testAlDispararConMinaDobleSeColocanDisparonEnPosicionesDeAlrededor() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, IOException{
+	public void testAlDispararConMinaDobleSeColocanDisparonEnPosicionesDeAlrededor() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, IOException, NoHayDisparoParaColocarEnLaPosicion{
 		
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Posicion posicionDeProaDeNaveAProbar = tableroDelJuego.obtenerPosicion('D', 4);

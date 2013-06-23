@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentListener;
+import java.awt.event.ContainerListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
@@ -13,6 +15,7 @@ import java.util.Iterator;
 import java.util.Set;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -22,9 +25,17 @@ import nave.ComponenteDeNave;
 import nave.Nave;
 
 import componentesDeTablero.Modelo;
+import componentesDeTablero.Posicion;
 import componentesDeTablero.Tablero;
+import disparos.Disparo;
+import disparos.DisparoConvencional;
+import disparos.MinaSubmarinaDoble;
+import disparos.MinaSubmarinaPorContacto;
+import disparos.MinaSubmarinaPuntual;
+import disparos.MinaSubmarinaTriple;
 
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 import fiuba.algo3.titiritero.dibujables.SuperficiePanel;
@@ -34,12 +45,18 @@ import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 import fiuba.algo3.titiritero.modelo.SuperficieDeDibujo;
 
 public class VentanaPrincipal {
+
+	// Constantes que hacen referencia a pasos de posiciones en la superficie del modelo
+	private static int PASO_HORIZONTAL = 50;
+	private static int PASO_VERTICAL = 50;
+	
+	
 	private JFrame frame;
 	private Set<ObjetoVivo> objetosVivos;
 	private Set<ObjetoDibujable> objetosDibujables;
 	private SuperficieDeDibujo superficieDeDibujo;
 	private Boolean estaEjecutando;
-
+	private Disparo disparoARealizar;
 
 	/**
 	 * Launch the application.
@@ -89,7 +106,7 @@ public class VentanaPrincipal {
 				
 		JButton botonPasarTurno = this.agregarBotonPasarTurno();
 		
-		JPanel panelDeDisparos = this.agregarPanelDeDisparos();// Atencion aca, no se usa esta variable!!!
+		this.agregarPanelDeDisparos();
 		
 		JPanel superficie = this.addSuperficiePanel();
 		
@@ -176,18 +193,67 @@ public class VentanaPrincipal {
 		});
 	}
 
-	private void addMouseListener(JPanel panel) {
-		panel.addMouseListener(new MouseAdapter() {
+	private void addMouseListener(JPanel superficie) {
+		superficie.addMouseListener(new MouseAdapter() {
 					
 			@Override
-			public void mouseClicked(MouseEvent arg0) {				
+			public void mouseClicked(MouseEvent e) {	
+				
+				int coordenadaHorizontal = e.getX();
+				int coordenadaVertical = e.getY();
+				
+				try {
+					Posicion posicionClickeadaDelModelo = this.obtenerPosicionClickeada(coordenadaHorizontal,coordenadaVertical);
+					
+					Disparo disparoAPonerEnPosicion = disparoARealizar;
+					
+					Modelo modelo = Tablero.getInstance();
+					
+					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
+					
+					
+				} catch (ValoresDeParametroFueraDeRango
+						| ValorDeParametroFueraDeRango e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (NoHayDisparoParaColocarEnLaPosicion e1) {
+					
+					System.out.println("No se ha seleccionado ningun disparo para colocar en dicha posicion.");
+				} 
+				
+			}
+
+			private Posicion obtenerPosicionClickeada(int coordenadaHorizontal,	int coordenadaVertical) throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
+				
+				/*
+				 * Devuelve la posicion del Modelo, que ha sido clickeada. Para ello, a la posicion clickeada se le tiene 
+				 * que sumar el paso de posicion y
+				 * dividir por este mismo, para llevar a dicha posicion a las mismas unidades que se maneja el modelo
+				 */
+				
+				int coordenadaHorizontalDeModelo = (coordenadaHorizontal+PASO_HORIZONTAL) / PASO_HORIZONTAL;
+				int coordenadaVerticalDeModelo = (coordenadaVertical+PASO_VERTICAL) / PASO_VERTICAL;
+								
+				char identificadorDeColumna = this.convertirAIdentificadorDeColumna(coordenadaHorizontalDeModelo);
+				
+				Modelo modelo = Tablero.getInstance();
+				
+				return modelo.obtenerPosicion(identificadorDeColumna, coordenadaVerticalDeModelo);
+				
+			}
+
+			private char convertirAIdentificadorDeColumna(int coordenadaHorizontalDeModelo) {
+				
+				char primerColumnaDelModelo = 'A';
+
+				return (char)(coordenadaHorizontalDeModelo-1 + (int)primerColumnaDelModelo);
 			}});
 	}
 
 	private JPanel addSuperficiePanel() {
 		JPanel panel = new SuperficiePanel();
 		panel.setBackground(new Color(87, 174, 221));
-		panel.setBounds(325, 153, 500,500);
+		panel.setBounds(325, 153, PASO_HORIZONTAL*10,PASO_VERTICAL*10);
 		
 		frame.getContentPane().add(panel);
 		return panel;
@@ -245,17 +311,56 @@ public class VentanaPrincipal {
 		return botonPasarTurno;
 	}
 	
-	private JPanel agregarPanelDeDisparos(){
-		/* Tablero de disparos, falta que al seleccionar
-		 * cada opcion modifique el tipo de disparo a ejecutar
+	private void agregarPanelDeDisparos(){
+		/* 
+		 * Evaluar refactorizacion, ya que el metodo queda bastante extenso
 		 */
 		
-		
-		JRadioButton botonOpcion1=new JRadioButton("Disparo Convencional",true);
+		JRadioButton botonOpcion1=new JRadioButton("Disparo Convencional",false);
+		botonOpcion1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				disparoARealizar = new DisparoConvencional();
+				
+			}
+		});
 		JRadioButton botonOpcion2=new JRadioButton("Mina Submarina Doble",false);
+		botonOpcion2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				disparoARealizar = new MinaSubmarinaDoble();
+				
+			}
+		});
 		JRadioButton botonOpcion3=new JRadioButton("Mina Submarina Por Contacto",false);
+		botonOpcion3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				disparoARealizar = new MinaSubmarinaPorContacto();
+				
+			}
+		});
 		JRadioButton botonOpcion4=new JRadioButton("Mina Submarina Puntual",false);
+		botonOpcion4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				disparoARealizar = new MinaSubmarinaPuntual();
+				
+			}
+		});
 		JRadioButton botonOpcion5=new JRadioButton("Mina Submarina Triple",false);
+		botonOpcion5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				disparoARealizar = new MinaSubmarinaTriple();
+				
+			}
+		});
 		
 		ButtonGroup botonera = new ButtonGroup();
 		botonera.add(botonOpcion1);
@@ -272,10 +377,7 @@ public class VentanaPrincipal {
 		panelDeDisparos.add(botonOpcion5);
 		
 		panelDeDisparos.setBounds(5, 300, 250, 300);
-		frame.getContentPane().add(panelDeDisparos);
-		
-		return panelDeDisparos;
-		
+		frame.getContentPane().add(panelDeDisparos);	
 		
 	}
 

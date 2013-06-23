@@ -13,6 +13,7 @@ import disparos.Disparo;
 import disparos.DisparoConvencional;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -21,7 +22,7 @@ import junit.framework.TestCase;
 
 public class TurnosTest extends TestCase {
 	
-	public void testPrimerTurnoCompletoSinGrafico() throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+	public void testPrimerTurnoCompletoSinGrafico() throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene, NoHayDisparoParaColocarEnLaPosicion{
 		
 			Tablero tableroDePrueba = Tablero.getInstance();
 			Jugador jugador1 = new Jugador("Robert");
@@ -71,7 +72,7 @@ La reduccion del puntaje se realiza en etapa previa al modelo, en etapa en dnde 
 			Tablero.deleteInstance();
 	}
 
-	public void testPrimerTurnoCompletoConGrafico() throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+	public void testPrimerTurnoCompletoConGrafico() throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango, LargoDeNaveIncorrecto, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene, NoHayDisparoParaColocarEnLaPosicion{
 		
 		Tablero tableroDePrueba = Tablero.getInstance();
 		Jugador jugador1 = new Jugador("Robert");
@@ -123,7 +124,7 @@ La reduccion del puntaje se realiza en etapa previa al modelo, en etapa en dnde 
 		Tablero.deleteInstance();
 	}
 	
-	public void testSeDestruyeUnaNavePorCompletoEnElTablero() throws ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene{
+	public void testSeDestruyeUnaNavePorCompletoEnElTablero() throws ValoresDeParametroFueraDeRango, LargoDeNaveIncorrecto, ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene, NoHayDisparoParaColocarEnLaPosicion{
 		
 		Tablero tableroDelJuego = Tablero.getInstance();
 		Jugador jugador1 = new Jugador("Robert");

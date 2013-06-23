@@ -9,6 +9,7 @@ import jugador.Jugador;
 import nave.Nave;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 import excepciones.LargoDeNaveIncorrecto;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -23,7 +24,7 @@ public interface Modelo {
 
 	public void pasarTurno(Jugador jugador) throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 	
-	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango;
+	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, NoHayDisparoParaColocarEnLaPosicion;
 	//Coloca disparos en las posiciones afectadas por un disparo en particular
 	
 	public void impactarDisparos() throws ValorDeParametroFueraDeRango;
