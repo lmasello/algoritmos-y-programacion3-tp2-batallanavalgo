@@ -11,7 +11,7 @@ import excepciones.ValoresDeParametroFueraDeRango;
 import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
-public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoVivo, ObjetoPosicionable {
+public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPosicionable {
 
 	Resistencia resistencia;
 	boolean destruida;
@@ -140,18 +140,6 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoVi
 		
 		Posicion posicionActual = this.posicionActualDeLaComponente();
 		return (posicionActual.filaDeLaPosicion()*50)-50;		
-	}
-
-	@Override
-	public void vivir() {
-		try {
-			this.mover();
-		} catch (
-				ValorDeParametroFueraDeRango
-				| ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 }

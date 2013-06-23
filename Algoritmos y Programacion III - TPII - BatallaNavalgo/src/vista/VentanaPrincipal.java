@@ -131,14 +131,11 @@ public class VentanaPrincipal {
 		
 	}
 
-	private void establecerObjetosVivos(Nave naveARepresentar) {
+	private void establecerObjetosVivos(ObjetoVivo naveARepresentar) {
 		
-		Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
-		while (iterator.hasNext()){
-			ObjetoVivo componenteDeLaNave = iterator.next();		
-			objetosVivos.add(componenteDeLaNave);
-		}
+		objetosVivos.add(naveARepresentar);
 	}
+	
 
 	private void establecerObjetosPosicionables(Nave naveARepresentar) {
 		
