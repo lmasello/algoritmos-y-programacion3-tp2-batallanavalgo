@@ -13,6 +13,7 @@ import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
 public class Juego implements Modelo {
+	/* Clase que utiliza a sus atributos para llamar a los metodos correspondientes */
 	
 	Tablero tableroDelJuego;
 	Jugador jugador;
