@@ -219,7 +219,6 @@ public class VentanaPrincipal {
 					Disparo disparoAPonerEnPosicion = disparoARealizar;
 					
 					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
-					modelo.obtenerJugador().obtenerPuntaje().disminuirPuntajePorDisparo(disparoAPonerEnPosicion);
 					
 				} catch (ValoresDeParametroFueraDeRango
 						| ValorDeParametroFueraDeRango e1) {
@@ -482,7 +481,7 @@ public class VentanaPrincipal {
 	private void agregarPuntajeDelJugador() {
 		
 		puntajeRestante = new TextField();
-		puntajeRestante.setBackground(Color.black);
+		puntajeRestante.setBackground(Color.GRAY);
 		puntajeRestante.setBounds(40, 150, 200, 50);
 		frame.getContentPane().add(puntajeRestante);
 	}
