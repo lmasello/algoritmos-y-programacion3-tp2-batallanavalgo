@@ -21,7 +21,7 @@ import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
 
-public class Tablero implements Modelo {
+public class Tablero {
 
 	private static Tablero INSTANCE = null;
 	
@@ -375,16 +375,6 @@ public class Tablero implements Modelo {
 		return unaColumna.cantidadDePosiciones();
 	}
 
-	public void pasarTurno(Jugador jugador) throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
-		/*
-		 * Remueve las componentes de las naves que fueron eliminadas, las mueve 
-		 * y avanza el turno
-		 */
-		this.moverNaves();  
-		jugador.obtenerPuntaje().disminuirPuntajePorPasoDeTurno();
-
-	}
-	
 	private void removerComponentesDeNavesEliminadas() throws ValorDeParametroFueraDeRango {
 		/*
 		 * Recorre las naves que se encuentran en el tablero removiendo las componentes de cada

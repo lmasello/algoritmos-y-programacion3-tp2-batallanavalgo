@@ -22,8 +22,6 @@ public interface Modelo {
 	
 	public int cantidadDeBarcosEnTablero();
 
-	public void pasarTurno(Jugador jugador) throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
-	
 	public void realizarDisparoALaPosicion( Disparo disparo, Posicion posicionElegida) throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, NoHayDisparoParaColocarEnLaPosicion;
 	//Coloca disparos en las posiciones afectadas por un disparo en particular
 	
@@ -33,4 +31,10 @@ public interface Modelo {
 	public void moverNaves() throws ValorDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
 
 	public ColeccionDeNaves obtenerNavesDelTablero();	
+	
+	public Jugador obtenerJugador();
+
+	public void disminuirPuntajeDeJugadorPorPasajeDeTurno();
+	
+	
 }

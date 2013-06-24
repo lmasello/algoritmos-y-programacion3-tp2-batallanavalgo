@@ -1,6 +1,7 @@
 package tentativoDeTestsIntegrales;
 
 import static org.junit.Assert.*;
+import juego.Juego;
 import jugador.Jugador;
 import junit.framework.TestCase;
 
@@ -16,6 +17,7 @@ import disparos.Disparo;
 import disparos.DisparoConvencional;
 import disparos.MinaSubmarinaPuntual;
 import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene;
+import excepciones.NoHayDisparoParaColocarEnLaPosicion;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 
@@ -31,39 +33,33 @@ public class JugadorTest extends TestCase {
 
 	public void testElPuntajeDelJugadorDisminuye10PuntosAlPasarUnTurno() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene {
 
-		Tablero tableroDePrueba = Tablero.getInstance();
-		Jugador jugadorHumano = new Jugador("Leandro Masello");
+		Juego juego = new Juego("Robert");
 
-		tableroDePrueba.pasarTurno(jugadorHumano);
+		juego.disminuirPuntajeDeJugadorPorPasajeDeTurno();
 
-		assertEquals(9990, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
+		assertEquals(9990, juego.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 
 		Tablero.deleteInstance();
 	}
 
-	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango {
-	/*	
-	 * Se deja comentado ya que este test se debera realizar una vez realizada la interfaz, ya que es aqui en donde 
-	 * de acuerdo al disparo, se resta puntos
-	 * 
-		Tablero tableroDePrueba = Tablero.getInstance();
-		Jugador jugadorHumano = new Jugador("Leandro Masello");
+	public void testElPuntajeDelJugadorDisminuyeDeAcuerdoAlDisparoQueElige() throws ValorDeParametroFueraDeRango, ValoresDeParametroFueraDeRango, NoHayDisparoParaColocarEnLaPosicion {
+	
+		Juego juego = new Juego("Robert");
 		Disparo disparo1 = new DisparoConvencional();
 		Disparo disparo2 = new MinaSubmarinaPuntual();
 		
-		Posicion posicion = tableroDePrueba.obtenerPosicion('C', 5);
-		jugadorHumano.asignarTablero(tableroDePrueba);
+		Posicion posicion = juego.obtenerPosicion('C', 5);
 		
-		tableroDePrueba.realizarDisparoALaPosicion(disparo1, posicion);
+		juego.realizarDisparoALaPosicion(disparo1, posicion);
 
-		assertEquals(9800, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
+		assertEquals(9800, juego.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 
-		tableroDePrueba.realizarDisparoALaPosicion(disparo2, posicion);
+		juego.realizarDisparoALaPosicion(disparo2, posicion);
 
-		assertEquals(9750, jugadorHumano.obtenerPuntaje().obtenerPuntaje());
+		assertEquals(9750, juego.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 		
 		Tablero.deleteInstance();
-	}
-		*/
+	
+		
 	}
 }

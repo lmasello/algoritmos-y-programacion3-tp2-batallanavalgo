@@ -32,9 +32,9 @@ public class Jugador {
 
 	}
 
-	public void asignarTablero(Tablero tablero) {
+	public void asignarTablero() throws ValoresDeParametroFueraDeRango {
 
-		tableroDelJugador = tablero;
+		tableroDelJugador = Tablero.getInstance();
 	}
 
 	public Puntaje obtenerPuntaje() {

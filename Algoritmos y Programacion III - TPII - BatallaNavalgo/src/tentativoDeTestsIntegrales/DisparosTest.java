@@ -36,7 +36,7 @@ public class DisparosTest extends TestCase{
 		Posicion posicionDeCuerpoDeNave = tableroDelJuego.obtenerPosicion('C', 4);
 		Jugador jugador1 = new Jugador("Juan");
 		
-		jugador1.asignarTablero(tableroDelJuego);
+		jugador1.asignarTablero();
 		
 		Disparo disparo1 = new DisparoConvencional();
 		Disparo disparo2 = new MinaSubmarinaDoble();

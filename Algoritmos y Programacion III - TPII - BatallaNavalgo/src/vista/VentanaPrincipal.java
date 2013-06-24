@@ -1,6 +1,9 @@
 package vista;
 import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.Frame;
+import java.awt.Panel;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentListener;
@@ -20,6 +23,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+
+import juego.Juego;
 
 import nave.ComponenteDeNave;
 import nave.Nave;
@@ -50,14 +55,16 @@ public class VentanaPrincipal {
 	private static int PASO_HORIZONTAL = 50;
 	private static int PASO_VERTICAL = 50;
 	
-	
+	private Modelo modelo;
 	private JFrame frame;
 	private Set<ObjetoVivo> objetosVivos;
 	private Set<ObjetoDibujable> objetosDibujables;
 	private SuperficieDeDibujo superficieDeDibujo;
 	private Boolean estaEjecutando;
 	private Disparo disparoARealizar;
-
+	private TextField puntajeRestante;
+	private Frame framePregunta;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -76,8 +83,9 @@ public class VentanaPrincipal {
 
 	/**
 	 * Create the application.
+	 * @throws ValoresDeParametroFueraDeRango 
 	 */
-	public VentanaPrincipal() {
+	public VentanaPrincipal() throws ValoresDeParametroFueraDeRango {
 		try {
 			initialize();
 		} catch (IOException e) {
@@ -89,24 +97,28 @@ public class VentanaPrincipal {
 	/**
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
+	 * @throws ValoresDeParametroFueraDeRango 
 	 */
 	
 
-	private void initialize() throws IOException {
+	private void initialize() throws IOException, ValoresDeParametroFueraDeRango {
+		modelo = new Juego("Ejemplo");
 		frame = new JFrame();
+		framePregunta = new Frame("DESEA JUGAR OTRA VEZ ?");
 		frame.setForeground(new Color(0, 0, 0));
 		frame.setBounds(200, 10, 900, 700);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
-		estaEjecutando = false;
-		
+		estaEjecutando = false;		
 		
 		JButton botonIniciar = this.agregarBotonIniciar();
 				
 		JButton botonPasarTurno = this.agregarBotonPasarTurno();
 		
 		this.agregarPanelDeDisparos();
+		
+		this.agregarPuntajeDelJugador();
 		
 		JPanel superficie = this.addSuperficiePanel();
 		
@@ -131,7 +143,6 @@ public class VentanaPrincipal {
 
 	private void inicializarModelo() throws LargoDeNaveIncorrecto, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 
-		Modelo modelo = Tablero.getInstance();
 		modelo.colocarNavesEnElTablero();
 		
 		objetosVivos = new HashSet<ObjetoVivo>();
@@ -207,10 +218,8 @@ public class VentanaPrincipal {
 					
 					Disparo disparoAPonerEnPosicion = disparoARealizar;
 					
-					Modelo modelo = Tablero.getInstance();
-					
 					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
-					
+					modelo.obtenerJugador().obtenerPuntaje().disminuirPuntajePorDisparo(disparoAPonerEnPosicion);
 					
 				} catch (ValoresDeParametroFueraDeRango
 						| ValorDeParametroFueraDeRango e1) {
@@ -235,8 +244,6 @@ public class VentanaPrincipal {
 				int coordenadaVerticalDeModelo = (coordenadaVertical+PASO_VERTICAL) / PASO_VERTICAL;
 								
 				char identificadorDeColumna = this.convertirAIdentificadorDeColumna(coordenadaHorizontalDeModelo);
-				
-				Modelo modelo = Tablero.getInstance();
 				
 				return modelo.obtenerPosicion(identificadorDeColumna, coordenadaVerticalDeModelo);
 				
@@ -269,6 +276,7 @@ public class VentanaPrincipal {
 				}
 				superficieDeDibujo.actualizar();
 				estaEjecutando = true;
+				puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 			}
 		});
 		btnIniciar.setBounds(85, 16, 77, 25);
@@ -287,7 +295,6 @@ public class VentanaPrincipal {
 				if(estaEjecutando){
 
 					try {
-						Modelo modelo = Tablero.getInstance();
 						
 						modelo.impactarDisparos();
 						
@@ -305,13 +312,22 @@ public class VentanaPrincipal {
 						objetoDibujable.dibujar(superficieDeDibujo);
 					}
 					
+					modelo.disminuirPuntajeDeJugadorPorPasajeDeTurno();
+					puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 					superficieDeDibujo.actualizar();
-					
+					if(modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje() <= 0 ){
+						try {
+							terminarPartida();
+						} catch (ValoresDeParametroFueraDeRango e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 				};
 			}
 
 			private void actualizarObjetosARepresentar() throws ValoresDeParametroFueraDeRango {
-				Modelo modelo = Tablero.getInstance();
+
 				Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 								
 				objetosVivos = new HashSet<ObjetoVivo>();
@@ -349,6 +365,50 @@ public class VentanaPrincipal {
 		return botonPasarTurno;
 	}
 	
+	private JButton agregarBotonNo() {
+		JButton botonCancelar = new JButton("NO");
+		botonCancelar.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				framePregunta.setVisible(false);
+				System.exit(0);
+			}
+		});
+		return botonCancelar;
+	}
+
+	private JButton agregarBotonSi() {
+		JButton botonAceptar = new JButton("SI");
+		botonAceptar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					framePregunta.setVisible(false);
+					VentanaPrincipal window = new VentanaPrincipal();
+					window.frame.setVisible(true);
+				} catch (ValoresDeParametroFueraDeRango e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+		});
+		return botonAceptar;
+	}
+	
+	protected void terminarPartida() throws ValoresDeParametroFueraDeRango {
+			
+			frame.setVisible(false);
+			JButton botonAceptar = this.agregarBotonSi();
+			JButton botonCancelar = this.agregarBotonNo();
+			
+			Panel panelBotonesPregunta = new Panel();
+			panelBotonesPregunta.add(botonAceptar);
+			panelBotonesPregunta.add(botonCancelar);
+			
+			framePregunta.add("South",panelBotonesPregunta);
+			
+			framePregunta.setVisible(true);
+	}
+	
+
 	private void agregarPanelDeDisparos(){
 		/* 
 		 * Evaluar refactorizacion, ya que el metodo queda bastante extenso
@@ -419,4 +479,11 @@ public class VentanaPrincipal {
 		
 	}
 
+	private void agregarPuntajeDelJugador() {
+		
+		puntajeRestante = new TextField();
+		puntajeRestante.setBackground(Color.black);
+		puntajeRestante.setBounds(40, 150, 200, 50);
+		frame.getContentPane().add(puntajeRestante);
+	}
 }
