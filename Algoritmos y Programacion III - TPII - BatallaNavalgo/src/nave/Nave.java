@@ -44,7 +44,7 @@ public abstract class Nave implements NaveMovible, ObjetoVivo {
 	 */
 		for (int indiceDeComponentes = 0; indiceDeComponentes < largoDeLaNave; indiceDeComponentes++) {
 
-			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave,this);
+			ComponenteDeNave componenteAAgregar = new ComponenteDeNave(resistenciaDeLaNave.nuevaResistencia(),this);
 			
 			this.agregarComponenteALaNave(componenteAAgregar);
 		}
@@ -100,7 +100,7 @@ public abstract class Nave implements NaveMovible, ObjetoVivo {
 		
 	}
 
-	public void destruirNave() throws ValorDeParametroFueraDeRango {
+	public void destruirNave() {
 		/* Destruye cada componente de la nave */
 			
 		Iterator<ComponenteDeNave> iterator = componentes.iterator();
@@ -274,7 +274,7 @@ public abstract class Nave implements NaveMovible, ObjetoVivo {
 			ComponenteDeNave componenteActual = componentes.obtenerComponente(componenteEnPosicion);
 			if(componenteActual.estaDestruida()){
 				componentes.quitarComponente(componenteActual);
-				componenteEnPosicion = componenteEnPosicion - 1;
+				componenteEnPosicion = componenteEnPosicion - 1;	
 			}
 		}
 	}
@@ -292,5 +292,9 @@ public abstract class Nave implements NaveMovible, ObjetoVivo {
 
 	public ColeccionDeComponentes obtenerComponentes() {
 		return componentes;
+	}
+	
+	public boolean esBuque(){
+		return false;
 	}
 }

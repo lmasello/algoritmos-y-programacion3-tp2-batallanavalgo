@@ -384,9 +384,9 @@ public class Tablero {
 			
 			Nave naveActual = navesDelTablero.naveDeLaPosicion(numeroDeNave);
 			naveActual.eliminarComponentesDestruidas();
-			
 		}
 	}
+
 
 	public ColeccionDeNaves obtenerNavesDelTablero(){
 		

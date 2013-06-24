@@ -35,6 +35,7 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 	/*
 	 * Un disparo impacta a la componente. Provoca una disminucion de la resistencia, si puede recibir 
 	 * tal disparo,  la cual en caso que alcance el valor 0, significa que la componente ha sido destruida.
+	 * Si ademas se trata de un buque entonces se destruye la nave completa
 	 */
 		if(this.naveALaQuePertenece.puedeRecibirDisparoDe(disparo)){
 			resistencia.disminuir();
@@ -42,6 +43,9 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 		
 		if (resistencia.obtenerResistencia() == 0) {
 			destruida = true;
+			if(this.naveALaQuePertenece.esBuque()){
+				this.naveALaQuePertenece.destruirNave();
+			}
 		}
 	}
 

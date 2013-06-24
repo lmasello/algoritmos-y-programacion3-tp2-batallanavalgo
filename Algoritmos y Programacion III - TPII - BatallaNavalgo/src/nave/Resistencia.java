@@ -32,4 +32,8 @@ public class Resistencia {
 
 	}
 
+	public Resistencia nuevaResistencia() {
+		return new Resistencia(this.obtenerResistencia());
+	}
+
 }

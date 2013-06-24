@@ -85,7 +85,7 @@ public class Posicion {
 			Disparo disparoActual = iterator.next();
 			if( disparoActual.obtenerMomentoDeImpacto().obtenerMomentoDeImpacto() == 0){
 				this.realizarImpactoDe(disparoActual);
-				iterator.remove();
+				if(disparoActual.fueEjecutado()){iterator.remove();}
 			}else{
 				disparoActual.obtenerMomentoDeImpacto().DisminuirMomentoDeImpacto();
 			}
