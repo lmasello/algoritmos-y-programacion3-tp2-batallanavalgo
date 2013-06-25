@@ -1,5 +1,7 @@
 package nave;
 
+import java.awt.Color;
+
 import movimientos.Direccion;
 import componentesDeTablero.Tablero;
 import disparos.Disparo;
@@ -32,4 +34,9 @@ public class Destructor extends Nave{
 		 */
 			return(disparo.esDisparoConvencional());
 		}
+	
+	public Color getColor(){
+		
+		return Color.black;
+	}
 }

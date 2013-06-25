@@ -1,5 +1,7 @@
 package disparos;
 
+import componentesDeTablero.Posicion;
+
 public class DisparoConvencional extends Disparo {
 
 	int costoDeDisparo = 200;
@@ -27,4 +29,5 @@ public class DisparoConvencional extends Disparo {
 	
 		return new DisparoConvencional();
 	}
+
 }

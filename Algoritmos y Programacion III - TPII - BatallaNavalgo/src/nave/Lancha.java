@@ -1,5 +1,7 @@
 package nave;
 
+import java.awt.Color;
+
 import movimientos.Direccion;
 import componentesDeTablero.Tablero;
 
@@ -19,5 +21,9 @@ public class Lancha extends Nave {
 		this.agregarComponentes();
 			
 	}
-
+	
+	public Color getColor(){
+		
+		return Color.white;
+	}
 }

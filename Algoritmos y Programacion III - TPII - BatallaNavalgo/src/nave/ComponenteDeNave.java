@@ -1,5 +1,7 @@
 package nave;
 
+import java.awt.Color;
+
 import movimientos.Direccion;
 
 import componentesDeTablero.Posicion;
@@ -144,6 +146,11 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 		
 		Posicion posicionActual = this.posicionActualDeLaComponente();
 		return (posicionActual.filaDeLaPosicion()*50)-50;		
+	}
+
+	public Color getColor() {
+		
+		return this.naveALaQuePertenece.getColor();
 	}
 
 }

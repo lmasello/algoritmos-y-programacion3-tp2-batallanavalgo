@@ -552,12 +552,14 @@ public class Tablero {
 	 * agrega a la posicion. Al finalizar disminuye el puntaje debido al disparo seleccionado 
 	 */
 		
-		for(int posicionEnColeccion = 1; posicionEnColeccion <= posicionesAfectadas.cantidadDePosiciones()
+		for(int posicionEnColeccion = 1; posicionEnColeccion < posicionesAfectadas.cantidadDePosiciones()
 				; posicionEnColeccion++){
 				Posicion posicionActual = posicionesAfectadas.obtenerPosicionDeLaFila(posicionEnColeccion);
 				Disparo disparoAAgregar = disparo.crearDisparo();
 				posicionActual.agregarDisparoAPosicion(disparoAAgregar);
 		}	
+		Posicion posicionAAgregar = posicionesAfectadas.obtenerPosicionDeLaFila(posicionesAfectadas.cantidadDePosiciones());
+		posicionAAgregar.agregarDisparoAPosicion(disparo);
 	}
 }
 

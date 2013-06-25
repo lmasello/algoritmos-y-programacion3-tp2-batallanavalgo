@@ -1,5 +1,6 @@
 package nave;
 
+import java.awt.Color;
 import java.util.Iterator;
 
 import componentesDeTablero.Tablero;
@@ -13,6 +14,7 @@ import excepciones.ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContien
 import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
+import fiuba.algo3.titiritero.modelo.ObjetoDibujable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
 public abstract class Nave implements NaveMovible, ObjetoVivo {
@@ -297,4 +299,8 @@ public abstract class Nave implements NaveMovible, ObjetoVivo {
 	public boolean esBuque(){
 		return false;
 	}
+	
+	public abstract Color getColor();
+	
+	
 }

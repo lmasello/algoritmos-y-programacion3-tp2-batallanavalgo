@@ -1,5 +1,7 @@
 package nave;
 
+import java.awt.Color;
+
 import componentesDeTablero.Tablero;
 
 import movimientos.Direccion;
@@ -20,6 +22,10 @@ public class PortaAviones extends Nave {
 		this.agregarComponentes();
 		
 	}
-
+	
+	public Color getColor(){
+		
+		return Color.green;
+	}
 
 }

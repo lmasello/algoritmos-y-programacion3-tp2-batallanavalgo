@@ -58,12 +58,14 @@ public class VentanaPrincipal {
 	private Modelo modelo;
 	private JFrame frame;
 	private Set<ObjetoVivo> objetosVivos;
-	private Set<ObjetoDibujable> objetosDibujables;
+	private Set<ObjetoDibujable> componentesDibujables;
+	private Set<ObjetoDibujable> disparosDibujables;
 	private SuperficieDeDibujo superficieDeDibujo;
 	private Boolean estaEjecutando;
 	private Disparo disparoARealizar;
 	private TextField puntajeRestante;
 	private Frame framePregunta;
+	private boolean noDisparo;
 	
 	/**
 	 * Launch the application.
@@ -111,6 +113,7 @@ public class VentanaPrincipal {
 		frame.getContentPane().setLayout(null);
 		frame.setTitle("Batalla Navalgo");
 		estaEjecutando = false;		
+		noDisparo = true;
 		
 		JButton botonIniciar = this.agregarBotonIniciar();
 				
@@ -146,7 +149,8 @@ public class VentanaPrincipal {
 		modelo.colocarNavesEnElTablero();
 		
 		objetosVivos = new HashSet<ObjetoVivo>();
-		objetosDibujables= new HashSet<ObjetoDibujable>();
+		componentesDibujables= new HashSet<ObjetoDibujable>();
+		disparosDibujables = new HashSet<ObjetoDibujable>();
 		
 		Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 		
@@ -169,10 +173,10 @@ public class VentanaPrincipal {
 		
 		Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 		while (iterator.hasNext()){
-			ObjetoPosicionable componenteDeLaNave = iterator.next();
-			VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave(componenteDeLaNave);
+			ComponenteDeNave componenteDeLaNave = iterator.next();
+			VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteDeLaNave,componenteDeLaNave.getColor());
 			
-			objetosDibujables.add(vista);
+			componentesDibujables.add(vista);
 		}
 		
 	}
@@ -212,13 +216,28 @@ public class VentanaPrincipal {
 				
 				int coordenadaHorizontal = e.getX();
 				int coordenadaVertical = e.getY();
-				
+				if(noDisparo && !disparoARealizar.fueEjecutado()){
 				try {
 					Posicion posicionClickeadaDelModelo = this.obtenerPosicionClickeada(coordenadaHorizontal,coordenadaVertical);
 					
 					Disparo disparoAPonerEnPosicion = disparoARealizar;
 					
 					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
+					
+					disparoAPonerEnPosicion.setPosicion(posicionClickeadaDelModelo);
+					
+					VistaDeDisparo vista = new VistaDeDisparo(disparoAPonerEnPosicion);
+					disparosDibujables.add(vista);
+									
+					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
+						componenteDibujable.dibujar(superficieDeDibujo);
+					}
+					for(ObjetoDibujable disparoDibujable : disparosDibujables){
+						disparoDibujable.dibujar(superficieDeDibujo);
+					}
+					
+					superficieDeDibujo.actualizar();
+					noDisparo = false;
 					
 				} catch (ValoresDeParametroFueraDeRango
 						| ValorDeParametroFueraDeRango e1) {
@@ -228,7 +247,7 @@ public class VentanaPrincipal {
 					
 					System.out.println("No se ha seleccionado ningun disparo para colocar en dicha posicion.");
 				} 
-				
+				}
 			}
 
 			private Posicion obtenerPosicionClickeada(int coordenadaHorizontal,	int coordenadaVertical) throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
@@ -270,7 +289,7 @@ public class VentanaPrincipal {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for(ObjetoDibujable objetoDibujable : objetosDibujables) {
+				for(ObjetoDibujable objetoDibujable : componentesDibujables) {
 					objetoDibujable.dibujar(superficieDeDibujo);
 				}
 				superficieDeDibujo.actualizar();
@@ -307,10 +326,13 @@ public class VentanaPrincipal {
 					for(ObjetoVivo objetoVivo : objetosVivos) {
 						objetoVivo.vivir();
 					}
-					for(ObjetoDibujable objetoDibujable : objetosDibujables) {
-						objetoDibujable.dibujar(superficieDeDibujo);
+					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
+						componenteDibujable.dibujar(superficieDeDibujo);
 					}
-					
+					for(ObjetoDibujable disparoDibujable : disparosDibujables){
+						disparoDibujable.dibujar(superficieDeDibujo);
+					}
+					noDisparo = true;
 					modelo.disminuirPuntajeDeJugadorPorPasajeDeTurno();
 					puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
 					superficieDeDibujo.actualizar();
@@ -330,11 +352,11 @@ public class VentanaPrincipal {
 				Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 								
 				objetosVivos = new HashSet<ObjetoVivo>();
-				objetosDibujables= new HashSet<ObjetoDibujable>();
-
+				componentesDibujables= new HashSet<ObjetoDibujable>();
+				System.out.println("Cantidad de naves: " + modelo.obtenerNavesDelTablero().cantidadDeNaves());
 				while(iterator.hasNext()){
 					Nave naveARepresentar = iterator.next();
-					
+					System.out.println("Entro al while");
 					this.establecerObjetosPosicionables(naveARepresentar);
 					this.establecerObjetosVivos(naveARepresentar);
 				}
@@ -350,10 +372,10 @@ public class VentanaPrincipal {
 			private void establecerObjetosPosicionables(Nave naveARepresentar) {
 				Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 				while (iterator.hasNext()){
-					ObjetoPosicionable componenteDeLaNave = iterator.next();
-					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave(componenteDeLaNave);
+					ComponenteDeNave componenteDeLaNave = iterator.next();
+					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteDeLaNave,componenteDeLaNave.getColor());
 					
-					objetosDibujables.add(vista);
+					componentesDibujables.add(vista);
 				}
 
 				
@@ -474,7 +496,7 @@ public class VentanaPrincipal {
 		panelDeDisparos.add(botonOpcion5);
 		
 		panelDeDisparos.setBounds(5, 300, 250, 300);
-		frame.getContentPane().add(panelDeDisparos);	
+		frame.getContentPane().add(panelDeDisparos);
 		
 	}
 

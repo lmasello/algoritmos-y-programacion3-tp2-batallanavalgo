@@ -1,5 +1,7 @@
 package nave;
 
+import java.awt.Color;
+
 import componentesDeTablero.Tablero;
 
 import movimientos.Direccion;
@@ -21,5 +23,9 @@ public class RompeHielos extends Nave {
 		
 	}
 
+	public Color getColor(){
+		
+		return Color.DARK_GRAY;
+	}
 
 }
