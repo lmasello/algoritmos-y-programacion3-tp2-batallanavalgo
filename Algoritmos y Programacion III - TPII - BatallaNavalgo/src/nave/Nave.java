@@ -15,9 +15,10 @@ import excepciones.LargoDeNaveIncorrecto;
 import excepciones.ValorDeParametroFueraDeRango;
 import excepciones.ValoresDeParametroFueraDeRango;
 import fiuba.algo3.titiritero.modelo.ObjetoDibujable;
+import fiuba.algo3.titiritero.modelo.ObjetoPosicionable;
 import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 
-public abstract class Nave implements NaveMovible, ObjetoVivo {
+public abstract class Nave implements NaveMovible, ObjetoVivo, ObjetoPosicionable {
 
 	private static int NUMERO_DE_PROA=1;
 	

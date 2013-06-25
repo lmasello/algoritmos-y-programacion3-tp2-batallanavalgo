@@ -39,4 +39,14 @@ public class Destructor extends Nave{
 		
 		return Color.black;
 	}
+
+	@Override
+	public int getX() {
+		return 1*15;
+	}
+
+	@Override
+	public int getY() {
+		return 2*25;
+	}
 }

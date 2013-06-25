@@ -33,4 +33,14 @@ public class Buque extends Nave{
 		return Color.orange;
 	}
 
+	@Override
+	public int getX() {
+		return 1*15;
+	}
+
+	@Override
+	public int getY() {
+		return 1*20;
+	}
+
 }

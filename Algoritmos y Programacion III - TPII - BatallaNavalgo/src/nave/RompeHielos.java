@@ -27,5 +27,15 @@ public class RompeHielos extends Nave {
 		
 		return Color.DARK_GRAY;
 	}
+	
+	@Override
+	public int getX() {
+		return 1*15;
+	}
+
+	@Override
+	public int getY() {
+		return 10*14;
+	}
 
 }

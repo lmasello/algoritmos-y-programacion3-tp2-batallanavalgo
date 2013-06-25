@@ -56,19 +56,21 @@ public class VentanaPrincipal {
 	private static int PASO_VERTICAL = 50;
 	
 	private Modelo modelo;
-	private JFrame frame;
+	private JFrame frame,frameInfo;
 	private Set<ObjetoVivo> objetosVivos;
 	private Set<ObjetoDibujable> componentesDibujables;
+	private Set<ObjetoDibujable> navesDibujables;
 	private Set<ObjetoDibujable> disparosDibujables;
 	private SuperficieDeDibujo superficieDeDibujo;
+	private SuperficieDeDibujo superficieDeNaves;
 	private Boolean estaEjecutando;
 	private Disparo disparoARealizar;
-	private TextField puntajeRestante;
+	private TextField puntajeRestante,infoNave;
 	private Frame framePregunta;
 	private boolean noDisparo;
 	
 	/**
-	 * Launch the application.
+	 * Launch the application. 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -123,9 +125,14 @@ public class VentanaPrincipal {
 		
 		this.agregarPuntajeDelJugador();
 		
+		this.agregarBotonesInfoNaves();
+		
 		JPanel superficie = this.addSuperficiePanel();
 		
+		JPanel superficieNaves = this.addSuperficiePanelNaves();
+		
 		superficieDeDibujo = (SuperficieDeDibujo) superficie;
+		superficieDeNaves = (SuperficieDeDibujo) superficieNaves;
 	
 				
 		try {
@@ -136,6 +143,9 @@ public class VentanaPrincipal {
 			e.printStackTrace();
 		}
 		
+
+		this.agregarInfoDeNave();
+	
 		this.addMouseListener(superficie);
 		
 		this.addKeyListener();
@@ -149,16 +159,18 @@ public class VentanaPrincipal {
 		modelo.colocarNavesEnElTablero();
 		
 		objetosVivos = new HashSet<ObjetoVivo>();
-		componentesDibujables= new HashSet<ObjetoDibujable>();
+		componentesDibujables = new HashSet<ObjetoDibujable>();
+		navesDibujables = new HashSet<ObjetoDibujable>();
 		disparosDibujables = new HashSet<ObjetoDibujable>();
 		
 		Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 		
 		while(iterator.hasNext()){
 			Nave naveARepresentar = iterator.next();
-			
 			this.establecerObjetosPosicionables(naveARepresentar);
 			this.establecerObjetosVivos(naveARepresentar);
+			VistaReferenciaDeNave vistaReferencia = new VistaReferenciaDeNave((ObjetoPosicionable)naveARepresentar,naveARepresentar.getColor());
+			navesDibujables.add(vistaReferencia);
 		}
 		
 	}
@@ -175,7 +187,6 @@ public class VentanaPrincipal {
 		while (iterator.hasNext()){
 			ComponenteDeNave componenteDeLaNave = iterator.next();
 			VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteDeLaNave,componenteDeLaNave.getColor());
-			
 			componentesDibujables.add(vista);
 		}
 		
@@ -283,15 +294,29 @@ public class VentanaPrincipal {
 		frame.getContentPane().add(panel);
 		return panel;
 	}
+	
+	private JPanel addSuperficiePanelNaves(){
+		
+		JPanel panelDeSuperficie = new SuperficiePanel();
+		panelDeSuperficie.setBackground(new Color(87, 174, 221));
+		panelDeSuperficie.setBounds(50, 450, 40, 180);
+		
+		frame.getContentPane().add(panelDeSuperficie);
+		return panelDeSuperficie;
+	}
 
 	
 	private JButton agregarBotonIniciar() {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				for(ObjetoDibujable objetoDibujable : componentesDibujables) {
-					objetoDibujable.dibujar(superficieDeDibujo);
+				for(ObjetoDibujable componenteDibujable : componentesDibujables) {
+					componenteDibujable.dibujar(superficieDeDibujo);
 				}
+				for(ObjetoDibujable naveDibujable : navesDibujables){
+					naveDibujable.dibujar(superficieDeNaves);
+				}
+				superficieDeNaves.actualizar();
 				superficieDeDibujo.actualizar();
 				estaEjecutando = true;
 				puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
@@ -517,4 +542,72 @@ public class VentanaPrincipal {
 		puntajeRestante.setBounds(40, 150, 200, 50);
 		frame.getContentPane().add(puntajeRestante);
 	}
+	
+private void agregarBotonesInfoNaves() {
+		
+		JButton botonInfoBuque = new JButton("    INFO BUQUE    ");
+		JButton botonInfoDestructor = new JButton("  INFO DESTRUCTOR ");
+		JButton botonInfoLancha = new JButton("    INFO LANCHA   ");
+		JButton botonInfoPortaAviones = new JButton("INFO PORTA AVIONES");
+		JButton botonInfoRompeHielos = new JButton("INFO ROMPE HIELOS ");
+		
+		botonInfoBuque.addActionListener(new ActionListener(){
+				public void actionPerformed(ActionEvent arg0){
+					frameInfo.setVisible(true);
+					infoNave.setText("El buque es una nave de 4 casillas, en la cual un impacto en cualquier parte de la nave la destruye por completo");
+				}
+		});
+		
+		botonInfoDestructor.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				frameInfo.setVisible(true);
+				infoNave.setText("El Destructor es una nave de 3 casillas, a las cuales solamente las dañan los disparos convencionales, las minas submarinas no les producen ningun daño");	
+			}
+		});
+		
+		botonInfoLancha.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				frameInfo.setVisible(true);
+				infoNave.setText("La lancha es una nave de 2 casillas que es afectada por cualquier disparo");	
+			}
+		});
+		
+		botonInfoPortaAviones.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				frameInfo.setVisible(true);
+				infoNave.setText("El Porta Aviones es una nave de 5 casillas que es afectada por cualquier disparo");	
+			}
+		});
+		
+		botonInfoRompeHielos.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				frameInfo.setVisible(true);
+				infoNave.setText("El Rompe Hielos es una nave de 3 casillas, pero en la cual cada parte requiere 2 impactos para ser destruida");	
+			}
+		});
+		botonInfoBuque.setBounds(120, 465, 160, 20);
+		botonInfoDestructor.setBounds(120, 495, 160, 20);
+		botonInfoLancha.setBounds(120, 525, 160, 20);
+		botonInfoPortaAviones.setBounds(120, 555, 160, 20);
+		botonInfoRompeHielos.setBounds(120, 585, 160, 20);
+		
+		frame.getContentPane().add(botonInfoBuque);
+		frame.getContentPane().add(botonInfoDestructor);
+		frame.getContentPane().add(botonInfoLancha);
+		frame.getContentPane().add(botonInfoPortaAviones);
+		frame.getContentPane().add(botonInfoRompeHielos);
+		
+
+	}
+
+	private void agregarInfoDeNave(){
+		
+		frameInfo = new JFrame("Informacion de Nave");
+		infoNave = new TextField();
+		infoNave.setBackground(Color.BLUE);
+		frameInfo.setBounds(280,300,700,60);
+		frameInfo.add(infoNave);
+		frameInfo.setVisible(false);
+	}
+	
 }

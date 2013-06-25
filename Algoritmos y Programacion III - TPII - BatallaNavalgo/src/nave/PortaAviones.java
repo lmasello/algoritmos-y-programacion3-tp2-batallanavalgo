@@ -27,5 +27,15 @@ public class PortaAviones extends Nave {
 		
 		return Color.green;
 	}
+	
+	@Override
+	public int getX() {
+		return 1*15;
+	}
+
+	@Override
+	public int getY() {
+		return 10*11;
+	}
 
 }

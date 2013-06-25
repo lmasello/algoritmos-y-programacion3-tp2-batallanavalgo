@@ -26,4 +26,14 @@ public class Lancha extends Nave {
 		
 		return Color.white;
 	}
+	
+	@Override
+	public int getX() {
+		return 1*15;
+	}
+
+	@Override
+	public int getY() {
+		return 2*40;
+	}
 }
