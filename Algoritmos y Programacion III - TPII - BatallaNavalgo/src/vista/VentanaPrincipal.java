@@ -344,6 +344,16 @@ public class VentanaPrincipal {
 							e.printStackTrace();
 						}
 					}
+					if(modelo.obtenerNavesDelTablero().cantidadDeNaves() == 0){
+						System.out.println("¡ GANASTE !");
+						System.out.println(" TU PUNTAJE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
+						try {
+							terminarPartida();
+						} catch (ValoresDeParametroFueraDeRango e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
 				};
 			}
 
@@ -425,7 +435,7 @@ public class VentanaPrincipal {
 			panelBotonesPregunta.add(botonCancelar);
 			
 			framePregunta.add("South",panelBotonesPregunta);
-			
+			framePregunta.setBounds(480,300,500,100);
 			framePregunta.setVisible(true);
 	}
 	
