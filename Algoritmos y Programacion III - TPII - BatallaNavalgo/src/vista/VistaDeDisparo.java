@@ -22,4 +22,8 @@ public class VistaDeDisparo extends Circulo {
 		return this.disparo.getColor();
 	}
 
+	public Disparo obtenerDisparoDibujable(){
+		
+		return this.disparo;
+	}
 }

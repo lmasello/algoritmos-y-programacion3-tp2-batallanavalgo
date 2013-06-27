@@ -89,8 +89,9 @@ public class VentanaPrincipal {
 	/**
 	 * Create the application.
 	 * @throws ValoresDeParametroFueraDeRango 
+	 * @throws ValorDeParametroFueraDeRango 
 	 */
-	public VentanaPrincipal() throws ValoresDeParametroFueraDeRango {
+	public VentanaPrincipal() throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		try {
 			initialize();
 		} catch (IOException e) {
@@ -103,10 +104,11 @@ public class VentanaPrincipal {
 	 * Initialize the contents of the frame.
 	 * @throws IOException 
 	 * @throws ValoresDeParametroFueraDeRango 
+	 * @throws ValorDeParametroFueraDeRango 
 	 */
 	
 
-	private void initialize() throws IOException, ValoresDeParametroFueraDeRango {
+	private void initialize() throws IOException, ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
 		modelo = new Juego("Ejemplo");
 		frame = new JFrame();
 		framePregunta = new Frame("DESEA JUGAR OTRA VEZ ?");
@@ -139,8 +141,7 @@ public class VentanaPrincipal {
 				
 		try {
 			this.inicializarModelo();
-		} catch (LargoDeNaveIncorrecto | ValoresDeParametroFueraDeRango
-				| ValorDeParametroFueraDeRango e) {
+		} catch (LargoDeNaveIncorrecto e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -214,20 +215,22 @@ public class VentanaPrincipal {
 					Posicion posicionClickeadaDelModelo = this.obtenerPosicionClickeada(coordenadaHorizontal,coordenadaVertical);
 					Disparo disparoAPonerEnPosicion = disparoARealizar;
 					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
-										
+					
 					this.dibujarDisparoColocado(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
 					
 					this.actualizarVistaDelTablero();
-
+					
 					noDisparo = false;
 					
-				} catch (ValoresDeParametroFueraDeRango
-						| ValorDeParametroFueraDeRango e1) {
+				} catch (ValoresDeParametroFueraDeRango e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				} catch (NoHayDisparoParaColocarEnLaPosicion e1) {
 					
 					System.out.println("No se ha seleccionado ningun disparo para colocar en dicha posicion.");
+				} catch (ValorDeParametroFueraDeRango e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
 				} 
 				}
 			}
@@ -249,8 +252,28 @@ public class VentanaPrincipal {
 				disparoAPonerEnPosicion.setPosicion(posicionClickeadaDelModelo); //Asigna la posicion para poder graficar al disparo en el tablero
 
 				VistaDeDisparo vista = new VistaDeDisparo(disparoAPonerEnPosicion);
+				
+				this.quitarDisparosEfectuados();
+				
 				disparosDibujables.add(vista);
+			}
 
+			private void quitarDisparosEfectuados() {
+				
+				Iterator<ObjetoDibujable> dibujosDeDisparos = disparosDibujables.iterator();
+				Iterator<ObjetoDibujable> dibujosAQuitar = disparosDibujables.iterator();
+				int contador = 1;
+				while(dibujosAQuitar.hasNext() && dibujosDeDisparos.hasNext() && contador <= disparosDibujables.size()){
+				
+					Disparo disparo = ((VistaDeDisparo) dibujosDeDisparos.next()).obtenerDisparoDibujable();
+					contador++;
+					if(disparo.fueEjecutado()){
+						disparosDibujables.remove(dibujosAQuitar.next());
+						contador++;
+					}else{
+						dibujosAQuitar.next();
+					}
+				}
 			}
 
 			private Posicion obtenerPosicionClickeada(int coordenadaHorizontal,	int coordenadaVertical) throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
@@ -343,7 +366,10 @@ public class VentanaPrincipal {
 						
 						this.actualizarObjetosARepresentar();
 						
-					} catch (ValoresDeParametroFueraDeRango | ValorDeParametroFueraDeRango e) {
+					} catch (ValoresDeParametroFueraDeRango e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (ValorDeParametroFueraDeRango e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
@@ -381,24 +407,70 @@ public class VentanaPrincipal {
 			private void evaluarFinalizacionDelJuego() {
 				
 				if(this.puntajeAlcanzaElCero()){
-					try {
-						System.out.println("¡ Vuelvalo a intentar !");
-						terminarPartida();
-					} catch (ValoresDeParametroFueraDeRango e) {
-						e.printStackTrace();
-					}
+					
+					this.mostrarCartelPartidaPerdida();
 				}
 				else if (this.seAcabaronLasNaves()){
-					try {
-						System.out.println("¡ GANASTE !");
-						System.out.println(" TU PUNTAJE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
-						terminarPartida();
-					} catch (ValoresDeParametroFueraDeRango e) {
-						e.printStackTrace();
-					}
+					
+					this.mostrarCartelPartidaGanada();
 				}	
 				
 			}
+			private void mostrarCartelPartidaGanada() {
+				
+				frame.setVisible(false);
+				final Frame frameGano = new Frame(" ¡HAS GANADO! ");
+				Panel panelBoton = new Panel();
+				TextField texto = new TextField();
+				texto.setText(" TU PUNTAJE ES: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje() +
+							"  ¡MUY BIEN! ");
+				
+				JButton botonAceptar = new JButton(" ACEPTAR ");
+				botonAceptar.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent arg0){
+						frameGano.setVisible(false);
+						try {
+							terminarPartida();
+						} catch (ValoresDeParametroFueraDeRango e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				panelBoton.add(botonAceptar);
+				frameGano.setBounds(480,300,500,100);
+				frameGano.add("Center",texto);
+				frameGano.add("South",panelBoton);
+				frameGano.setVisible(true);
+			}
+
+			private void mostrarCartelPartidaPerdida() {
+				
+				frame.setVisible(false);
+				final Frame framePerdio = new Frame(" HAS PERDIDO ");
+				Panel panelBoton = new Panel();
+				TextField texto = new TextField();
+				texto.setText(" TU PUNTAJE HA LLEGADO A CERO, MEJOR SUERTE LA PROXIMA VEZ!");
+				
+				JButton botonAceptar = new JButton(" ACEPTAR ");
+				botonAceptar.addActionListener(new ActionListener(){
+					public void actionPerformed(ActionEvent arg0){
+						framePerdio.setVisible(false);
+						try {
+							terminarPartida();
+						} catch (ValoresDeParametroFueraDeRango e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				});
+				panelBoton.add(botonAceptar);
+				framePerdio.setBounds(480,300,500,100);
+				framePerdio.add("Center",texto);
+				framePerdio.add("South",panelBoton);
+				framePerdio.setVisible(true);
+			}
+
 			private boolean seAcabaronLasNaves() {
 				return modelo.obtenerNavesDelTablero().cantidadDeNaves() == 0;
 			}
@@ -466,6 +538,9 @@ public class VentanaPrincipal {
 				} catch (ValoresDeParametroFueraDeRango e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
+				} catch (ValorDeParametroFueraDeRango e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 		});
@@ -474,7 +549,6 @@ public class VentanaPrincipal {
 	
 	protected void terminarPartida() throws ValoresDeParametroFueraDeRango {
 			
-			frame.setVisible(false);
 			JButton botonAceptar = this.agregarBotonSi();
 			JButton botonCancelar = this.agregarBotonNo();
 			
@@ -623,7 +697,7 @@ private void agregarBotonesInfoNaves() {
 		infoNave.setBackground(Color.WHITE);
 		frameInfo.setBounds(280,300,700,60);
 		frameInfo.add(infoNave);
-		frameInfo.setVisible(true);
+		frameInfo.setVisible(false);
 	}
 	
 }

@@ -286,8 +286,10 @@ public abstract class Nave implements NaveMovible, ObjetoVivo, ObjetoPosicionabl
 		try {
 			this.moverComponentes();
 		} catch (
-				ValorDeParametroFueraDeRango
-				| ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene e) {
+				ValorDeParametroFueraDeRango e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErrorAlQuererRemoverUnaComponenteEnUnaColeccionQueNoLaContiene e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
