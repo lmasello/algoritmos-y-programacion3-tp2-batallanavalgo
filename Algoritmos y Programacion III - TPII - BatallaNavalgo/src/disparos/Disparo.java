@@ -72,11 +72,8 @@ public abstract class Disparo implements ObjetoPosicionable{
 
 	public Color getColor() {
 		if(fueEjecutado){
-			System.out.println("DISPARO EJECUTADO");
 			return Color.LIGHT_GRAY;
 		}
-
-		System.out.println("DISPARO NO EJECUTADO");
 		return Color.RED;
 	}
 }
