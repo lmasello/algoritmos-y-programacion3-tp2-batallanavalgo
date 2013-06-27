@@ -525,6 +525,14 @@ public class Tablero {
 	
 	public void quitarNavesEliminadas() throws ValorDeParametroFueraDeRango{
 		
+		Iterator<Nave> iterator = navesDelTablero.iterator();
+		while(iterator.hasNext()){
+			Nave naveAEliminar = iterator.next();
+			if(naveAEliminar.estaDestruida()){
+				iterator.remove();
+			}
+		}
+		
 		for(int numeroDeNave = 1; numeroDeNave<= navesDelTablero.cantidadDeNaves(); numeroDeNave++){
 			Nave naveAEliminar = navesDelTablero.naveDeLaPosicion(numeroDeNave);
 			if(naveAEliminar.estaDestruida()){

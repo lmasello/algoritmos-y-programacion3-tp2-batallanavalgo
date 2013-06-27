@@ -169,8 +169,6 @@ public class VentanaPrincipal {
 			Nave naveARepresentar = iterator.next();
 			this.establecerObjetosPosicionables(naveARepresentar);
 			this.establecerObjetosVivos(naveARepresentar);
-			
-
 		}
 		
 	}
@@ -182,7 +180,7 @@ public class VentanaPrincipal {
 	
 
 	private void establecerObjetosPosicionables(Nave naveARepresentar) {
-		
+		//Agrega vistas de las naves
 		Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 		while (iterator.hasNext()){
 			ComponenteDeNave componenteDeLaNave = iterator.next();
@@ -212,15 +210,12 @@ public class VentanaPrincipal {
 				int coordenadaVertical = e.getY();
 				if(noDisparo && !disparoARealizar.fueEjecutado()){
 				try {
+					//Obtiene la posicion clickeada del tablero para luego disparar en ella
 					Posicion posicionClickeadaDelModelo = this.obtenerPosicionClickeada(coordenadaHorizontal,coordenadaVertical);
-					
 					Disparo disparoAPonerEnPosicion = disparoARealizar;
-					
 					modelo.realizarDisparoALaPosicion(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
-					
-					disparoAPonerEnPosicion.setPosicion(posicionClickeadaDelModelo);
-					
-					this.dibujarDisparoColocado(disparoAPonerEnPosicion);
+										
+					this.dibujarDisparoColocado(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
 					
 					//Actualiza la vista del tablero con el disparo colocado				
 					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
@@ -244,7 +239,10 @@ public class VentanaPrincipal {
 				}
 			}
 
-			private void dibujarDisparoColocado(Disparo disparoAPonerEnPosicion) {
+			private void dibujarDisparoColocado(Disparo disparoAPonerEnPosicion, Posicion posicionClickeadaDelModelo) {
+				
+				disparoAPonerEnPosicion.setPosicion(posicionClickeadaDelModelo); //Asigna la posicion para poder graficar al disparo en el tablero
+
 				VistaDeDisparo vista = new VistaDeDisparo(disparoAPonerEnPosicion);
 				disparosDibujables.add(vista);
 
@@ -339,6 +337,7 @@ public class VentanaPrincipal {
 					//Quita la seleccion de la opcion de disparo elegida
 					botoneraDeDisparos.clearSelection();
 					
+					//Mueve y actualiza a los elementos del tablero
 					for(ObjetoVivo objetoVivo : objetosVivos) {
 						objetoVivo.vivir();
 					}
@@ -348,29 +347,45 @@ public class VentanaPrincipal {
 					for(ObjetoDibujable disparoDibujable : disparosDibujables){
 						disparoDibujable.dibujar(superficieDeDibujo);
 					}
+					superficieDeDibujo.actualizar();
+					
 					noDisparo = true;
+					
+					//Modifica el puntaje del jugador
 					modelo.disminuirPuntajeDeJugadorPorPasajeDeTurno();
 					puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
-					superficieDeDibujo.actualizar();
-					if(modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje() <= 0 ){
-						try {
-							terminarPartida();
-						} catch (ValoresDeParametroFueraDeRango e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+					
+					this.evaluarFinalizacionDelJuego();	
+				}	
+			}
+			
+			private void evaluarFinalizacionDelJuego() {
+				
+				if(this.puntajeAlcanzaElCero()){
+					try {
+						System.out.println("¡ Vuelvalo a intentar !");
+						terminarPartida();
+					} catch (ValoresDeParametroFueraDeRango e) {
+						e.printStackTrace();
 					}
-					if(modelo.obtenerNavesDelTablero().cantidadDeNaves() == 0){
+				}
+				else if (this.seAcabaronLasNaves()){
+					try {
 						System.out.println("¡ GANASTE !");
 						System.out.println(" TU PUNTAJE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
-						try {
-							terminarPartida();
-						} catch (ValoresDeParametroFueraDeRango e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						terminarPartida();
+					} catch (ValoresDeParametroFueraDeRango e) {
+						e.printStackTrace();
 					}
-				};
+				}
+					
+				
+			}
+			private boolean seAcabaronLasNaves() {
+				return modelo.obtenerNavesDelTablero().cantidadDeNaves() == 0;
+			}
+			private boolean puntajeAlcanzaElCero(){
+				return modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje() <= 0;
 			}
 
 			private void actualizarObjetosARepresentar() throws ValoresDeParametroFueraDeRango {
@@ -379,10 +394,9 @@ public class VentanaPrincipal {
 								
 				objetosVivos = new HashSet<ObjetoVivo>();
 				componentesDibujables= new HashSet<ObjetoDibujable>();
-				System.out.println("Cantidad de naves: " + modelo.obtenerNavesDelTablero().cantidadDeNaves());
+				
 				while(iterator.hasNext()){
 					Nave naveARepresentar = iterator.next();
-					System.out.println("Entro al while");
 					this.establecerObjetosPosicionables(naveARepresentar);
 					this.establecerObjetosVivos(naveARepresentar);
 				}
@@ -586,7 +600,6 @@ private void agregarBotonesInfoNaves() {
 		frame.getContentPane().add(botonInfoLancha);
 		frame.getContentPane().add(botonInfoPortaAviones);
 		frame.getContentPane().add(botonInfoRompeHielos);
-		
 
 	}
 
@@ -597,7 +610,7 @@ private void agregarBotonesInfoNaves() {
 		infoNave.setBackground(Color.WHITE);
 		frameInfo.setBounds(280,300,700,60);
 		frameInfo.add(infoNave);
-		frameInfo.setVisible(false);
+		frameInfo.setVisible(true);
 	}
 	
 }
