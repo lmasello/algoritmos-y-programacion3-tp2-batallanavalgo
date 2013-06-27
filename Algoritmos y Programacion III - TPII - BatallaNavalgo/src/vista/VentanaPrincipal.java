@@ -217,15 +217,8 @@ public class VentanaPrincipal {
 										
 					this.dibujarDisparoColocado(disparoAPonerEnPosicion, posicionClickeadaDelModelo);
 					
-					//Actualiza la vista del tablero con el disparo colocado				
-					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
-						componenteDibujable.dibujar(superficieDeDibujo);
-					}
-					for(ObjetoDibujable disparoDibujable : disparosDibujables){
-						disparoDibujable.dibujar(superficieDeDibujo);
-					}
-					
-					superficieDeDibujo.actualizar();
+					this.actualizarVistaDelTablero();
+
 					noDisparo = false;
 					
 				} catch (ValoresDeParametroFueraDeRango
@@ -237,6 +230,18 @@ public class VentanaPrincipal {
 					System.out.println("No se ha seleccionado ningun disparo para colocar en dicha posicion.");
 				} 
 				}
+			}
+
+			private void actualizarVistaDelTablero() {
+				
+				//Actualiza la vista del tablero con el disparo colocado				
+				for(ObjetoDibujable componenteDibujable : componentesDibujables) {
+					componenteDibujable.dibujar(superficieDeDibujo);
+				}
+				for(ObjetoDibujable disparoDibujable : disparosDibujables){
+					disparoDibujable.dibujar(superficieDeDibujo);
+				}
+				superficieDeDibujo.actualizar();
 			}
 
 			private void dibujarDisparoColocado(Disparo disparoAPonerEnPosicion, Posicion posicionClickeadaDelModelo) {
@@ -297,6 +302,15 @@ public class VentanaPrincipal {
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				
+				this.establecerVistaDelTablero();
+				
+				estaEjecutando = true;
+				puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
+			}
+
+			private void establecerVistaDelTablero() {
+				
 				for(ObjetoDibujable componenteDibujable : componentesDibujables) {
 					componenteDibujable.dibujar(superficieDeDibujo);
 				}
@@ -305,8 +319,7 @@ public class VentanaPrincipal {
 				}
 				superficieDeNaves.actualizar();
 				superficieDeDibujo.actualizar();
-				estaEjecutando = true;
-				puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
+
 			}
 		});
 		btnIniciar.setBounds(85, 16, 77, 25);
@@ -336,29 +349,35 @@ public class VentanaPrincipal {
 					}
 					//Quita la seleccion de la opcion de disparo elegida
 					botoneraDeDisparos.clearSelection();
-					
-					//Mueve y actualiza a los elementos del tablero
-					for(ObjetoVivo objetoVivo : objetosVivos) {
-						objetoVivo.vivir();
-					}
-					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
-						componenteDibujable.dibujar(superficieDeDibujo);
-					}
-					for(ObjetoDibujable disparoDibujable : disparosDibujables){
-						disparoDibujable.dibujar(superficieDeDibujo);
-					}
-					superficieDeDibujo.actualizar();
-					
 					noDisparo = true;
-					
-					//Modifica el puntaje del jugador
-					modelo.disminuirPuntajeDeJugadorPorPasajeDeTurno();
-					puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
-					
+
+					this.actualizarVistaDeTablero();					
+					this.actualizarPuntajeDeJugador();
 					this.evaluarFinalizacionDelJuego();	
 				}	
 			}
 			
+			private void actualizarPuntajeDeJugador() {
+				//Modifica el puntaje del jugador
+				modelo.disminuirPuntajeDeJugadorPorPasajeDeTurno();
+				puntajeRestante.setText(" PUNTAJE RESTANTE: " + modelo.obtenerJugador().obtenerPuntaje().obtenerPuntaje());
+				
+			}
+
+			private void actualizarVistaDeTablero() {
+				//Mueve y actualiza a los elementos del tablero
+				for(ObjetoVivo objetoVivo : objetosVivos) {
+					objetoVivo.vivir();
+				}
+				for(ObjetoDibujable componenteDibujable : componentesDibujables) {
+					componenteDibujable.dibujar(superficieDeDibujo);
+				}
+				for(ObjetoDibujable disparoDibujable : disparosDibujables){
+					disparoDibujable.dibujar(superficieDeDibujo);
+				}
+				superficieDeDibujo.actualizar();
+			}
+
 			private void evaluarFinalizacionDelJuego() {
 				
 				if(this.puntajeAlcanzaElCero()){
@@ -377,8 +396,7 @@ public class VentanaPrincipal {
 					} catch (ValoresDeParametroFueraDeRango e) {
 						e.printStackTrace();
 					}
-				}
-					
+				}	
 				
 			}
 			private boolean seAcabaronLasNaves() {
@@ -390,6 +408,10 @@ public class VentanaPrincipal {
 
 			private void actualizarObjetosARepresentar() throws ValoresDeParametroFueraDeRango {
 
+				/*
+				 * Actualiza los componentes del tablero, debido al movimiento de los mismos, asi como tambien
+				 * los cambios de estados producidos por los disparos
+				 */
 				Iterator<Nave> iterator = modelo.obtenerNavesDelTablero().iterator();
 								
 				objetosVivos = new HashSet<ObjetoVivo>();
@@ -399,8 +421,7 @@ public class VentanaPrincipal {
 					Nave naveARepresentar = iterator.next();
 					this.establecerObjetosPosicionables(naveARepresentar);
 					this.establecerObjetosVivos(naveARepresentar);
-				}
-				
+				}	
 			}
 
 			private void establecerObjetosVivos(ObjetoVivo naveARepresentar) {
@@ -408,7 +429,6 @@ public class VentanaPrincipal {
 				objetosVivos.add(naveARepresentar);
 			}
 			
-
 			private void establecerObjetosPosicionables(Nave naveARepresentar) {
 				Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 				while (iterator.hasNext()){
@@ -416,9 +436,7 @@ public class VentanaPrincipal {
 					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteDeLaNave,componenteDeLaNave.getColor());
 					
 					componentesDibujables.add(vista);
-				}
-
-				
+				}	
 			}		
 		});
 		botonPasarTurno.setBounds(72,260, 115, 25);
@@ -481,7 +499,6 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				disparoARealizar = new DisparoConvencional();
-				
 			}
 		});
 		JRadioButton botonOpcion2=new JRadioButton("Mina Submarina Doble",false);
@@ -490,7 +507,6 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				disparoARealizar = new MinaSubmarinaDoble();
-				
 			}
 		});
 		JRadioButton botonOpcion3=new JRadioButton("Mina Submarina Por Contacto",false);
@@ -499,7 +515,6 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				disparoARealizar = new MinaSubmarinaPorContacto();
-				
 			}
 		});
 		JRadioButton botonOpcion4=new JRadioButton("Mina Submarina Puntual",false);
@@ -508,7 +523,6 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				disparoARealizar = new MinaSubmarinaPuntual();
-				
 			}
 		});
 		JRadioButton botonOpcion5=new JRadioButton("Mina Submarina Triple",false);
@@ -517,7 +531,6 @@ public class VentanaPrincipal {
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				disparoARealizar = new MinaSubmarinaTriple();
-				
 			}
 		});
 		//Asigna los botones a una misma botonera
