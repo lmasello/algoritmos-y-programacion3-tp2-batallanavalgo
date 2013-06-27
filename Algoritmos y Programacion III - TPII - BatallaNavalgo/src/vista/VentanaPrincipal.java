@@ -64,6 +64,7 @@ public class VentanaPrincipal {
 	private SuperficieDeDibujo superficieDeDibujo;
 	private SuperficieDeDibujo superficieDeNaves;
 	private Boolean estaEjecutando;
+	private ButtonGroup botoneraDeDisparos;
 	private Disparo disparoARealizar;
 	private TextField puntajeRestante,infoNave;
 	private Frame framePregunta;
@@ -116,6 +117,7 @@ public class VentanaPrincipal {
 		frame.setTitle("Batalla Navalgo");
 		estaEjecutando = false;		
 		noDisparo = true;
+		botoneraDeDisparos = new ButtonGroup();
 		
 		JButton botonIniciar = this.agregarBotonIniciar();
 				
@@ -148,8 +150,6 @@ public class VentanaPrincipal {
 	
 		this.addMouseListener(superficie);
 		
-		this.addKeyListener();
-
 		this.setComponentsFocus(botonIniciar,botonPasarTurno);
 
 	}
@@ -169,8 +169,8 @@ public class VentanaPrincipal {
 			Nave naveARepresentar = iterator.next();
 			this.establecerObjetosPosicionables(naveARepresentar);
 			this.establecerObjetosVivos(naveARepresentar);
-			VistaReferenciaDeNave vistaReferencia = new VistaReferenciaDeNave((ObjetoPosicionable)naveARepresentar,naveARepresentar.getColor());
-			navesDibujables.add(vistaReferencia);
+			
+
 		}
 		
 	}
@@ -190,6 +190,9 @@ public class VentanaPrincipal {
 			componentesDibujables.add(vista);
 		}
 		
+		//Agrega las vistas de las naves
+		VistaReferenciaDeNave vistaReferencia = new VistaReferenciaDeNave((ObjetoPosicionable)naveARepresentar,naveARepresentar.getColor());
+		navesDibujables.add(vistaReferencia);
 	}
 
 	private void setComponentsFocus(JButton btnIniciar, JButton btnDetener) {
@@ -198,26 +201,6 @@ public class VentanaPrincipal {
 		btnIniciar.setFocusable(false);
 	}
 
-	private void addKeyListener() {
-		frame.addKeyListener(new KeyListener(
-				) {
-			
-			@Override
-			public void keyTyped(KeyEvent arg0) {
-				System.out.println("Key pressed");
-			}
-			
-			@Override
-			public void keyReleased(KeyEvent arg0) {
-			}
-			
-			@Override
-			public void keyPressed(KeyEvent arg0) {
-				System.out.println("Ping");
-			}  
-			 	
-		});
-	}
 
 	private void addMouseListener(JPanel superficie) {
 		superficie.addMouseListener(new MouseAdapter() {
@@ -237,9 +220,9 @@ public class VentanaPrincipal {
 					
 					disparoAPonerEnPosicion.setPosicion(posicionClickeadaDelModelo);
 					
-					VistaDeDisparo vista = new VistaDeDisparo(disparoAPonerEnPosicion);
-					disparosDibujables.add(vista);
-									
+					this.dibujarDisparoColocado(disparoAPonerEnPosicion);
+					
+					//Actualiza la vista del tablero con el disparo colocado				
 					for(ObjetoDibujable componenteDibujable : componentesDibujables) {
 						componenteDibujable.dibujar(superficieDeDibujo);
 					}
@@ -259,6 +242,12 @@ public class VentanaPrincipal {
 					System.out.println("No se ha seleccionado ningun disparo para colocar en dicha posicion.");
 				} 
 				}
+			}
+
+			private void dibujarDisparoColocado(Disparo disparoAPonerEnPosicion) {
+				VistaDeDisparo vista = new VistaDeDisparo(disparoAPonerEnPosicion);
+				disparosDibujables.add(vista);
+
 			}
 
 			private Posicion obtenerPosicionClickeada(int coordenadaHorizontal,	int coordenadaVertical) throws ValoresDeParametroFueraDeRango, ValorDeParametroFueraDeRango {
@@ -347,6 +336,8 @@ public class VentanaPrincipal {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					//Quita la seleccion de la opcion de disparo elegida
+					botoneraDeDisparos.clearSelection();
 					
 					for(ObjetoVivo objetoVivo : objetosVivos) {
 						objetoVivo.vivir();
@@ -515,13 +506,12 @@ public class VentanaPrincipal {
 				
 			}
 		});
-		
-		ButtonGroup botonera = new ButtonGroup();
-		botonera.add(botonOpcion1);
-		botonera.add(botonOpcion2);
-		botonera.add(botonOpcion3);
-		botonera.add(botonOpcion4);
-		botonera.add(botonOpcion5);
+		//Asigna los botones a una misma botonera
+		botoneraDeDisparos.add(botonOpcion1);
+		botoneraDeDisparos.add(botonOpcion2);
+		botoneraDeDisparos.add(botonOpcion3);
+		botoneraDeDisparos.add(botonOpcion4);
+		botoneraDeDisparos.add(botonOpcion5);
 		
 		JPanel panelDeDisparos = new JPanel();
 		panelDeDisparos.add(botonOpcion1);
@@ -604,7 +594,7 @@ private void agregarBotonesInfoNaves() {
 		
 		frameInfo = new JFrame("Informacion de Nave");
 		infoNave = new TextField();
-		infoNave.setBackground(Color.BLUE);
+		infoNave.setBackground(Color.WHITE);
 		frameInfo.setBounds(280,300,700,60);
 		frameInfo.add(infoNave);
 		frameInfo.setVisible(false);
