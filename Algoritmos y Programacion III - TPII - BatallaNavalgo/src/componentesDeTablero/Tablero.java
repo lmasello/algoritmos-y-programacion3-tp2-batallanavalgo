@@ -383,7 +383,6 @@ public class Tablero {
 		for(int numeroDeNave = 1; numeroDeNave <= navesDelTablero.cantidadDeNaves(); numeroDeNave++){
 			
 			Nave naveActual = navesDelTablero.naveDeLaPosicion(numeroDeNave);
-			naveActual.eliminarComponentesDestruidas();
 		}
 	}
 
@@ -444,12 +443,8 @@ public class Tablero {
 					    if(posicionActual.tieneDisparo()){
 						posicionActual.impactoDeLosDisparos();
 					    }
-					    if(posicionActual.tieneComponenteDeNave()){
-						posicionActual.removerComponentesEliminadas();  
-					    }
 				}
 			}
-			this.removerComponentesDeNavesEliminadas();
 			this.quitarNavesEliminadas();
 
 	}

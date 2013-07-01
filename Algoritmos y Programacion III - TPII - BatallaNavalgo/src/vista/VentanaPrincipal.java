@@ -504,10 +504,18 @@ public class VentanaPrincipal {
 			private void establecerObjetosPosicionables(Nave naveARepresentar) {
 				Iterator<ComponenteDeNave> iterator = naveARepresentar.obtenerComponentes().iterator();
 				while (iterator.hasNext()){
-					ComponenteDeNave componenteDeLaNave = iterator.next();
-					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteDeLaNave,componenteDeLaNave.getColor());
+					
+					ComponenteDeNave componenteActual = iterator.next();
+					if(!componenteActual.estaDestruida()){
+					VistaDeComponenteDeNave vista = new VistaDeComponenteDeNave((ObjetoPosicionable)componenteActual,componenteActual.getColor());
 					
 					componentesDibujables.add(vista);
+					}else{
+						
+					VistaDeComponenteDestruida vista = new VistaDeComponenteDestruida((ObjetoPosicionable)componenteActual,componenteActual.getColor());	
+					componentesDibujables.add(vista);
+					}
+					
 				}	
 			}		
 		});

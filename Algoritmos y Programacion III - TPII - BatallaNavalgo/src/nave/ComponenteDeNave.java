@@ -16,7 +16,6 @@ import fiuba.algo3.titiritero.modelo.ObjetoVivo;
 public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPosicionable {
 
 	Resistencia resistencia;
-	boolean destruida;
 	Nave naveALaQuePertenece;
 	
 	/*Los siguientes son atributos requeridos por la interfaz ComponenteMovible*/
@@ -27,9 +26,7 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 	public ComponenteDeNave(Resistencia resistenciaDeNave, Nave nave) throws ValoresDeParametroFueraDeRango {
 
 		resistencia = resistenciaDeNave;
-		destruida = false;
 		naveALaQuePertenece = nave;
-
 		tableroEnDondeSeMueve = Tablero.getInstance();
 	}
 
@@ -44,7 +41,6 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 		}
 		
 		if (resistencia.obtenerResistencia() == 0) {
-			destruida = true;
 			if(this.naveALaQuePertenece.esBuque()){
 				this.naveALaQuePertenece.destruirNave();
 			}
@@ -57,12 +53,11 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 	 * tenga una resistencia mayor a 1, tambien la destruye
 	 */
 		resistencia.reducirACero();
-		destruida = true;
 	}
 
 	public boolean estaDestruida() {
 
-		return this.destruida;
+		return (this.resistencia.obtenerResistencia() == 0);
 	}
 
 	public Nave obtenerNaveALaQuePertenece(){
@@ -135,7 +130,10 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 	 * 50 ya que en la pantalla se cuenta desde el cero.
 	 */
 		Posicion posicionActual = this.posicionActualDeLaComponente();
+		if(resistencia.obtenerResistencia() != 0){
 		return (posicionActual.getNumeroDeColumna()*50)-50;
+		}
+		return (posicionActual.getNumeroDeColumna()*50)-40;
 	}
 
 	@Override
@@ -145,12 +143,16 @@ public class ComponenteDeNave implements ComponenteMovible, Disparable, ObjetoPo
 		 * */
 		
 		Posicion posicionActual = this.posicionActualDeLaComponente();
+		
+		if(resistencia.obtenerResistencia() != 0){
 		return (posicionActual.filaDeLaPosicion()*50)-50;		
+		}
+		return (posicionActual.filaDeLaPosicion()*50)-40;
 	}
 
 	public Color getColor() {
 		
 		return this.naveALaQuePertenece.getColor();
 	}
-
+		
 }
