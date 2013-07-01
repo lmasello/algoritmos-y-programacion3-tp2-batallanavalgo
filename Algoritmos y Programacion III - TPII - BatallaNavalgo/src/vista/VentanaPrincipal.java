@@ -621,7 +621,7 @@ public class VentanaPrincipal {
 		panelDeDisparos.add(botonOpcion4);
 		panelDeDisparos.add(botonOpcion5);
 		
-		panelDeDisparos.setBounds(5, 300, 250, 300);
+		panelDeDisparos.setBounds(5, 300, 250, 150);
 		frame.getContentPane().add(panelDeDisparos);
 		
 	}
@@ -629,7 +629,7 @@ public class VentanaPrincipal {
 	private void agregarPuntajeDelJugador() {
 		
 		puntajeRestante = new TextField();
-		puntajeRestante.setBackground(Color.GRAY);
+		puntajeRestante.setBackground(Color.WHITE);
 		puntajeRestante.setBounds(40, 150, 200, 50);
 		frame.getContentPane().add(puntajeRestante);
 	}
