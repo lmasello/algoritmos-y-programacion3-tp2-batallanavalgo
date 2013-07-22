@@ -30,16 +30,16 @@
 	
 
 	<target name="ejecutarAplicacion" depends="compilar">
-		<java fork="yes" classname="batallaNavalgo.Principal">
+		<java fork="yes" classname="vista.VentanaPrincipal">
 			<classpath>	
 				<pathelement path="${build.dir}" />
 				<fileset dir="lib">
-					<include name="**/*.jar"/>
+					<include name="**/titiritero.jar"/>
 				</fileset>
 			</classpath>
 		</java>
   	</target>
-	
+		
 	<target name="correrTodosLosTests" depends="compilar">	
 	 	<javac srcdir="${Tests.dir}" classpath="${lib.dir}" destdir="${build.dir}">
 			<classpath>
